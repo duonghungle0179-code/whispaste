@@ -5,9 +5,7 @@ name: Release
 # (das nur für Tags läuft) jemals ein Release veröffentlicht — die Artefakte
 # wären weggeworfene Build-Zeit. CI auf dev validiert vor dem Merge.
 on:
-  push:
-    tags:
-      - 'v*'
+  # Fork policy: run manually only.
   workflow_dispatch:
     # Promote-Job (PRD §5.2/§7.2, Issue 05): a manual dispatch that promotes a
     # validated beta build to stable WITHOUT rebuilding — it copies the beta

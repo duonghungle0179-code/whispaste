@@ -28,7 +28,7 @@ import 'sections/recording_sections.dart';
 import 'sections/review_support_section.dart';
 import 'sections/settings_portability_section.dart';
 import 'sections/smart_mode_section.dart';
-import 'sections/stt_section.dart';
+import 'sections/vietnamese_stt_section.dart';
 import 'sections/updates_section.dart';
 import 'settings_widgets.dart';
 import 'widgets/settings_anchor_chip_bar.dart';
@@ -284,7 +284,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
         'stt',
         () => sectionCard(
           'stt',
-          SpeechRecognitionSection(key: _sectionKeys['stt']),
+          VietnameseSpeechRecognitionSection(key: _sectionKeys['stt']),
         ),
       ),
       (
@@ -411,7 +411,12 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     // instead. Same reasoning for the Updates section on store /
     // package-managed builds, where UpdatesSection.build() also returns
     // SizedBox.shrink() (see its own isExternallyManaged check).
+    // WhisPaste VN: keep the essential controls and hide advanced settings.
+    const essentials = <String>{
+      'interface', 'stt', 'audio', 'afterTranscription', 'hotkey', 'history',
+    };
     final visibleSections = allSections.where((s) {
+      if (!essentials.contains(s.$1)) return false;
       if (s.$1 == 'floatingButton' &&
           !FloatingButtonSection.isSupportedPlatform) {
         return false;

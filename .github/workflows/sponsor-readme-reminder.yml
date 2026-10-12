@@ -7,8 +7,7 @@ name: Sponsor README Reminder
 # cannot read Sponsors data.
 
 on:
-  schedule:
-    - cron: "17 8 * * *"
+  # Fork policy: run manually only.
   workflow_dispatch: {}
 
 permissions:

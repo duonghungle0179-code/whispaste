@@ -349,8 +349,8 @@ class RecordingSafetySettings {
 class SttSettings {
   const SttSettings({
     this.provider = 'On Device',
-    this.model = 'whisper-medium',
-    this.language = 'Auto-detect',
+    this.model = 'whisper-small',
+    this.language = 'vi',
     this.idleTimeoutMinutes = 5,
     this.customVocabulary = '',
     this.engine = 'whisper',
@@ -1163,9 +1163,9 @@ class HistorySettings {
 class HotkeySettings {
   const HotkeySettings({
     this.hotkeyEnabled = true,
-    this.hotkeyKey = 'D',
+    this.hotkeyKey = 'F8',
     this.hotkeyKeyDisplay = '',
-    this.hotkeyModifiers = 'ctrl+shift',
+    this.hotkeyModifiers = '',
   });
 
   final bool hotkeyEnabled;
@@ -2421,7 +2421,7 @@ class AutomationApiSettings {
 
 /// Build a [HotkeySettings] with the platform-correct default modifier.
 HotkeySettings buildDefaultHotkeySettings() => HotkeySettings(
-  hotkeyModifiers: Platform.isMacOS ? 'meta+shift' : 'ctrl+shift',
+  hotkeyModifiers: Platform.isMacOS ? 'meta+shift' : '',
 );
 
 /// Build a [QuickNoteHotkeySettings] with the platform-correct default

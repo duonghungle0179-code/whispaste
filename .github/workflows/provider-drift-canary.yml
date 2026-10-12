@@ -21,8 +21,7 @@ name: provider-drift-canary
 # (main) — this cron activates after the next `dev` → `main` merge; use
 # workflow_dispatch to run it immediately on any branch.
 on:
-  schedule:
-    - cron: '0 7 * * 1' # Mondays, 07:00 UTC
+  # Fork policy: run manually only.
   workflow_dispatch:
 
 permissions:

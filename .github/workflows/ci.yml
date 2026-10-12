@@ -1,14 +1,7 @@
 name: CI
 
 on:
-  push:
-    branches: [dev]
-  # Full run (every job, every test on every OS, incl. perf-tagged tests):
-  # weekly and on demand. A dev push runs the slim variant below — see
-  # "What a dev push runs" — so whatever a push skips still runs here
-  # (shift-left/no silent drop, infrastructure/github-actions-minutes.md).
-  schedule:
-    - cron: '0 4 * * 0'
+  # Fork policy: run manually only.
   workflow_dispatch:
 
 # Solo-Dev: keine PRs (CLAUDE.md), der pull_request-Trigger lief seit je her

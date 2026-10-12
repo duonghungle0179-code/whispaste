@@ -10,11 +10,7 @@ name: WhisPaste-Diagnose Dart Smoke
 # manual dispatch.
 
 on:
-  push:
-    branches: [dev]
-    paths:
-      - 'packages/whispaste_diagnostics/**'
-      - '.github/workflows/diagnose-dart-smoke.yml'
+  # Fork policy: run manually only.
   workflow_dispatch:
 
 permissions:

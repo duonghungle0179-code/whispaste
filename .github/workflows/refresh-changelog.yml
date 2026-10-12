@@ -3,8 +3,7 @@ name: Refresh Changelog
 # release.yml dispatched deploy-pages bereits nach jedem Tag-Release;
 # der wöchentliche Lauf fängt nur manuell editierte Release-Notes ab.
 on:
-  schedule:
-    - cron: '0 3 * * 0'
+  # Fork policy: run manually only.
   workflow_dispatch: {}
 
 permissions:

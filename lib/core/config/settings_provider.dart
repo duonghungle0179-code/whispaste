@@ -328,9 +328,10 @@ class AppSettings {
   // Typed accessors — prefer these over raw string comparisons.
   // ---------------------------------------------------------------------------
 
-  SttProviderType get sttProviderType =>
-      SttProviderType.fromValue(stt.provider);
-  OnDeviceEngine get onDeviceEngine => OnDeviceEngine.fromValue(stt.engine);
+  // WhisPaste VN: ignore legacy provider/engine choices so every dictation
+  // uses local Whisper, including after upgrading from upstream settings.
+  SttProviderType get sttProviderType => SttProviderType.onDevice;
+  OnDeviceEngine get onDeviceEngine => OnDeviceEngine.whisper;
   CloudSttProvider get cloudSttProviderType =>
       CloudSttProvider.fromValue(cloudProvider.cloudSttProvider);
   AfterTranscriptionAction get afterTranscriptionAction =>
@@ -361,7 +362,7 @@ class AppSettings {
   /// for a completed transcription (history/analytics), which differs when
   /// the active on-device engine is Parakeet.
   String get effectiveModelId =>
-      stt.model.isEmpty ? 'whisper-medium' : stt.model;
+      stt.model.isEmpty ? 'whisper-small' : stt.model;
 
   /// The model identity to persist for a completed transcription
   /// (`RecordingInput.modelId` → `history_entries`/`daily_stats.model`).
@@ -383,17 +384,7 @@ class AppSettings {
   /// legacy display values written by ≤1.2.x ('Auto-detect', 'English', …)
   /// and the short codes written since the 99-language settings dropdown.
   /// Anything outside the [whisperLanguages] catalog degrades to `'auto'`.
-  String get sttLanguageCode {
-    final value = stt.language;
-    if (whisperLanguages.containsKey(value)) return value;
-    return switch (value) {
-      'English' => 'en',
-      'German' => 'de',
-      'French' => 'fr',
-      'Spanish' => 'es',
-      _ => 'auto',
-    };
-  }
+  String get sttLanguageCode => 'vi';
 
   /// Platform-aware factory-reset defaults.
   ///

@@ -5,9 +5,8 @@ name: Cleanup Closed PR Branch
 # sentinel/sprout). Der Diff bleibt im geschlossenen PR einsehbar, nur der
 # Branch-Ref verschwindet.
 on:
-  pull_request:
-    types: [closed]
-
+  # Fork policy: run manually only.
+  workflow_dispatch:
 permissions:
   contents: write
 

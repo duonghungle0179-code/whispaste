@@ -4,6 +4,11 @@
 
 <h1 align="center">WhisPaste</h1>
 
+> **WhisPaste VN (bản tùy biến)**: ưu tiên nhận diện tiếng Việt offline,
+> chuẩn hóa số hiệu văn bản (61-KL/TW) và ngày tháng (3/12/2009).
+> [Hướng dẫn và giới hạn](docs/WHISPASTE_VN.md). Bản fork chưa phát hành EXE.
+
+
 <p align="center">
   <strong>Press. Speak. Done.</strong><br>
   Stop typing — speak, and your words land at the cursor in any app.<br>

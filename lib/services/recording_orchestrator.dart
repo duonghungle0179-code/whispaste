@@ -54,6 +54,7 @@ import 'selection_edit/selection_edit_service.dart'
 import 'system_attention_service.dart';
 import 'number_transforms.dart';
 import 'text_transforms.dart';
+import 'vietnamese_admin_text.dart';
 import 'tray_service.dart';
 import 'recording_store.dart';
 import 'stt/inference_client_rejected.dart';
@@ -1172,6 +1173,11 @@ class RecordingOrchestrator extends Notifier<void> {
         await _tryDispatchSnippetPicker(sid, finalText, settings);
 
     if (!snippetPickerDispatched) {
+      // Vietnam administrative dictation: deterministic text normalization.
+      // The original Whisper text is already preserved in preTransformText.
+      // This must precede save/replacements/paste so Sheets and history agree.
+      finalText = normalizeVietnameseAdministrativeText(finalText);
+
       // ── Step 4: Save to history (5 s budget) ─────────────────────
       // Onboarding's test-recording step redirects the transcript to a local
       // sandbox field only (see sandboxTranscriptSink docs on
