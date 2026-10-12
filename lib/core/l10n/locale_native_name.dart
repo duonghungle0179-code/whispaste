@@ -22,6 +22,7 @@ String localeNativeName(Locale locale) {
     'fr' => 'Français',
     'es' => 'Español',
     'ru' => 'Русский',
+    'vi' => 'Tiếng Việt',
     _ => code.toUpperCase(),
   };
 }

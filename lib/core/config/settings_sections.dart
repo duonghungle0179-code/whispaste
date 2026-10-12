@@ -97,7 +97,7 @@ String _migrateModelId(String raw) => switch (raw) {
 
 class InterfaceSettings {
   const InterfaceSettings({
-    this.locale = 'en',
+    this.locale = 'vi',
     this.launchAtStartup = false,
     this.startMinimized = false,
     this.showNotifications = true,

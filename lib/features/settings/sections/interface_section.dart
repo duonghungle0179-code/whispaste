@@ -8,17 +8,12 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 import '../../../core/config/settings_enums.dart';
 import '../../../core/config/settings_provider.dart';
 import '../../../core/l10n/generated/app_localizations.dart';
-import '../../../core/logging/app_logger.dart';
 import '../../../services/autostart_service.dart';
-import '../../../services/telemetry_service.dart';
-import '../../../widgets/language_selector.dart';
 import '../../../widgets/section.dart';
 import '../settings_widgets.dart';
 
 class InterfaceSection extends ConsumerWidget {
   const InterfaceSection({super.key});
-
-  static final _log = AppLogger('InterfaceSection');
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -33,31 +28,9 @@ class InterfaceSection extends ConsumerWidget {
       child: Column(
         children: [
           SettingRow(
-            icon: LucideIcons.globe,
+            icon: LucideIcons.languages,
             label: l10n.settingsAppLanguage,
-            // Content-width, exactly like the settingsDropdown() rows above
-            // and below it: this is a trailing settings slot, not a
-            // standalone form field, so it sizes itself to the widest endonym
-            // instead of taking a fixed box. (It carried a 180px `SizedBox`
-            // once — a dropdown has an intrinsic width, since Material sizes
-            // the closed control to its widest item and it therefore does not
-            // resize when the language changes, unlike the Slider that
-            // constant was borrowed from.) Height is no longer a call-site
-            // decision: there is one dropdown trigger and it is 48 dp.
-            trailing: WpLanguageSelector(
-              expanded: false,
-              currentLocale: settings.locale,
-              onChanged: (code) {
-                ref
-                    .read(settingsProvider.notifier)
-                    .updateSettings((s) => s.copyWith(locale: code));
-                try {
-                  ref.read(telemetryProvider).trackSettingChange('language');
-                } catch (e) {
-                  _log.debug('telemetry failed: $e');
-                }
-              },
-            ),
+            trailing: const Text('Tiếng Việt'),
           ),
           SettingRow(
             icon: LucideIcons.power,

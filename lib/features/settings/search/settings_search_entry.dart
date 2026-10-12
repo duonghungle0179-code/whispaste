@@ -41,11 +41,14 @@ class SettingsSearchEntry {
 
   /// Returns the title for the given locale language tag.
   /// Falls back to EN for any locale other than `'de'`.
-  String title(String locale) => locale.startsWith('de') ? titleDe : titleEn;
+  String title(String locale) => locale.startsWith('vi')
+      ? (_viSectionTitles[sectionKey] ?? titleEn)
+      : locale.startsWith('de') ? titleDe : titleEn;
 
   /// Returns the subtitle for the given locale language tag.
-  String subtitle(String locale) =>
-      locale.startsWith('de') ? subtitleDe : subtitleEn;
+  String subtitle(String locale) => locale.startsWith('vi')
+      ? (_viSectionSubtitles[sectionKey] ?? subtitleEn)
+      : locale.startsWith('de') ? subtitleDe : subtitleEn;
 }
 
 // ---------------------------------------------------------------------------
@@ -387,3 +390,46 @@ const List<SettingsSearchEntry> kSettingsSearchTable = [
     ],
   ),
 ];
+
+
+const _viSectionTitles = <String, String>{
+  'interface': 'Giao diện',
+  'stt': 'Nhận diện tiếng Việt',
+  'smartMode': 'Chế độ thông minh',
+  'audio': 'Âm thanh',
+  'afterTranscription': 'Sau khi nhận diện',
+  'overlay': 'Lớp phủ ghi âm',
+  'floatingButton': 'Nút nổi',
+  'hotkey': 'Phím tắt',
+  'sound': 'Âm thanh thông báo',
+  'recordingSafety': 'An toàn ghi âm',
+  'history': 'Lịch sử',
+  'settingsPortability': 'Sao lưu và chuyển máy',
+  'advanced': 'Nâng cao',
+  'automationApi': 'API tự động hóa',
+  'updates': 'Cập nhật',
+  'onboardingReview': 'Hướng dẫn',
+  'reviewSupport': 'Đánh giá và ủng hộ',
+  'privacy': 'Quyền riêng tư',
+};
+
+const _viSectionSubtitles = <String, String>{
+  'interface': 'Giao diện và cách hoạt động',
+  'stt': 'Whisper offline, cố định tiếng Việt',
+  'smartMode': 'Xử lý lại văn bản sau khi đọc',
+  'audio': 'Micro và ghi âm',
+  'afterTranscription': 'Cách nhập văn bản đã nhận diện',
+  'overlay': 'Hiển thị trạng thái ghi âm',
+  'floatingButton': 'Nút ghi âm luôn nổi',
+  'hotkey': 'Bắt đầu và dừng ghi âm bằng phím tắt',
+  'sound': 'Âm báo khi ghi âm',
+  'recordingSafety': 'Kiểm tra và bảo vệ tự động',
+  'history': 'Lưu trữ và dọn dẹp',
+  'settingsPortability': 'Sao lưu hoặc chuyển sang máy khác',
+  'advanced': 'Thiết lập nâng cao',
+  'automationApi': 'Điều khiển bằng tập lệnh',
+  'updates': 'Phiên bản và cập nhật',
+  'onboardingReview': 'Xem lại các bước thiết lập',
+  'reviewSupport': 'Gửi đánh giá và ủng hộ',
+  'privacy': 'Kiểm soát quyền riêng tư',
+};

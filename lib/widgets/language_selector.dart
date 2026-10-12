@@ -47,7 +47,7 @@ class WpLanguageSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const locales = L10n.supportedLocales;
+    const locales = <Locale>[Locale('vi')];
 
     final resolvedLocale = locales.firstWhere(
       (l) => l.languageCode == currentLocale,

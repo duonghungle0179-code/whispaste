@@ -74,32 +74,32 @@ void main() {
   });
 
   group('resolvePersistedL10n', () {
-    test('resolves the mirrored locale', () async {
+    test('uses Vietnamese even with an old mirrored locale', () async {
       writeLocaleMirror('de');
       final l10n = await resolvePersistedL10n();
-      expect(l10n.localeName, 'de');
+      expect(l10n.localeName, 'vi');
     });
 
-    test('falls back to English when nothing is mirrored', () async {
+    test('defaults to Vietnamese when no locale is mirrored', () async {
       final l10n = await resolvePersistedL10n();
-      expect(l10n.localeName, 'en');
+      expect(l10n.localeName, 'vi');
     });
 
-    test('falls back to English for an unsupported code', () async {
+    test('uses Vietnamese when a legacy locale is unsupported', () async {
       writeLocaleMirror('fr');
       final l10n = await resolvePersistedL10n();
-      expect(l10n.localeName, 'en');
+      expect(l10n.localeName, 'vi');
     });
 
     // Regression guard: the allowlist used to be a hardcoded literal that
     // drifted out of sync with the generated locale list (missed 'ru' when
     // it was added). Iterating L10n.supportedLocales instead of naming
     // codes means a newly added locale is covered automatically.
-    test('resolves every locale L10n ships translations for', () async {
+    test('pins Vietnamese even for legacy locale preferences', () async {
       for (final locale in L10n.supportedLocales) {
         writeLocaleMirror(locale.languageCode);
         final l10n = await resolvePersistedL10n();
-        expect(l10n.localeName, locale.languageCode);
+        expect(l10n.localeName, 'vi');
       }
     });
 
@@ -123,7 +123,7 @@ void main() {
 
       final l10n = await resolvePersistedL10n();
 
-      expect(l10n.localeName, 'he');
+      expect(l10n.localeName, 'vi');
       expect(tempDir.listSync().map((e) => e.path).toSet(), dbFilesBefore);
     });
   });

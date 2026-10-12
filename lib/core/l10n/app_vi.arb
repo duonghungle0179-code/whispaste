@@ -1,0 +1,2123 @@
+{
+  "@@locale": "vi",
+  "appName": "WhisPaste VN",
+  "navHistory": "Lịch sử",
+  "navNotes": "Ghi chú",
+  "navSettings": "Cài đặt",
+  "navReplacements": "Thay thế văn bản",
+  "navSnippets": "Mẫu văn bản",
+  "navAnalytics": "Thống kê",
+  "navAbout": "Giới thiệu",
+  "navFeedback": "Góp ý",
+  "pageHistoryTitle": "Lịch sử",
+  "pageSettingsTitle": "Cài đặt",
+  "pageReplacementsTitle": "Thay thế văn bản",
+  "pageAnalyticsTitle": "Thống kê",
+  "pageAboutTitle": "Giới thiệu",
+  "pageFeedbackTitle": "Góp ý",
+  "historyEmpty": "Chưa có bản ghi",
+  "historyEmptyHint": "Nhấn nút ghi âm hoặc phím tắt để bắt đầu.",
+  "historyPrivacyGateTitle": "Đang ẩn lịch sử",
+  "historyPrivacyGateHint": "Các bản nhận diện trước đây sẽ được ẩn cho đến khi bạn chọn hiển thị.",
+  "historyPrivacyGateShow": "Hiện lịch sử",
+  "historySearch": "Tìm kiếm…",
+  "historyPinned": "Yêu thích",
+  "historyToday": "Hôm nay",
+  "historyYesterday": "Hôm qua",
+  "historyThisWeek": "Tuần này",
+  "historyOlder": "Cũ hơn",
+  "historyAll": "Tất cả",
+  "historyTrash": "Thùng rác",
+  "historyArchive": "Lưu trữ",
+  "historyArchived": "Đã lưu trữ",
+  "historyList": "Danh sách",
+  "historyCards": "Thẻ",
+  "historyCompact": "Thu gọn",
+  "historyItemsSelected": "Đã chọn {count} mục",
+  "@historyItemsSelected": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "historyMerge": "Gộp",
+  "historyRestore": "Khôi phục",
+  "historyDeleteForever": "Xóa vĩnh viễn",
+  "historyDeletePermanently": "Xóa vĩnh viễn",
+  "historyUnarchive": "Bỏ lưu trữ",
+  "historyExport": "Xuất",
+  "historyExportAction": "Xuất…",
+  "historyCopyAsMarkdown": "Sao chép dạng Markdown",
+  "historyDetail": "Chi tiết",
+  "historyTags": "Nhãn",
+  "historyDuration": "Thời lượng",
+  "historyModel": "Mô hình",
+  "historyWords": "Số từ",
+  "historyCharacters": "Ký tự",
+  "historyWordCount": "{count} từ",
+  "@historyWordCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "historyReadingTime": "Đọc trong {minutes} phút",
+  "@historyReadingTime": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "historyReadingTimeUnder1": "Đọc chưa đến 1 phút",
+  "historyEditing": "Đang chỉnh sửa",
+  "historySearchTranscriptions": "Tìm bản nhận diện…",
+  "historySearchFieldLabel": "Tìm bản nhận diện",
+  "historyNewRecording": "Ghi âm mới",
+  "@historyNewRecording": {
+    "description": "Label of the primary button beside the History search field. Starts the same recording the systemwide hotkey starts; worded like the items the page calls recordings, not like the transcription the search field mentions."
+  },
+  "historyStopRecording": "Dừng ghi âm",
+  "@historyStopRecording": {
+    "description": "Label the same button takes on while a recording runs — it stops that recording. Wording follows the tray item trayStopRecording, which ends the same recording from the other end of the app."
+  },
+  "historyNoResults": "Không tìm thấy kết quả",
+  "historyNoResultsHint": "Không có bản nhận diện nào khớp với \"{query}\".\nHãy thử từ khóa khác.",
+  "@historyNoResultsHint": {
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  },
+  "historyTrashEmpty": "Thùng rác đang trống",
+  "historyTrashEmptyHint": "Các bản ghi bị xóa sẽ xuất hiện ở đây.\nChúng sẽ bị xóa vĩnh viễn sau 30 ngày.",
+  "historyEmptyTrash": "Dọn sạch thùng rác",
+  "historyEmptyTrashConfirm": "Dọn sạch thùng rác?",
+  "historyEmptyTrashConfirmMessage": "Toàn bộ mục trong thùng rác sẽ bị xóa vĩnh viễn. Không thể hoàn tác.",
+  "historyTrashEmptied": "{count, plural, =1{Đã dọn thùng rác — xóa 1 mục} other{Đã dọn thùng rác — xóa {count} mục}}",
+  "@historyTrashEmptied": {
+    "description": "Success toast after emptying the trash. The count is a placeholder inside the message rather than a parenthesis appended in Dart: a translator has to be able to move it (Hebrew reads right-to-left, so a trailing '(3)' lands on the wrong side of the sentence) and to choose the plural form for it.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "historyNoArchivedItems": "Chưa có mục lưu trữ",
+  "historyNoArchivedItemsHint": "Lưu trữ các bản nhận diện cần giữ nhưng không muốn hiện trong danh sách chính.",
+  "historyNoRecordingsHint": "Nhấn nút ghi âm hoặc phím tắt để bắt đầu. Văn bản nhận diện sẽ xuất hiện ở đây.",
+  "historyNoPinned": "Chưa có mục yêu thích",
+  "historyNoPinnedHint": "Đánh dấu yêu thích để tìm bản nhận diện nhanh hơn.",
+  "historyNoToday": "Hôm nay chưa ghi âm",
+  "historyNoTodayHint": "Các bản nhận diện trong ngày sẽ xuất hiện ở đây.",
+  "historyNoThisWeek": "Tuần này chưa ghi âm",
+  "historyNoThisWeekHint": "Các bản nhận diện trong tuần sẽ xuất hiện ở đây.",
+  "historyCopiedToClipboard": "Đã sao chép vào bộ nhớ tạm",
+  "historyMovedToTrash": "Đã chuyển vào thùng rác",
+  "historyUndo": "Hoàn tác",
+  "historyEntriesMerged": "Đã gộp các mục",
+  "historyMergeConfirm": "Gộp {count} mục?",
+  "@historyMergeConfirm": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "historyMergeConfirmMessage": "Các mục được chọn sẽ gộp thành một. Không thể hoàn tác.",
+  "historyExitSelection": "Thoát chế độ chọn",
+  "historySelectMultiple": "Chọn nhiều mục",
+  "historyProcessed": "Đã xử lý",
+  "historyOnDevice": "Trên máy",
+  "historyUntitledRecording": "Bản ghi chưa có tên",
+  "historyUntitled": "Chưa đặt tên",
+  "historyPinToTop": "Thêm vào yêu thích",
+  "historyUnpin": "Bỏ yêu thích",
+  "historyCopyText": "Sao chép văn bản",
+  "historyClose": "Đóng",
+  "historyLanguageLabel": "Ngôn ngữ",
+  "historyResultCount": "{count, plural, =1{1 kết quả} other{{count} kết quả}}",
+  "@historyResultCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "historySelectAll": "Chọn tất cả",
+  "historyDeselectAll": "Bỏ chọn tất cả",
+  "settingsInterface": "Giao diện",
+  "settingsInterfaceSubtitle": "Giao diện và cách hoạt động",
+  "settingsLaunchAtStartup": "Khởi động cùng Windows",
+  "settingsStartMinimized": "Khởi động thu nhỏ",
+  "settingsStartMinimizedSubtitle": "Chạy nền khi khởi động hệ thống",
+  "settingsAutostartNever": "Không bao giờ",
+  "settingsAutostartNormal": "Bình thường",
+  "settingsAutostartMinimized": "Thu nhỏ",
+  "settingsAutostartSyncFailed": "Không thể đăng ký tự khởi động với hệ điều hành. Hãy kiểm tra quyền truy cập hoặc phiên bản Windows.",
+  "settingsShowNotifications": "Hiển thị thông báo",
+  "settingsShowBackendUtilization": "Hiển thị CPU/GPU trên thanh trạng thái",
+  "settingsShowBackendUtilizationSubtitle": "Cho biết quá trình nhận diện đang chạy bằng CPU hay GPU và mức sử dụng",
+  "settingsAudio": "Âm thanh",
+  "settingsAudioSubtitle": "Micro và ghi âm",
+  "settingsMicrophone": "Micro",
+  "settingsGain": "Âm lượng micro",
+  "settingsClippingBanner": "Bản ghi trước có hiện tượng vỡ tiếng. Giảm âm lượng thu?",
+  "settingsClippingDismiss": "Bỏ qua",
+  "settingsHoldToRecord": "Giữ để ghi âm",
+  "pushToTalkUnavailableTooltip": "Chế độ này chưa hỗ trợ trên hệ thống",
+  "settingsHoldOrTap": "Nhấn hoặc giữ",
+  "settingsHoldOrTapHint": "Nhấn nhanh để bắt đầu hoặc kết thúc; giữ phím để ghi âm cho tới khi thả.",
+  "settingsSpeechRecognition": "Nhận diện giọng nói",
+  "settingsSpeechRecognitionSubtitle": "Chất lượng và dịch vụ nhận diện tiếng nói",
+  "settingsService": "Dịch vụ",
+  "settingsQuality": "Chất lượng",
+  "settingsRecordingSafety": "An toàn ghi âm",
+  "settingsRecordingSafetySubtitle": "Tự động kiểm tra và bảo vệ",
+  "settingsDeadMicTimeout": "Phát hiện micro im lặng",
+  "settingsDeadMicTimeoutHint": "Dừng ghi âm nếu không có âm thanh trong khoảng thời gian này (giây). 0 = tắt.",
+  "settingsAutoStopSilence": "Tự dừng khi im lặng",
+  "settingsAutoStopSilenceHint": "Tự dừng sau số giây im lặng này (kể từ khi đã nói). 0 = tắt.",
+  "settingsEnabled": "Đã bật",
+  "settingsStyle": "Kiểu hiển thị",
+  "settingsMicSystemDefault": "Theo hệ thống",
+  "settingsMicSystemHint": "Thiết bị đầu vào được quản lý trong cài đặt hệ thống",
+  "settingsServiceOnDevicePrivate": "Xử lý ngay trên máy",
+  "settingsLanguageAutoDetect": "Tự phát hiện",
+  "settingsLanguageEnglish": "Tiếng Anh",
+  "settingsLanguageGerman": "Tiếng Đức",
+  "settingsLanguageFrench": "Tiếng Pháp",
+  "settingsLanguageSpanish": "Tiếng Tây Ban Nha",
+  "settingsLanguageHebrew": "Tiếng Hebrew",
+  "settingsSoundFeedback": "Âm thanh và phản hồi",
+  "settingsSoundFeedbackSubtitle": "Âm báo khi ghi âm",
+  "settingsSoundsEnabled": "Âm thanh",
+  "settingsRecordStartSound": "Âm báo bắt đầu ghi",
+  "settingsRecordStopSound": "Âm báo dừng ghi",
+  "settingsTranscriptionCompleteSound": "Âm báo nhận diện xong",
+  "settingsDurationWarningSound": "Cảnh báo giới hạn thời gian",
+  "settingsSoundVolume": "Âm lượng thông báo",
+  "settingsAfterTranscription": "Sau khi nhận diện",
+  "settingsAfterTranscriptionSubtitle": "Cách xử lý văn bản đã nhận diện",
+  "settingsAfterTranscriptionActionLabel": "Hành động",
+  "settingsAfterTranscriptionClipboard": "Sao chép vào bộ nhớ tạm",
+  "settingsAfterTranscriptionPaste": "Tự dán tại con trỏ",
+  "settingsAfterTranscriptionBoth": "Sao chép và tự dán",
+  "settingsAfterTranscriptionNothing": "Không làm gì",
+  "pasteFailurePermissionMissing": "Hệ điều hành đã chặn tự dán. WhisPaste cần quyền nhập văn bản vào ứng dụng khác; trên macOS quyền này gọi là Trợ năng.",
+  "pasteFailureNoTarget": "Đã bỏ qua tự dán vì không tìm thấy cửa sổ đích. Hãy chọn ứng dụng cần nhập trước khi ghi âm.",
+  "pasteFailureElevationBlocked": "Tự dán bị chặn vì ứng dụng đích đang chạy quyền quản trị. Hãy mở WhisPaste bằng quyền quản trị.",
+  "pasteFailureGeneric": "Tự dán thất bại. Văn bản đã nằm trong bộ nhớ tạm; nhấn ⌘V / Ctrl+V để dán.",
+  "pasteFailureOpenSettings": "Mở Cài đặt",
+  "pasteNotificationNoTargetTitle": "WhisPaste: Bỏ qua tự dán",
+  "pasteNotificationNoTargetBody": "Không thấy ứng dụng đích. Hãy chọn nơi cần nhập rồi bắt đầu ghi âm. Văn bản vẫn nằm trong bộ nhớ tạm.",
+  "pasteNotificationNoTargetTray": "Tự dán: Không tìm thấy ứng dụng đích",
+  "pasteNotificationRestartNeededTitle": "WhisPaste: Cần khởi động lại",
+  "pasteNotificationRestartNeededBody": "Đã cấp quyền nhưng WhisPaste vẫn dùng trạng thái cũ. Nhấn để khởi động lại.",
+  "pasteNotificationRestartNeededTray": "Tự dán bị chặn — cần khởi động lại",
+  "pasteNotificationPermissionBlockedTitle": "WhisPaste: Tự dán bị chặn",
+  "pasteNotificationPermissionResetEntryBody": "WhisPaste cần quyền nhập văn bản vào ứng dụng khác (Trợ năng trên macOS). Nhấn để xóa mục quyền cũ và cho macOS hỏi lại.",
+  "pasteNotificationPermissionOpenSettingsBody": "WhisPaste cần quyền nhập văn bản vào ứng dụng khác. Nhấn vào đây hoặc biểu tượng trên khay hệ thống để mở Cài đặt.",
+  "pasteNotificationPermissionBlockedTray": "Tự dán bị chặn — mở Cài đặt hệ thống",
+  "pasteNotificationElevationBlockedTitle": "WhisPaste: Tự dán bị chặn",
+  "pasteNotificationElevationBlockedBody": "Ứng dụng đích chạy quyền quản trị. Hãy khởi động WhisPaste bằng quyền quản trị để tự dán vào đó.",
+  "pasteNotificationElevationBlockedTray": "Tự dán bị chặn — cần quyền quản trị",
+  "pasteNotificationFailedTitle": "WhisPaste: Tự dán thất bại",
+  "pasteNotificationFailedBody": "Hệ thống từ chối dán. Văn bản vẫn trong bộ nhớ tạm; nhấn ⌘V / Ctrl+V để dán.",
+  "pasteNotificationFailedTray": "Tự dán thất bại",
+  "pasteCapabilityCheckTitle": "Vui lòng chờ…",
+  "pasteCapabilityReady": "Đã sẵn sàng",
+  "pasteCapabilityReadySubtitle": "Văn bản sẽ xuất hiện ngay tại con trỏ.",
+  "pasteCapabilityPermissionMissing": "Chưa được cấp quyền",
+  "pasteCapabilityUnsupported": "Hệ thống này không hỗ trợ tự dán",
+  "pasteCapabilityTestButton": "Thử ngay",
+  "pasteCapabilityGrantButton": "Tiếp tục",
+  "pasteCapabilityWhyMac": "WhisPaste cần quyền nhập văn bản vào ứng dụng bạn đang dùng; trên macOS đó là quyền Trợ năng.",
+  "pasteCapabilityTroubleshoot": "Gặp sự cố?",
+  "pasteCapabilityRepairHint": "Đôi khi macOS lưu quyền cũ và không nhận quyền mới. Hãy đặt lại mục này rồi cấp quyền lần nữa.",
+  "pasteCapabilityRepairButton": "Đặt lại quyền",
+  "pasteCapabilityRestartButton": "Khởi động lại WhisPaste",
+  "pasteCapabilityRestartTitle": "Gần xong — hãy khởi động lại WhisPaste",
+  "pasteCapabilityRestartBody": "Nếu đã bật quyền, macOS cần khởi động lại ứng dụng để áp dụng. WhisPaste sẽ thoát và mở lại.",
+  "pasteRestartAlertTitle": "Khởi động lại WhisPaste",
+  "pasteRestartAlertBody": "Đã cấp quyền tự dán nhưng macOS chỉ áp dụng sau khi khởi động lại. WhisPaste sẽ tự mở lại.",
+  "pasteRestartAlertConfirm": "Khởi động lại",
+  "pasteManualGrantAlertTitle": "Khởi động lại vẫn chưa giải quyết",
+  "pasteManualGrantAlertBody": "WhisPaste đã khởi động lại nhưng quyền tự dán vẫn chưa có hiệu lực. Hãy kiểm tra Cài đặt hệ thống → Quyền riêng tư và Bảo mật → Trợ năng rồi bật lại WhisPaste.",
+  "pasteManualGrantAlertConfirm": "Mở Cài đặt hệ thống",
+  "permissionAlertLaterButton": "Để sau",
+  "micGateAlertTitle": "Chưa được cấp quyền micro",
+  "micGateAlertBody": "WhisPaste không thể ghi âm nếu chưa được cấp quyền micro. Nhấn xác nhận để mở Cài đặt hệ thống → Quyền riêng tư → Micro và bật quyền cho WhisPaste.",
+  "micGateAlertBodyGeneric": "WhisPaste không thể ghi âm nếu chưa được cấp quyền micro. Hãy cho phép ứng dụng dùng micro trong cài đặt quyền riêng tư. WhisPaste sẽ tự phát hiện khi được cấp quyền.",
+  "micGateAlertConfirm": "Mở Cài đặt",
+  "micGateRestartAlertTitle": "Khởi động lại WhisPaste để hoàn tất",
+  "micGateRestartAlertBody": "Đã cấp quyền micro nhưng phiên đang chạy chưa nhận được. WhisPaste sẽ khởi động lại; dữ liệu của bạn được giữ nguyên.",
+  "micGateRestartAlertConfirm": "Khởi động lại",
+  "autoPasteGateAlertTitle": "Cần bật một quyền để tự nhập chữ",
+  "autoPasteGateAlertBody": "WhisPaste tự nhập văn bản tại con trỏ. Trên macOS, bạn cần tự bật quyền Trợ năng trong Cài đặt hệ thống → Quyền riêng tư và Bảo mật → Trợ năng.",
+  "autoPasteGateAlertConfirm": "Mở Cài đặt hệ thống",
+  "pasteCapabilityRestartIneffectiveTitle": "Khởi động lại chưa áp dụng quyền",
+  "pasteCapabilityRestartIneffectiveSubtitle": "Mở lại phần quyền Trợ năng, bật WhisPaste rồi khởi động lại một lần nữa.",
+  "pasteCapabilityRepairDone": "{count, plural, =0{Không có mục quyền cũ. Hãy thử dán.} =1{Đã xóa 1 mục quyền cũ. Hãy thử dán để cấp quyền mới.} other{Đã xóa {count} mục quyền cũ. Hãy thử dán để cấp quyền mới.}}",
+  "@pasteCapabilityRepairDone": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "pasteCapabilityRepairNothingToClear": "Không có mục cũ cần xóa. Hãy thử khởi động lại.",
+  "pasteCapabilityRepairFailed": "Không thể đặt lại quyền trên macOS. Hãy xóa WhisPaste khỏi Cài đặt hệ thống → Trợ năng theo cách thủ công.",
+  "onboardingPasteTitle": "Để văn bản được nhập đúng chỗ bạn đang gõ",
+  "onboardingPasteSubtitle": "macOS sẽ hỏi quyền nhập văn bản. Hãy chọn Cho phép.",
+  "onboardingPasteSubtitleWin": "Windows không yêu cầu quyền riêng; hãy chọn có tự chèn văn bản nhận diện hay không.",
+  "onboardingPasteChipReady": "Sẵn sàng tự dán",
+  "onboardingPasteChipPending": "Đang chờ quyền tự dán",
+  "onboardingPasteChipAction": "Cần cấp quyền tự dán",
+  "onboardingPasteGrantCta": "Cho phép tự dán",
+  "onboardingPasteSkip": "Tạm thời chỉ sao chép, không tự nhập",
+  "onboardingPasteWhyMac": "Nếu chưa cấp quyền, văn bản chỉ được sao chép. Hãy nhấn ⌘V để dán thủ công.",
+  "onboardingPasteWhyWin": "Sau mỗi lần đọc, ứng dụng tự nhấn Ctrl+V để nhập văn bản vào vị trí con trỏ. Tính năng đã được kiểm tra trên máy này; hãy bật bên dưới.",
+  "onboardingPasteWhyWinUipi": "Trong một số ứng dụng được bảo vệ bằng UIPI/UAC, tự dán có thể không hoạt động. Văn bản vẫn nằm trong bộ nhớ tạm để bạn nhấn Ctrl+V.",
+  "onboardingPasteWinOnTitle": "Đã bật tự dán",
+  "onboardingPasteWinOnDetail": "Sau mỗi lần đọc, WhisPaste tự nhấn Ctrl+V để nhập văn bản vào nơi đặt con trỏ và giữ một bản sao trong bộ nhớ tạm.",
+  "onboardingPasteWinEnableCta": "Bật tự dán",
+  "onboardingPasteWinAdminCaveat": "Ứng dụng chạy quyền quản trị có thể không nhận phím giả lập; bạn vẫn có thể dán thủ công bằng Ctrl+V.",
+  "onboardingPasteWaitingForGrantTitle": "Đánh dấu ô bên cạnh WhisPaste",
+  "onboardingPasteWaitingForGrantHint": "Đã mở Cài đặt hệ thống. Tìm WhisPaste trong danh sách và bật quyền. Nếu chưa có, kéo biểu tượng ứng dụng vào hoặc nhấn dấu +.",
+  "onboardingPasteTestTitle": "Thử tự dán",
+  "onboardingPasteTestSubtitle": "Nhấn nút thử. Văn bản mẫu phải xuất hiện ở ô bên dưới.",
+  "onboardingPasteDemoText": "WhisPaste nhập chữ giúp bạn.",
+  "onboardingPasteTestSuccess": "Tự dán đã hoạt động! Nhấn Tiếp theo để tiếp tục.",
+  "onboardingPasteTestNoFrontmost": "Chưa tìm thấy ô nhập liệu. Chọn ô bên dưới rồi thử lại.",
+  "onboardingPasteTestFailure": "Thử nghiệm thất bại. Hãy khởi động lại hoặc tiếp tục mà không thử.",
+  "onboardingPasteTestSkip": "Tiếp tục không thử",
+  "settingsOverlayFloatingButton": "Lớp phủ ghi âm",
+  "settingsOverlayFloatingButtonSubtitle": "Điều chỉnh trạng thái hiển thị khi ghi âm",
+  "settingsShowOverlay": "Hiển thị trạng thái ghi âm",
+  "settingsShowOverlaySubtitle": "Chọn vị trí hiển thị trạng thái ghi âm trực tiếp",
+  "settingsOverlayModeFloating": "Cửa sổ nổi (luôn hiển thị)",
+  "settingsOverlayModeOff": "Tắt",
+  "settingsOverlayStartPosition": "Vị trí ban đầu của lớp phủ",
+  "settingsOverlayStartPositionSubtitle": "Vị trí cửa sổ nổi xuất hiện khi bắt đầu ghi âm",
+  "settingsOverlayStartTopCenter": "Giữa phía trên",
+  "settingsOverlayStartBottomCenter": "Giữa phía dưới",
+  "settingsOverlayStartLastPosition": "Nhớ vị trí gần nhất",
+  "settingsShowFloatingButton": "Nút ghi âm nổi",
+  "settingsShowFloatingButtonSubtitle": "Nút luôn nổi phía trên để bắt đầu hoặc dừng ghi âm từ mọi ứng dụng",
+  "settingsLanguage": "Ngôn ngữ",
+  "settingsRecognitionLanguage": "Ngôn ngữ nhận diện",
+  "settingsCustomVocabulary": "Từ vựng tùy chỉnh",
+  "settingsCustomVocabularyHint": "Tên riêng và thuật ngữ giúp cải thiện độ chính xác",
+  "settingsCustomVocabularyPlaceholder": "Ví dụ: tên cơ quan, tên người, thuật ngữ chuyên môn",
+  "settingsCustomVocabularyBudgetCounter": "Khoảng {count} / {budget} token",
+  "@settingsCustomVocabularyBudgetCounter": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "budget": {
+        "type": "int"
+      }
+    }
+  },
+  "settingsCustomVocabularyBudgetWarning": "Nội dung quá dài có thể tự rút ngắn — chỉ khoảng {budget} token đầu tiên được sử dụng.",
+  "@settingsCustomVocabularyBudgetWarning": {
+    "placeholders": {
+      "budget": {
+        "type": "int"
+      }
+    }
+  },
+  "settingsPunctuationPriming": "Gợi ý dấu câu",
+  "settingsPunctuationPrimingSubtitle": "Giúp Whisper thêm dấu câu khi chưa có từ vựng tùy chỉnh. Không ảnh hưởng tốc độ.",
+  "settingsVadEnabled": "Cắt khoảng im lặng cuối bản ghi",
+  "settingsVadEnabledSubtitle": "Loại bỏ đoạn im lặng hoặc nhiễu dài ở cuối bản ghi trước khi Whisper xử lý, giúp giảm nguy cơ AI tự thêm câu không được nói.",
+  "settingsStripPunctuation": "Xóa dấu câu",
+  "settingsStripPunctuationSubtitle": "Xóa dấu chấm, phẩy và dấu câu khác trước khi lưu hoặc dán văn bản.",
+  "settingsNumericOnlyMode": "Chỉ số",
+  "settingsNumericOnlyModeSubtitle": "Chuyển số đọc bằng tiếng Anh và Đức thành chữ số; giữ nguyên nếu không chuyển được toàn bộ.",
+  "settingsAppLanguage": "Ngôn ngữ ứng dụng",
+  "settingsSttModels": "Mô hình nhận diện giọng nói",
+  "settingsOpenAiApiKey": "Khóa API OpenAI",
+  "settingsDeepgramApiKey": "Khóa API Deepgram",
+  "settingsToggleApiKeyVisibility": "Ẩn/hiện khóa API",
+  "@settingsToggleApiKeyVisibility": {
+    "description": "Tooltip for the show/hide button on API key input fields."
+  },
+  "settingsAdvanced": "Nâng cao",
+  "settingsAdvancedSubtitle": "Đặt lại, báo lỗi, cập nhật và hoạt động của hệ thống",
+  "settingsResetToDefaults": "Khôi phục mặc định",
+  "settingsResetTitle": "Đặt lại cài đặt",
+  "settingsResetMessage": "Mọi cài đặt sẽ trở về mặc định và các khóa API bị xóa. Không thể hoàn tác.",
+  "settingsResetConfirm": "Đặt lại",
+  "settingsResetSuccess": "Đã khôi phục cài đặt mặc định",
+  "settingsFactoryReset": "Xóa sạch dữ liệu",
+  "settingsFactoryResetTitle": "Xóa sạch dữ liệu",
+  "settingsFactoryResetMessage": "Thao tác này xóa vĩnh viễn TẤT CẢ dữ liệu: lịch sử, nhãn, từ thay thế, mô hình AI đã tải, nhật ký và cài đặt. Ứng dụng trở về trạng thái ban đầu.",
+  "settingsFactoryResetConfirm": "Xóa tất cả",
+  "settingsFactoryResetSuccess": "Đã xóa và đặt lại toàn bộ ứng dụng",
+  "settingsFactoryResetProgressTitle": "Đang đặt lại WhisPaste",
+  "settingsFactoryResetPhaseStoppingSubprocess": "Đang dừng dịch vụ nhận diện…",
+  "settingsFactoryResetPhaseDeletingModels": "Đang xóa các mô hình AI…",
+  "settingsFactoryResetPhaseDeletingDatabase": "Đang xóa cơ sở dữ liệu…",
+  "settingsFactoryResetPhaseResettingSecureStore": "Đang xóa thông tin đăng nhập…",
+  "settingsFactoryResetPhaseResettingSettings": "Đang khôi phục cài đặt mặc định…",
+  "settingsFactoryResetFailedMessage": "Không thể đặt lại hoàn toàn. Vui lòng khởi động lại ứng dụng.",
+  "settingsPortabilitySectionTitle": "Sao lưu và chuyển máy",
+  "settingsPortabilitySectionSubtitle": "Sao lưu thiết lập hoặc chuyển sang máy tính khác",
+  "settingsPortabilityExportAction": "Xuất",
+  "settingsPortabilityImportAction": "Nhập",
+  "settingsPortabilityExportLocationLabel": "Nơi lưu bản xuất",
+  "settingsPortabilityImportLocationLabel": "Nguồn nhập dữ liệu",
+  "settingsPortabilityExportLocationUnset": "Sẽ hỏi vị trí khi xuất lần đầu",
+  "settingsPortabilityImportLocationUnset": "Sẽ hỏi vị trí khi nhập lần đầu",
+  "settingsPortabilityChooseExportLocation": "Chọn nơi xuất khác (chưa xuất dữ liệu)",
+  "settingsPortabilityChooseImportLocation": "Chọn nguồn nhập khác (chưa nhập dữ liệu)",
+  "settingsPortabilityExportSuccess": "Đã xuất cài đặt vào {path}",
+  "@settingsPortabilityExportSuccess": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsPortabilityExportError": "Xuất thất bại: {reason}",
+  "@settingsPortabilityExportError": {
+    "placeholders": {
+      "reason": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsPortabilityImportConfirmTitle": "Nhập cài đặt?",
+  "settingsPortabilityImportConfirmMessage": "Thao tác này thay thế cài đặt hiện tại — gồm giao diện, cấu hình nhận diện, cách hoạt động, từ thay thế và mẫu văn bản — bằng nội dung tại {path}.",
+  "@settingsPortabilityImportConfirmMessage": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsPortabilityImportSuccess": "Đã nhập cài đặt từ {path}",
+  "@settingsPortabilityImportSuccess": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsPortabilityImportNotFound": "Không tìm thấy file xuất tại {path}. Hãy xuất cài đặt trước hoặc chép file vào đó.",
+  "@settingsPortabilityImportNotFound": {
+    "description": "Deliberate residual case (Ticket 03, settings-portability-vollumfang): since the import target now comes from a remembered path or a native open-file dialog, a missing file is caught internally and silently re-prompts the dialog instead of showing this message. It only surfaces if the freshly re-picked file also vanishes before it can be read (a narrow race), so it stays worded as generic guidance rather than describing that race.",
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsPortabilityImportError": "Nhập thất bại: {reason}",
+  "@settingsPortabilityImportError": {
+    "placeholders": {
+      "reason": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsAutosaveLabel": "Tự động sao lưu",
+  "settingsAutosaveHint": "Tự lưu thiết lập vào thư mục đã chọn vài giây sau mỗi thay đổi",
+  "settingsAutosaveChooseFolder": "Chọn thư mục sao lưu tự động khác (chưa sao lưu)",
+  "settingsAutosaveLastRun": "Lần sao lưu gần nhất: {time}",
+  "@settingsAutosaveLastRun": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsAutosaveNeverRun": "Chưa sao lưu",
+  "settingsAutosaveLastRunFailed": "Sao lưu thất bại",
+  "settingsAutosaveLastRunFailedSince": "Lần thử gần nhất thất bại — bản sao lưu cuối: {time}",
+  "@settingsAutosaveLastRunFailedSince": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsAutosaveErrorLocation": "Sao lưu tự động thất bại: thư mục không còn khả dụng.",
+  "settingsAutosaveErrorWrite": "Sao lưu tự động thất bại: {reason}",
+  "@settingsAutosaveErrorWrite": {
+    "placeholders": {
+      "reason": {
+        "type": "String"
+      }
+    }
+  },
+  "groqRemovedToast": "Đã bỏ Groq STT. Đã chuyển về nhận diện trên máy.",
+  "tccResetAfterUpdateToast": "macOS đã đặt lại quyền tự dán sau khi cập nhật.",
+  "migrationComplete": "{count, plural, one{Đã chuyển 1 bản ghi từ WhisPaste 1.x} other{Đã chuyển {count} bản ghi từ WhisPaste 1.x}}",
+  "@migrationComplete": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "settingsOff": "Tắt",
+  "settingsOn": "Bật",
+  "statusReady": "Sẵn sàng",
+  "statusRecording": "Đang ghi âm…",
+  "statusTranscribing": "Đang nhận diện…",
+  "statusProcessing": "Đang xử lý…",
+  "statusTranscriptionDone": "Đã nhận diện xong",
+  "statusCopied": "Đã sao chép!",
+  "statusLocal": "Trên máy",
+  "statusCloud": "Đám mây",
+  "statusOnline": "Trực tuyến",
+  "statusOffline": "Ngoại tuyến",
+  "recordingGuardFailed": "Không thu được âm thanh. Hãy thử lại. Đôi khi micro cần ít thời gian để khởi động.",
+  "recordingAutoStopped": "Đã dừng ghi âm vì phát hiện im lặng.",
+  "actionCopy": "Sao chép",
+  "actionDuplicate": "Nhân bản",
+  "actionDelete": "Xóa",
+  "actionDismiss": "Bỏ qua",
+  "actionEdit": "Sửa",
+  "actionExport": "Xuất",
+  "actionCancel": "Hủy",
+  "actionConfirm": "Xác nhận",
+  "actionSave": "Lưu",
+  "actionRetry": "Thử lại",
+  "actionClearSearch": "Xóa tìm kiếm",
+  "@actionClearSearch": {
+    "description": "Tooltip and screen-reader label of WpSearchField's clear button. Used by every search field that has no feature-specific wording of its own."
+  },
+  "tooltipLanguage": "Ngôn ngữ",
+  "aboutVersion": "Phiên bản {version}",
+  "@aboutVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "onboardingWelcome": "Nói một lần, nhập chữ ở bất cứ đâu.",
+  "feedbackTitle": "Gửi góp ý",
+  "feedbackHint": "Hãy cho chúng tôi biết ý kiến của bạn. Chúng tôi đọc mọi phản hồi.",
+  "analyticsPreviewBanner": "Bản xem thử: đang hiển thị dữ liệu mẫu. Thống kê thực tế sẽ có sau khi bạn ghi âm.",
+  "analyticsEmptyTitle": "Chưa có bản ghi",
+  "analyticsEmptySubtitle": "Bắt đầu ghi âm để xem thống kê.",
+  "analyticsOverview": "Tổng quan",
+  "analyticsOverviewSubtitle": "Tóm tắt thống kê ghi âm",
+  "analyticsActivity": "Hoạt động",
+  "analyticsInsights": "Phân tích",
+  "analyticsTotalRecordings": "Tổng số bản ghi",
+  "analyticsTotalDuration": "Tổng thời lượng",
+  "analyticsWordsDictated": "Số từ đã nhận diện",
+  "analyticsTimeSaved": "Thời gian tiết kiệm",
+  "analyticsAvgLatency": "Tốc độ trung bình",
+  "analyticsRecordingActivity": "Hoạt động ghi âm",
+  "analyticsLast7Days": "7 ngày gần đây",
+  "analyticsModelUsage": "Mức sử dụng mô hình",
+  "analyticsDurationDistribution": "Phân bố thời lượng",
+  "analyticsCostSavings": "Chi phí và tiết kiệm",
+  "analyticsLocalSavings": "Tiết kiệm khi dùng trên máy",
+  "analyticsCloudCost": "Chi phí đám mây",
+  "analyticsPeriod7d": "7 ngày",
+  "analyticsPeriod30d": "30 ngày",
+  "analyticsPeriod90d": "90 ngày",
+  "analyticsPeriodAll": "Toàn thời gian",
+  "analyticsReset": "Đặt lại",
+  "analyticsResetTitle": "Đặt lại thống kê",
+  "analyticsResetMessage": "Bạn có chắc muốn xóa toàn bộ dữ liệu thống kê? Không thể hoàn tác.",
+  "analyticsDayMon": "T2",
+  "analyticsDayTue": "T3",
+  "analyticsDayWed": "T4",
+  "analyticsDayThu": "T5",
+  "analyticsDayFri": "T6",
+  "analyticsDaySat": "T7",
+  "analyticsDaySun": "CN",
+  "analyticsThisWeek": "{delta} trong tuần này",
+  "@analyticsThisWeek": {
+    "placeholders": {
+      "delta": {
+        "type": "String"
+      }
+    }
+  },
+  "analyticsVsLastMonth": "{delta} so với tháng trước",
+  "@analyticsVsLastMonth": {
+    "placeholders": {
+      "delta": {
+        "type": "String"
+      }
+    }
+  },
+  "analyticsDurationHoursMinutes": "{hours} giờ {minutes} phút",
+  "@analyticsDurationHoursMinutes": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "analyticsDurationLt15s": "Dưới 15 giây",
+  "analyticsDuration15To30s": "15–30 giây",
+  "analyticsDuration30To60s": "30–60 giây",
+  "analyticsDuration1To3m": "1–3 phút",
+  "analyticsDurationGt3m": "Trên 3 phút",
+  "analyticsSavedAmount": "Đã tiết kiệm {amount}",
+  "@analyticsSavedAmount": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "analyticsSpentAmount": "Đã chi {amount}",
+  "@analyticsSpentAmount": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "replacementsSearch": "Tìm quy tắc thay thế…",
+  "replacementsSearchFieldLabel": "Tìm quy tắc thay thế",
+  "replacementsAdd": "Thêm",
+  "replacementsEmpty": "Chưa có quy tắc thay thế",
+  "replacementsEmptyHint": "Thêm quy tắc để tự thay các từ khi nhận diện. Ví dụ: \"btw\" → \"nhân tiện\".",
+  "replacementsNoMatches": "Không tìm thấy",
+  "replacementsNoMatchesHint": "Thử từ khóa khác.",
+  "replacementsToggleLabel": "Bật thay thế văn bản",
+  "replacementsToggleEnabled": "Đang bật thay thế",
+  "replacementsToggleDisabled": "Đã tắt thay thế",
+  "replacementsEnableBannerTitle": "Chức năng thay thế đang tắt",
+  "replacementsEnableBannerHint": "Bật để ứng dụng tự thay thế cụm từ kích hoạt trong văn bản.",
+  "replacementsEnableAction": "Bật",
+  "replacementsDisableAction": "Tắt",
+  "replacementsEditShortcut": "Sửa quy tắc thay thế",
+  "replacementsNewShortcut": "Tạo quy tắc thay thế",
+  "replacementsDialogHint": "Bất kỳ cụm từ kích hoạt nào cũng được tự động thay thế trong văn bản đã nhận diện.",
+  "replacementsTriggerLabel": "Cụm từ kích hoạt",
+  "replacementsTriggerHint": "Ví dụ: kết luận trung ương",
+  "replacementsAddTrigger": "Thêm cụm từ kích hoạt",
+  "replacementsRemoveTrigger": "Xóa cụm từ kích hoạt",
+  "replacementsReplacementLabel": "Văn bản thay thế",
+  "replacementsReplacementHint": "Ví dụ: KL/TW",
+  "replacementsDeleteTitle": "Xóa quy tắc thay thế",
+  "replacementsDeleteMessage": "Xóa quy tắc \"{trigger}\"? Không thể hoàn tác.",
+  "@replacementsDeleteMessage": {
+    "placeholders": {
+      "trigger": {
+        "type": "String"
+      }
+    }
+  },
+  "replacementsImportFromFolder": "Nhập từ thư mục",
+  "replacementsImportHint": "Quét thư mục dự án để tìm tên định danh và thêm quy tắc khớp gần đúng; dữ liệu không rời khỏi máy.",
+  "replacementsImportSummary": "Tìm thấy {found}, đã thêm {added}, bỏ qua {skipped} mục trùng",
+  "@replacementsImportSummary": {
+    "placeholders": {
+      "found": {
+        "type": "int"
+      },
+      "added": {
+        "type": "int"
+      },
+      "skipped": {
+        "type": "int"
+      }
+    }
+  },
+  "replacementsImportScanning": "Đang quét thư mục — dự án lớn có thể mất vài phút…",
+  "replacementsImportError": "Nhập thất bại — không thể quét thư mục.",
+  "replacementsImportedBadge": "Đã nhập",
+  "replacementsLearnedBadge": "Đã học",
+  "correctionLearningToggleLabel": "Học từ những lần sửa",
+  "correctionLearningToggleEnabled": "Đang theo dõi các cách sửa lặp lại để đề xuất",
+  "correctionLearningToggleDisabled": "Đã tắt theo dõi sửa để đề xuất",
+  "correctionLearningHowTo": "Trong Lịch sử, khi ghi âm chú thích hãy nói “sửa: …” rồi đọc văn bản đúng. Nếu sửa cùng nội dung hai lần, WhisPaste sẽ đề xuất tạo quy tắc thay thế tự động.",
+  "correctionCandidatesCardTitle": "Đề xuất từ các lần sửa",
+  "correctionCandidatesCardHint": "Có {count} đề xuất từ những cách sửa lặp lại — hãy xem lại trước khi tự động thay thế.",
+  "@correctionCandidatesCardHint": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "correctionCandidatesReviewButton": "Xem lại",
+  "correctionCandidatesReviewTitle": "Xem lại cách sửa đã học",
+  "correctionCandidatesReviewSubtitle": "Có {count} cách sửa được lặp lại — chọn những quy tắc cần áp dụng tự động. Chỉ có hiệu lực sau khi xác nhận.",
+  "@correctionCandidatesReviewSubtitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "correctionCandidatesCommitSummary": "Đã thêm {added} quy tắc thay thế đã học",
+  "@correctionCandidatesCommitSummary": {
+    "placeholders": {
+      "added": {
+        "type": "int"
+      }
+    }
+  },
+  "replacementsImportNothingFound": "Không tìm thấy định danh mới trong thư mục.",
+  "replacementsImportReviewTitle": "Chọn dữ liệu cần nhập",
+  "replacementsImportReviewSubtitle": "Có {count} mục đề xuất — chọn những mục cần làm quy tắc thay thế. Chỉ thêm sau khi bạn xác nhận.",
+  "@replacementsImportReviewSubtitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "replacementsImportReviewSearchHint": "Lọc mục đề xuất",
+  "replacementsImportReviewSelectAllFiltered": "Chọn tất cả mục đang hiển thị",
+  "replacementsImportReviewDeselectAll": "Bỏ chọn tất cả",
+  "replacementsImportReviewSelectedCount": "Đã chọn {selected}/{total}",
+  "@replacementsImportReviewSelectedCount": {
+    "placeholders": {
+      "selected": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "replacementsImportReviewNoMatches": "Không có mục nào khớp bộ lọc.",
+  "replacementsImportReviewImportButton": "Nhập {count} mục đã chọn",
+  "@replacementsImportReviewImportButton": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "replacementsMatchModeLabel": "Cách khớp",
+  "replacementsMatchModeExact": "Chính xác",
+  "replacementsMatchModeFuzzy": "Gần đúng",
+  "replacementsFuzzyToleranceLabel": "Mức sai lệch",
+  "replacementsFuzzyToleranceStrict": "Nghiêm ngặt",
+  "replacementsFuzzyToleranceStandard": "Tiêu chuẩn",
+  "replacementsFuzzyToleranceTolerant": "Linh hoạt",
+  "replacementsFuzzyToleranceHint": "Mức độ lời nói được phép khác với cụm từ kích hoạt. Nghiêm ngặt giảm thay nhầm nhưng dễ bỏ sót từ nghe không rõ; linh hoạt dễ khớp hơn nhưng có thể thay nhầm.",
+  "replacementsFuzzyTooShortWarning": "Cụm từ kích hoạt dưới {minLength} ký tự không được khớp gần đúng vì dễ nhận nhầm.",
+  "@replacementsFuzzyTooShortWarning": {
+    "placeholders": {
+      "minLength": {
+        "type": "int"
+      }
+    }
+  },
+  "snippetsSearch": "Tìm mẫu văn bản…",
+  "snippetsSearchFieldLabel": "Tìm mẫu văn bản",
+  "snippetsAdd": "Thêm",
+  "snippetsEmpty": "Chưa có mẫu văn bản",
+  "snippetsEmptyHint": "Thêm mẫu để sử dụng nhanh một đoạn chữ, chẳng hạn chữ ký hoặc nội dung trả lời.",
+  "snippetsNoMatches": "Không tìm thấy",
+  "snippetsNoMatchesHint": "Thử từ khóa khác.",
+  "snippetsEditSnippet": "Sửa mẫu văn bản",
+  "snippetsNewSnippet": "Tạo mẫu văn bản",
+  "snippetsDialogHint": "Mở bộ chọn mẫu khi ghi âm để chèn đoạn này.",
+  "snippetsTitleLabel": "Tiêu đề",
+  "snippetsTitleHint": "Ví dụ: Chữ ký email",
+  "snippetsBodyLabel": "Nội dung",
+  "snippetsBodyHint": "Nội dung được chèn khi chọn mẫu…",
+  "snippetsKindLabel": "Loại",
+  "snippetsKindStatic": "Cố định",
+  "snippetsKindInteractive": "Tương tác",
+  "snippetsFieldsLabel": "Trường thông tin",
+  "snippetsFieldsHint": "Bạn sẽ lần lượt ghi âm ngắn để điền từng trường theo thứ tự này.",
+  "snippetsFieldNameHint": "Tên trường {number}",
+  "@snippetsFieldNameHint": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "snippetsFieldMoveUp": "Đưa trường lên",
+  "snippetsFieldMoveDown": "Đưa trường xuống",
+  "snippetsFieldRemove": "Xóa trường",
+  "snippetsFieldAdd": "Thêm trường",
+  "snippetsFieldInsertIntoTemplate": "Chèn vào mẫu",
+  "snippetsFieldsMinWarning": "{min, plural, one{Mẫu tương tác cần ít nhất 1 trường có tên} other{Mẫu tương tác cần ít nhất {min} trường có tên}}.",
+  "@snippetsFieldsMinWarning": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      }
+    }
+  },
+  "snippetsTemplateLabel": "Mẫu",
+  "snippetsTemplateHint": "Viết mẫu rồi dùng nút chèn từng trường vào vị trí cần thiết.",
+  "snippetsTemplateFieldHint": "Nhập nội dung ở đây và chèn các trường bằng nút phía trên.",
+  "snippetsTemplateMissingFieldsWarning": "Một số trường chưa có trong mẫu nên nội dung ghi âm tương ứng sẽ không được dùng.",
+  "snippetsInteractiveBadge": "Tương tác",
+  "interactiveSnippetBriefingLabel": "{count, plural, =1{1 trường} other{{count} trường}} · Nhấn Enter để bắt đầu",
+  "@interactiveSnippetBriefingLabel": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "interactiveSnippetBriefingHint": "Trường 1: {name} · Esc: hủy",
+  "@interactiveSnippetBriefingHint": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "interactiveSnippetAnnounceLabel": "Trường {index}/{count}: {name}",
+  "@interactiveSnippetAnnounceLabel": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      },
+      "count": {
+        "type": "int"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "interactiveSnippetAnnounceHint": "Chuẩn bị nói…",
+  "interactiveSnippetSpeakNowLabel": "{index}/{count}: {name}",
+  "@interactiveSnippetSpeakNowLabel": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "index": {
+        "type": "int"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "interactiveSnippetAdvance": "Tiếp theo",
+  "snippetsDeleteTitle": "Xóa mẫu",
+  "snippetsDeleteMessage": "Xóa mẫu \"{title}\"? Không thể hoàn tác.",
+  "@snippetsDeleteMessage": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "snippetsPickerTriggerLabel": "Từ khóa mở bộ chọn mẫu",
+  "snippetsPickerTriggerSubtitle": "Chỉ cần nói riêng từ này để mở bộ chọn mẫu. Để trống để tắt.",
+  "snippetsPickerTriggerHint": "Ví dụ: mẫu",
+  "snippetsPickerTriggerEmptyListHint": "Đã có từ khóa nhưng chưa có mẫu — khi đọc từ khóa, ứng dụng vẫn nhập như chữ bình thường cho đến khi bạn thêm mẫu đầu tiên.",
+  "snippetsPickerHotkeyLabel": "Phím tắt chọn mẫu",
+  "snippetsPickerHotkeySubtitle": "Mở ngay bộ chọn mẫu bằng phím tắt.",
+  "snippetsPickerHotkeyOff": "Phím tắt chọn mẫu đang tắt.",
+  "snippetsPickerHotkeyEnable": "Bật phím tắt",
+  "snippetsPickerUnavailable": "Bộ chọn mẫu chưa hỗ trợ trên hệ thống này.",
+  "snippetsPickerSemanticsLabel": "Bộ chọn mẫu văn bản",
+  "snippetsPickerInsertAction": "Chèn",
+  "aboutTagline": "Chuyển lời nói thành văn bản tức thì.",
+  "aboutWhatsNew": "Có gì mới",
+  "aboutGitHub": "GitHub",
+  "aboutReportIssue": "Báo lỗi",
+  "aboutSupportTitle": "Ủng hộ dự án",
+  "aboutSupportDescription": "WhisPaste miễn phí và có mã nguồn mở theo giấy phép MIT. Khoản tài trợ giúp chi trả chi phí vận hành, phát triển và phát hành ứng dụng.",
+  "aboutGitHubSponsors": "Nhà tài trợ GitHub",
+  "aboutKofi": "Ko-fi",
+  "aboutStarOnGitHub": "Đánh dấu sao trên GitHub",
+  "aboutSponsorsTitle": "Nhà tài trợ",
+  "supportPromptRecurringTitle": "Ủng hộ hằng tháng?",
+  "supportPromptRecurringDescription": "Cảm ơn bạn từng ủng hộ WhisPaste. Nếu muốn, bạn có thể tài trợ một khoản nhỏ hằng tháng để duy trì hoạt động của dự án.",
+  "aboutBuiltWith": "Công nghệ sử dụng",
+  "aboutFlutterGo": "Flutter",
+  "aboutFlutterGoDesc": "Giao diện đa nền tảng Flutter; nhận diện trên máy qua whisper.cpp và Parakeet.",
+  "aboutWhisper": "whisper.cpp và OpenAI Whisper",
+  "aboutWhisperDesc": "Nhận diện giọng nói trên máy hoặc đám mây, nhanh và chính xác, hỗ trợ nhiều ngôn ngữ.",
+  "aboutParakeet": "NVIDIA Parakeet và sherpa-onnx",
+  "aboutParakeetDesc": "Nhận diện trên máy tối ưu tốc độ cho CPU thông thường, hỗ trợ khoảng 25 ngôn ngữ.",
+  "aboutPrivacyFirst": "Ưu tiên quyền riêng tư",
+  "aboutPrivacyFirstDesc": "Mặc định xử lý trên máy, giọng nói không rời khỏi thiết bị trừ khi bạn chủ động chọn dịch vụ đám mây.",
+  "aboutPrivacy": "Quyền riêng tư và dữ liệu",
+  "aboutPrivacyLocal": "Mọi bản nhận diện và lịch sử được lưu trên máy, không chuyển lên máy chủ bên ngoài.",
+  "aboutPrivacyCloud": "Các dịch vụ OpenAI và Deepgram chỉ nhận âm thanh khi bạn chủ động dùng chúng; áp dụng chính sách quyền riêng tư của nhà cung cấp.",
+  "aboutPrivacyNoTracking": "Thống kê sử dụng ẩn danh và tuân thủ GDPR; có thể tắt trong Cài đặt → Quyền riêng tư. Không cần tài khoản người dùng. Việc kiểm tra cập nhật có kết nối tới GitHub.",
+  "aboutKeyboardShortcuts": "Phím tắt",
+  "aboutShortcutRecord": "Bắt đầu / Dừng ghi âm",
+  "aboutLinks": "Liên kết",
+  "aboutWebsite": "Trang web",
+  "aboutGitHubRepo": "Kho mã nguồn GitHub",
+  "aboutFollowOnX": "Theo dõi trên X",
+  "aboutMitLicense": "Giấy phép MIT",
+  "aboutViewOnGitHub": "Xem trên GitHub",
+  "aboutPrivacyPolicy": "Chính sách quyền riêng tư",
+  "aboutSystemInfo": "Thông tin hệ thống",
+  "aboutSystemInfoDesc": "Sao chép thông tin chẩn đoán ngắn gọn khi báo lỗi.",
+  "aboutCopyDebugInfo": "Sao chép thông tin chẩn đoán",
+  "aboutCopied": "Đã sao chép!",
+  "aboutMadeWith": "Được xây dựng bằng ♥ bởi WhisPaste",
+  "aboutOpenSource": "Mã nguồn mở theo giấy phép MIT",
+  "feedbackSubtitle": "Giúp chúng tôi cải thiện WhisPaste. Mọi ý kiến đều quan trọng.",
+  "feedbackCategoryLabel": "Chủ đề góp ý",
+  "feedbackCategoryBug": "Báo lỗi",
+  "feedbackCategoryFeature": "Đề xuất tính năng",
+  "feedbackCategoryGeneral": "Chung",
+  "feedbackCategoryAiQuality": "Chất lượng AI",
+  "feedbackRatingLabel": "Bạn đánh giá WhisPaste thế nào?",
+  "feedbackCommentsLabel": "Nói rõ hơn",
+  "feedbackPlaceholderBug": "Mô tả điều đã xảy ra và kết quả mong đợi…",
+  "feedbackPlaceholderFeature": "Bạn muốn WhisPaste có thêm tính năng gì?",
+  "feedbackPlaceholderAi": "Chất lượng nhận diện giọng nói thế nào?",
+  "feedbackPlaceholderGeneral": "Chia sẻ suy nghĩ của bạn…",
+  "feedbackContactEmailLabel": "Email (không bắt buộc)",
+  "feedbackContactEmailExplanation": "Chỉ dùng để trả lời khi bạn muốn. Chúng tôi không dùng để quảng cáo và sẽ xóa sau 90 ngày.",
+  "feedbackContactEmailPlaceholder": "you@example.com",
+  "feedbackContactEmailInvalid": "Nhập địa chỉ email hợp lệ hoặc để trống.",
+  "feedbackContactLanguageLabel": "Ngôn ngữ trả lời",
+  "feedbackContactLanguageHint": "Bạn muốn nhận phản hồi bằng ngôn ngữ nào?",
+  "feedbackSubmit": "Gửi góp ý",
+  "feedbackPrivacyNote": "Mặc định ẩn danh; chỉ có thể nhận dạng nếu bạn nhập email.",
+  "feedbackThankYou": "Cảm ơn bạn!",
+  "feedbackThankYouMessage": "Phản hồi của bạn giúp cải thiện WhisPaste cho mọi người.",
+  "feedbackSendAnother": "Gửi thêm góp ý",
+  "feedbackRatingFrustrated": "Rất khó chịu",
+  "feedbackRatingMeh": "Không hài lòng",
+  "feedbackRatingOkay": "Bình thường",
+  "feedbackRatingHappy": "Hài lòng",
+  "feedbackRatingLoveIt": "Rất thích!",
+  "feedbackSubmitting": "Đang gửi…",
+  "feedbackErrorRateLimited": "Bạn vừa gửi phản hồi gần đây. Hãy thử lại sau.",
+  "feedbackErrorNetwork": "Không thể kết nối tới máy chủ. Hãy kiểm tra Internet.",
+  "feedbackErrorServer": "Có lỗi xảy ra. Hãy thử lại sau.",
+  "feedbackErrorNotConfigured": "Bản này chưa hỗ trợ gửi góp ý.",
+  "statusBarOnDevice": "Trên máy",
+  "statusBarOverlayFloating": "Lớp phủ: Nổi",
+  "statusBarOverlayOff": "Lớp phủ: Tắt",
+  "statusBarAfterCopy": "Sau nhận diện: Sao chép",
+  "statusBarAfterPaste": "Sau nhận diện: Dán",
+  "statusBarAfterBoth": "Sau nhận diện: Sao chép và dán",
+  "statusBarAfterNothing": "Sau nhận diện: Thủ công",
+  "sttStatusStandby": "Chờ",
+  "sttStatusStarting": "Đang khởi động…",
+  "sttStatusReady": "Sẵn sàng",
+  "sttStatusError": "Lỗi",
+  "statusBarSttTooltip": "Dịch vụ nhận diện và trạng thái hiện tại",
+  "statusBarSttBackendTooltip": "Bộ máy nhận diện: {backend}",
+  "@statusBarSttBackendTooltip": {
+    "placeholders": {
+      "backend": {
+        "type": "String"
+      }
+    }
+  },
+  "statusBarBackendGpuUtilizationUnavailable": "Không thể đo mức sử dụng GPU thực tế trên mọi hệ điều hành khi thiếu quyền nâng cao; phần trăm hiện tại là mức sử dụng CPU của tiến trình này.",
+  "statusBarRecording": "Đang ghi âm…",
+  "statusBarTranscribing": "Đang nhận diện…",
+  "statusBarRefining": "Đang chỉnh sửa…",
+  "statusBarDone": "Hoàn tất",
+  "statusBarHotkeyTooltip": "Phím tắt toàn hệ thống: nhấn để thiết lập",
+  "statusBarAutoPasteOffHint": "Đang tắt tự dán, hãy bật trong Cài đặt",
+  "statusBarAutoPasteOffHintTooltip": "Tính năng tự dán hiện đang tắt. Nhấn để mở Cài đặt.",
+  "statusBarAutoPasteOffHintDismiss": "Bỏ qua",
+  "statusBarAutomationApiChipLabel": "API: {port}",
+  "@statusBarAutomationApiChipLabel": {
+    "placeholders": {
+      "port": {
+        "type": "int"
+      }
+    }
+  },
+  "statusBarAutomationApiChipLabelError": "API: lỗi",
+  "statusBarAutomationApiTooltip": "API tự động hóa hoạt động ở cổng {port}",
+  "@statusBarAutomationApiTooltip": {
+    "placeholders": {
+      "port": {
+        "type": "int"
+      }
+    }
+  },
+  "statusBarAutomationApiTooltipFallback": "API tự động hóa ở cổng {port} (cổng {requestedPort} đang bận)",
+  "@statusBarAutomationApiTooltipFallback": {
+    "placeholders": {
+      "port": {
+        "type": "int"
+      },
+      "requestedPort": {
+        "type": "int"
+      }
+    }
+  },
+  "statusBarAutomationApiTooltipError": "API tự động hóa: không còn cổng trống",
+  "modifierCtrl": "Ctrl",
+  "modifierShift": "Shift",
+  "modifierAlt": "Alt",
+  "modifierWin": "Win",
+  "modifierCmd": "Cmd",
+  "modifierOption": "Option",
+  "modifierAltGr": "AltGr",
+  "shortcutKeySpace": "Phím cách",
+  "shortcutKeyEnter": "Enter",
+  "shortcutKeyEscape": "Esc",
+  "shortcutKeyBackspace": "Backspace",
+  "shortcutKeyTab": "Tab",
+  "shortcutKeyDelete": "Delete",
+  "shortcutKeyInsert": "Insert",
+  "shortcutKeyHome": "Home",
+  "shortcutKeyEnd": "End",
+  "shortcutKeyPageUp": "Page Up",
+  "shortcutKeyPageDown": "Page Down",
+  "modelServerReady": "Dịch vụ nhận diện đã sẵn sàng",
+  "modelServerMissing": "Chưa cài dịch vụ nhận diện",
+  "modelServerWhisper": "Dịch vụ nhận diện trên máy",
+  "modelReady": "Sẵn sàng",
+  "modelDownloadComplete": "Đã tải xong mô hình AI",
+  "modelUse": "Sử dụng",
+  "modelDownload": "Tải xuống",
+  "modelDownloading": "Đang tải…",
+  "modelDownloadingEngine": "Đang chuẩn bị dịch vụ nhận diện…",
+  "modelVerifying": "Đang xác minh…",
+  "modelExtracting": "Đang giải nén…",
+  "modelDeleteConfirm": "Xóa mô hình này?",
+  "modelDeleteConfirmMessage": "File mô hình sẽ bị xóa vĩnh viễn. Bạn có thể tải lại bất cứ lúc nào.",
+  "qualityTierCompactLabel": "Nhanh và gọn",
+  "qualityTierCompactDesc": "Kết quả nhanh, dung lượng tải nhỏ. Thích hợp ghi chú và tin nhắn ngắn.",
+  "qualityTierBalancedLabel": "Cân bằng",
+  "qualityTierBalancedDesc": "Chính xác và ổn định cho ghi âm hằng ngày. Hoạt động trên hầu hết thiết bị.",
+  "qualityTierPremiumLabel": "Chất lượng cao nhất",
+  "qualityTierPremiumDesc": "Độ chính xác cao cho bản ghi dài và nội dung phức tạp. Cần GPU đủ mạnh.",
+  "qualityTierRecommended": "Đề xuất cho máy của bạn",
+  "qualityTierDownloadSize": "Dung lượng tải {size}",
+  "@qualityTierDownloadSize": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "qualityTierDownloadAndContinue": "Tải mô hình",
+  "qualityTierChooseDifferent": "Chọn mức chất lượng khác",
+  "qualityTierActive": "Đang dùng",
+  "qualityTierInfoSlow": "Chất lượng tốt nhất, cần thời gian xử lý gấp khoảng {ratio} lần",
+  "@qualityTierInfoSlow": {
+    "placeholders": {
+      "ratio": {
+        "type": "String"
+      }
+    }
+  },
+  "qualityTierInfoSlowerThanCompact": "Chất lượng tốt nhất, chậm hơn Small khoảng {ratio} lần",
+  "@qualityTierInfoSlowerThanCompact": {
+    "placeholders": {
+      "ratio": {
+        "type": "String"
+      }
+    }
+  },
+  "qualityTierInfoModerate": "Cân bằng tốt giữa tốc độ và chất lượng",
+  "qualityTierBenchmarkReRun": "Đo hiệu năng lại",
+  "qualityTierBenchmarkRun": "Đo hiệu năng",
+  "qualityTierInfoBenchmarking": "Đang kiểm tra hiệu năng…",
+  "qualityTierActionOverride": "Vẫn sử dụng",
+  "qualityTierActionOverrideHint": "Dùng mức chất lượng này dù đã có cảnh báo",
+  "qualityTierModelTooltip": "Whisper {modelName} · {size}",
+  "@qualityTierModelTooltip": {
+    "placeholders": {
+      "modelName": {
+        "type": "String"
+      },
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "analyticsModelDisplayName": "{tierLabel} (Whisper {modelLabel})",
+  "@analyticsModelDisplayName": {
+    "placeholders": {
+      "tierLabel": {
+        "type": "String"
+      },
+      "modelLabel": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsQualityBasic": "Cơ bản",
+  "settingsQualityBalanced": "Cân bằng",
+  "settingsQualityHigh": "Chất lượng cao",
+  "settingsQualityBest": "Chất lượng tốt nhất",
+  "settingsQualityMaximum": "Độ chính xác tối đa",
+  "settingsQualityRecommended": "★ Đề xuất",
+  "settingsModelStatusReady": "Mô hình nhận diện đã sẵn sàng",
+  "settingsModelStatusNeeded": "Mô hình sẽ được tải khi bắt đầu ghi âm",
+  "settingsModelStatusDownloading": "Đang tải mô hình nhận diện…",
+  "settingsAdvancedModelManagement": "Quản lý mô hình nâng cao",
+  "infoEngineDownloading": "Đang chuẩn bị dịch vụ nhận diện, vui lòng chờ.",
+  "infoModelMissing": "Hãy tải mô hình nhận diện trong Cài đặt trước.",
+  "infoPipelineBusy": "WhisPaste vẫn đang xử lý bản ghi trước.",
+  "infoSnippetPickerEmpty": "Đã nhận diện từ khóa mở mẫu nhưng chưa có mẫu nào; ứng dụng đã nhập từ này như văn bản bình thường.",
+  "infoSnippetPickerEmptyAction": "Mở Mẫu văn bản",
+  "oomRecoveryTitle": "Ghi âm thất bại vì thiếu bộ nhớ GPU",
+  "oomRecoveryMessage": "GPU đã hết bộ nhớ. Chọn cách tiếp tục:",
+  "oomRecoveryTrySmaller": "Thử mô hình nhỏ hơn",
+  "oomRecoveryTrySmallerHint": "Chuyển sang {model} rồi ghi âm lại",
+  "@oomRecoveryTrySmallerHint": {
+    "placeholders": {
+      "model": {
+        "type": "String"
+      }
+    }
+  },
+  "oomRecoverySwitchCloud": "Dùng đám mây",
+  "oomRecoverySwitchCloudHint": "Chuyển sang nhận diện qua đám mây",
+  "oomRecoveryCancel": "Hủy",
+  "oomRecoveryPermanentTitle": "Không thể nhận diện trên máy",
+  "oomRecoveryPermanentMessage": "Các mô hình trên máy đều thất bại vì giới hạn bộ nhớ GPU. Hãy chuyển sang dịch vụ đám mây trong Cài đặt.",
+  "oomRecoveryPermanentCloud": "Mở Cài đặt",
+  "oomRecoveryDowngrading": "Đang chuyển sang {model}…",
+  "@oomRecoveryDowngrading": {
+    "placeholders": {
+      "model": {
+        "type": "String"
+      }
+    }
+  },
+  "oomRecoverySwitchingCloud": "Đang chuyển sang nhận diện qua đám mây…",
+  "oomRecoveryAttemptFailed": "Mô hình {model} cũng thất bại. Đang thử cách tiếp theo…",
+  "@oomRecoveryAttemptFailed": {
+    "placeholders": {
+      "model": {
+        "type": "String"
+      }
+    }
+  },
+  "infoSttCudaOomFallbackModel": "Đã giảm chất lượng vì GPU hết bộ nhớ. Đang dùng mô hình nhẹ hơn.",
+  "infoSttCudaOomFallbackCpu": "GPU hết bộ nhớ. Đã chuyển sang CPU để hoạt động ổn định hơn.",
+  "errorSttServerConnectionLost": "Dịch vụ nhận diện dừng đột ngột. Hãy thử lại.",
+  "errorSttCudaOom": "GPU đã hết bộ nhớ. Đã giảm chất lượng để lần thử sau có thể hoạt động.",
+  "errorCloudAuth": "Thiếu hoặc sai khóa API đám mây. Kiểm tra ở Cài đặt → Nhận diện giọng nói.",
+  "errorCloudQuota": "Đã đạt giới hạn yêu cầu của dịch vụ đám mây. Vui lòng chờ rồi thử lại.",
+  "errorOnboardingNotCompleted": "Hãy hoàn thành hướng dẫn thiết lập trước.",
+  "errorSttModelNotFound": "Không tìm thấy mô hình nhận diện. Hãy tải mô hình trong Cài đặt.",
+  "errorSttModelUnknown": "Không nhận diện được mô hình. Hãy chọn mô hình hợp lệ trong Cài đặt.",
+  "errorRecordingFailed": "Không thể bắt đầu ghi âm. Hãy thử lại.",
+  "errorNoAudioRecorded": "Không thu được âm thanh. Hãy thử lại.",
+  "errorTranscriptionEmpty": "Không nhận diện được chữ. Hãy thử lại.",
+  "errorSttServerFailed": "Không thể khởi động dịch vụ nhận diện",
+  "errorSttModelIncompatibleRuntime": "Mô hình không tương thích với bộ xử lý hiện tại. Hãy tải lại trong Cài đặt.",
+  "errorSttModelCorruptedRedownloading": "Mô hình có thể bị hỏng. Đang tự động tải lại.",
+  "errorSttDllMissing": "Thiếu thành phần hệ thống cần thiết. Đang thử bằng CPU.",
+  "errorSttGpuFatal": "Tăng tốc GPU thất bại. Đang thử bằng CPU.",
+  "errorSttHeapCorruption": "Lỗi bộ nhớ. Đang thử bằng CPU.",
+  "errorSttCpuFallbackFailed": "Dịch vụ nhận diện thất bại cả trên GPU và CPU. Hãy khởi động lại hoặc tải lại mô hình.",
+  "errorPipelineTimeout": "Ghi âm quá lâu. Hãy thử bản ghi ngắn hơn.",
+  "errorWavFileNotCreated": "Không thể lưu file âm thanh. Hãy thử lại.",
+  "errorWavFileEmpty": "Không thu được tiếng. Hãy kiểm tra micro.",
+  "errorSttStartTimeout": "Dịch vụ nhận diện vẫn đang khởi động. Hãy thử lại sau giây lát.",
+  "errorTranscriptionTimeout": "Nhận diện quá thời gian. Hãy ghi âm ngắn hơn.",
+  "errorMicPermissionDenied": "Cần quyền truy cập micro. Hãy cấp quyền trong Cài đặt hệ thống.",
+  "errorRecordingStartFailed": "Không thể bắt đầu ghi âm. Hãy thử lại.",
+  "errorGeneric": "Có lỗi xảy ra. Hãy thử lại.",
+  "modelDownloadFailed": "Tải thất bại. Kiểm tra kết nối Internet.",
+  "statusSttLoading": "Đang tải mô hình…",
+  "statusSttReady": "Mô hình đã sẵn sàng",
+  "historyDuplicate": "Nhân bản",
+  "historyDuplicated": "Đã nhân bản mục",
+  "historyViewRaw": "Bản gốc",
+  "historyViewEdited": "Đã chỉnh sửa",
+  "@historyViewEdited": {
+    "description": "Toggle label for the Smart Mode edited version of a history entry's transcript (ticket 05)."
+  },
+  "historyApplySmartModePreset": "Áp dụng chế độ thông minh",
+  "historySmartModeApplied": "Đã áp dụng chế độ thông minh",
+  "historySmartModeFailedModelMissing": "Chưa tải mô hình chế độ thông minh",
+  "historySmartModeFailedTimeout": "Xử lý chế độ thông minh quá thời gian",
+  "historySmartModeFailedGeneric": "Xử lý chế độ thông minh thất bại — hãy thử lại",
+  "historySmartModeSelectTargetLanguage": "Chọn ngôn ngữ đích",
+  "historyAddNote": "Thêm chú thích",
+  "historyEditNote": "Sửa chú thích",
+  "@historyEditNote": {
+    "description": "Accessibility label for the annotation edit text field in the history detail panel."
+  },
+  "historyNotes": "Chú thích",
+  "historyNotePlaceholder": "Viết chú thích…",
+  "historyVoiceNoteHint": "Mẹo: nói “nhãn: tên” hoặc “sửa: nội dung” khi ghi âm.",
+  "@historyVoiceNoteHint": {
+    "description": "One-time discoverability hint next to the annotation input, teaching the voice-note prefixes parsed by parseVoiceAction."
+  },
+  "historyNoteAdded": "Đã thêm chú thích",
+  "historyNoteDeleted": "Đã xóa chú thích",
+  "historyCopiedAsMarkdown": "Đã sao chép dạng Markdown",
+  "historyAddTag": "Thêm nhãn…",
+  "historySearchTags": "Tìm hoặc tạo nhãn…",
+  "historyNoteEdited": "đã chỉnh sửa",
+  "historyTagAdded": "Đã thêm nhãn",
+  "historyTagRemoved": "Đã xóa nhãn",
+  "historyCreateTag": "Tạo \"{tag}\"",
+  "historyManageTags": "Quản lý nhãn",
+  "tagManageTitle": "Quản lý nhãn",
+  "tagManageEmpty": "Chưa tạo nhãn nào.",
+  "tagUsageCount": "{count, plural, =0{chưa sử dụng} =1{1 mục} other{{count} mục}}",
+  "@tagUsageCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "tagOverflowMore": "{count, plural, =1{thêm 1 nhãn} other{thêm {count} nhãn}}",
+  "@tagOverflowMore": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "tagDeleteConfirmTitle": "Xóa nhãn?",
+  "tagDeleteConfirmMessage": "Nhãn \"{name}\" đang dùng trong {count, plural, =1{1 mục} other{{count} mục}}. Nhãn sẽ bị gỡ khỏi tất cả các mục.",
+  "@tagDeleteConfirmMessage": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "tagDeleted": "Đã xóa nhãn \"{name}\"",
+  "@tagDeleted": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "tagDeleteUnusedTitle": "Xóa các nhãn chưa dùng?",
+  "tagDeleteUnusedMessage": "{count, plural, =1{1 nhãn chưa dùng} other{{count} nhãn chưa dùng}} sẽ bị xóa vĩnh viễn.",
+  "@tagDeleteUnusedMessage": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "tagDeleteUnusedAction": "Xóa {count} nhãn chưa dùng",
+  "@tagDeleteUnusedAction": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "tagDeletedUnused": "Đã xóa {count, plural, =1{1 nhãn chưa dùng} other{{count} nhãn chưa dùng}}",
+  "@tagDeletedUnused": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "historyEditTranscript": "Sửa bản nhận diện",
+  "historyTranscriptSaved": "Đã lưu bản nhận diện",
+  "historySaveTranscript": "Lưu",
+  "historyShortcutHelp": "Phím tắt",
+  "historyShortcutGeneral": "CHUNG",
+  "historyShortcutTags": "Chuyển tới ô nhập nhãn",
+  "historyShortcutNotes": "Thêm chú thích",
+  "historyShortcutPin": "Đánh dấu / bỏ yêu thích",
+  "historyShortcutClose": "Lưu và đóng",
+  "historyShortcutEditing": "CHỈNH SỬA",
+  "historyShortcutToggleEdit": "Bật/tắt chế độ sửa",
+  "historyShortcutSave": "Lưu bản nhận diện",
+  "historyShortcutBold": "In đậm",
+  "historyShortcutItalic": "In nghiêng",
+  "historyShortcutCopy": "Sao chép vào bộ nhớ tạm",
+  "historyShortcutEditTitle": "Sửa tiêu đề",
+  "historyEditTitle": "Sửa tiêu đề",
+  "historyTitlePlaceholder": "Nhập tiêu đề…",
+  "historyTitleSaved": "Đã lưu tiêu đề",
+  "historySearchHelpTitle": "Mẹo tìm kiếm",
+  "historySearchHelpTags": "Gõ # để lọc theo nhãn",
+  "historySearchHelpLang": "Gõ lang: để lọc theo ngôn ngữ",
+  "historySearchHelpFreeText": "Hoặc gõ từ khóa bất kỳ",
+  "historySearchQuickTags": "Nhãn thường dùng",
+  "historyRecentSearches": "Tìm kiếm gần đây",
+  "historyRemoveRecentSearch": "Xóa tìm kiếm gần đây",
+  "@historyRemoveRecentSearch": {
+    "description": "Accessibility label for the button that removes a single entry from the recent searches list."
+  },
+  "historyRemoveFilter": "Bỏ bộ lọc",
+  "@historyRemoveFilter": {
+    "description": "Accessibility label for the button that removes an active filter chip from the history search bar."
+  },
+  "historyQuickActions": "Bộ lọc nhanh",
+  "historyQuickActionAllLangs": "Tất cả ngôn ngữ",
+  "historyQuickActionFavorites": "Chỉ mục yêu thích",
+  "historySortNewest": "Mới nhất trước",
+  "historySortOldest": "Cũ nhất trước",
+  "historySortLongest": "Dài nhất trước",
+  "historySearchActiveTag": "#{tag}",
+  "@historySearchActiveTag": {
+    "placeholders": {
+      "tag": {
+        "type": "String"
+      }
+    }
+  },
+  "historySearchActiveLang": "lang:{code}",
+  "@historySearchActiveLang": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "historySearchSuggestTag": "Lọc theo nhãn",
+  "historySearchSuggestLang": "Lọc theo ngôn ngữ",
+  "settingsKeyboardShortcut": "Phím tắt",
+  "settingsKeyboardShortcutSubtitle": "Phím tắt toàn hệ thống để bắt đầu và dừng ghi âm",
+  "settingsHotkeyEnabled": "Bật phím tắt toàn hệ thống",
+  "settingsCurrentHotkey": "Phím tắt hiện tại",
+  "settingsChangeHotkey": "Thay đổi",
+  "settingsHotkeyRecorderTitle": "Đặt phím tắt mới",
+  "settingsHotkeyRecorderHint": "Nhấn tổ hợp phím bạn muốn sử dụng…",
+  "settingsHotkeyRecorderModifierHint": "Có thể dùng các tổ hợp như Alt+Space, Ctrl+Alt+V hoặc Ctrl+Alt+Shift+R",
+  "settingsHotkeyRecorderCancel": "Hủy",
+  "settingsHotkeyRecorderSave": "Lưu",
+  "settingsHotkeyRecorderClear": "Xóa",
+  "settingsHotkeyRecorderInvalidKey": "Không thể dùng phím này. Hãy thử chữ cái, chữ số, phím F1–F12 hoặc phím mũi tên.",
+  "settingsHotkeyActionRecording": "Bắt đầu/dừng ghi âm",
+  "settingsHotkeyActionQuickNote": "Ghi chú nhanh",
+  "settingsQuickNoteHotkeyEnabled": "Phím tắt ghi chú nhanh",
+  "settingsQuickNoteHotkeyHint": "Văn bản vừa đọc được thêm vào ghi chú đã đánh dấu là ghi chú nhanh ở mục Ghi chú.",
+  "settingsQuickNoteCurrentHotkey": "Tổ hợp phím",
+  "settingsQuickNoteHotkeyCollision": "Tổ hợp này đang được dùng cho \"{action}\". Hãy chọn tổ hợp khác.",
+  "@settingsQuickNoteHotkeyCollision": {
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsQuickNoteHotkeyInactive": "Không thể đăng ký tổ hợp phím này. Phím tắt ghi chú nhanh hiện chưa hoạt động. Hãy chọn tổ hợp khác.",
+  "settingsHotkeyActionSnippetPicker": "Chọn mẫu văn bản",
+  "settingsSnippetPickerHotkeyEnabled": "Phím tắt chọn mẫu",
+  "settingsSnippetPickerHotkeyHint": "Mở ngay bộ chọn mẫu văn bản, không cần ghi âm hoặc nói từ khóa kích hoạt.",
+  "settingsSnippetPickerCurrentHotkey": "Tổ hợp phím",
+  "settingsSnippetPickerHotkeyCollision": "Tổ hợp này đang được dùng cho \"{action}\". Hãy chọn tổ hợp khác.",
+  "@settingsSnippetPickerHotkeyCollision": {
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsSnippetPickerHotkeyInactive": "Không thể đăng ký tổ hợp này. Phím tắt chọn mẫu hiện chưa hoạt động. Hãy chọn tổ hợp khác.",
+  "settingsMaxRecordDuration": "Thời gian ghi âm tối đa",
+  "settingsMaxRecordDurationSubtitle": "Tự dừng an toàn khi đạt thời gian này",
+  "settingsMaxRecordDurationUnlimited": "Không giới hạn",
+  "settingsCloseToTray": "Thu nhỏ xuống khay hệ thống",
+  "settingsCloseToTraySubtitle": "Tiếp tục chạy trong khay hệ thống khi đóng cửa sổ",
+  "settingsSidePanelEnabled": "Thanh dán nhanh bộ nhớ tạm",
+  "settingsSidePanelEnabledSubtitle": "Thanh trượt xuất hiện khi đưa chuột tới mép màn hình để xem bản nhận diện, mẫu văn bản và lịch sử sao chép",
+  "settingsSidePanelEdge": "Vị trí thanh bên",
+  "settingsSidePanelEdgeSubtitle": "Chọn cạnh màn hình nơi thanh bên xuất hiện",
+  "settingsSidePanelEdgeLeft": "Cạnh trái",
+  "settingsSidePanelEdgeRight": "Cạnh phải",
+  "settingsErrorReporting": "Báo cáo lỗi",
+  "settingsErrorReportingSubtitle": "Gửi báo cáo lỗi ẩn danh để giúp cải thiện WhisPaste",
+  "settingsAutoPasteDelay": "Độ trễ tự dán",
+  "settingsAutoPasteDelaySubtitle": "Thời gian chờ trước khi dán vào cửa sổ đang hoạt động",
+  "settingsAutoPasteBlocklist": "Danh sách chặn tự dán",
+  "settingsAutoPasteBlocklistSubtitle": "Danh sách ứng dụng không tự dán, ngăn cách bằng dấu phẩy",
+  "settingsAutoPasteBlocklistPlaceholder": "Ví dụ: com.apple.Terminal, com.1password",
+  "settingsCheckUpdates": "Kiểm tra cập nhật",
+  "settingsCheckUpdatesSubtitle": "Tự kiểm tra phiên bản mới khi khởi động",
+  "settingsCheckForUpdatesNow": "Kiểm tra cập nhật ngay",
+  "settingsUpdates": "Cập nhật",
+  "settingsUpdatesSubtitle": "Kênh phát hành và kiểm tra cập nhật",
+  "settingsBetaUpdates": "Nhận bản thử nghiệm",
+  "settingsBetaUpdatesSubtitle": "Nhận bản phát hành sớm chưa được kiểm thử đầy đủ.",
+  "settingsStableRevertHintMessage": "Không thể tự động quay về bản ổn định vì bạn đã cài phiên bản thử nghiệm mới hơn.",
+  "settingsStableRevertHintLink": "Tải bản ổn định {stableVersion} thủ công",
+  "@settingsStableRevertHintLink": {
+    "placeholders": {
+      "stableVersion": {
+        "type": "String"
+      }
+    }
+  },
+  "onboardingNext": "Tiếp theo",
+  "onboardingBack": "Quay lại",
+  "onboardingPrivacyTitle": "Giúp cải thiện WhisPaste",
+  "onboardingPrivacyHint": "Âm thanh và văn bản được giữ trên máy. Thống kê ẩn danh gửi tới máy chủ tự quản ở EU, báo cáo lỗi tới Sentry (EU), tuân thủ GDPR.",
+  "onboardingPrivacyToggle": "Chia sẻ thống kê ẩn danh",
+  "onboardingPrivacyToggleHint": "Mặc định bật, có thể tắt bất cứ lúc nào",
+  "onboardingPrivacyCrashToggle": "Gửi báo cáo lỗi ẩn danh",
+  "onboardingPrivacyCrashToggleHint": "Giúp sửa lỗi, mặc định bật và có thể tắt bất cứ lúc nào",
+  "onboardingStepOf": "Bước {current} / {total}",
+  "@onboardingStepOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "onboardingAppearancePageTitle": "Giao diện",
+  "onboardingAppearancePageSubtitle": "Cách khởi động ứng dụng và kiểu hiển thị lớp phủ ghi âm",
+  "onboardingBeat1Title": "Nhấn phím tắt, nói và xong",
+  "onboardingBeat1Caption": "Bắt đầu ghi ngay lập tức — lời nói được chuyển thành chữ tại vị trí con trỏ.",
+  "onboardingBeat2Title": "Xử lý trực tiếp trên máy",
+  "onboardingBeat2Caption": "Nhận diện ngay trên thiết bị, không cần Internet.",
+  "onboardingBeat3Title": "Dùng ở mọi nơi có thể nhập chữ",
+  "onboardingBeat3Caption": "Trình duyệt, email hay trình soạn thảo — WhisPaste hoạt động toàn hệ thống.",
+  "onboardingMicChipReady": "Micro đã sẵn sàng",
+  "onboardingMicChipPending": "Đang chờ quyền micro",
+  "onboardingMicChipAction": "Cần cấp quyền micro",
+  "onboardingModelTitle": "Thiết lập nhận diện giọng nói",
+  "onboardingModelSubtitle": "Tải mô hình AI để nhận diện ngoại tuyến. Giọng nói của bạn không rời khỏi máy.",
+  "onboardingModelRecommended": "Đề xuất",
+  "onboardingModelChangeLater": "Có thể đổi chất lượng sau trong Cài đặt",
+  "onboardingModelDownloading": "Đang tải…",
+  "onboardingModelReady": "Mô hình đã sẵn sàng",
+  "onboardingModelGpuCpuFallback": "Không có chế độ tăng tốc GPU phù hợp. Ứng dụng sẽ dùng CPU.",
+  "onboardingModelEngineParakeetLabel": "Nhanh, hỗ trợ tiếng châu Âu",
+  "onboardingModelEngineParakeetDesc": "Chuyển lời nói thành chữ rất nhanh với khoảng 25 ngôn ngữ châu Âu; hoạt động tốt trên CPU.",
+  "onboardingModelEngineWhisperLabel": "Whisper đa ngôn ngữ",
+  "onboardingModelEngineWhisperDesc": "Hỗ trợ nhiều ngôn ngữ, từ vựng tùy chỉnh và gợi ý dấu câu cho tên riêng, chữ viết tắt và thuật ngữ.",
+  "onboardingModelEngineUnsupportedLanguage": "Chưa hỗ trợ ngôn ngữ bạn chọn",
+  "onboardingTestRecordingTitle": "Thử ghi âm",
+  "onboardingTestRecordingSubtitle": "Nhấn nút bên dưới rồi nói một câu. Chữ sẽ hiện trong ô thử nghiệm. Bạn cũng có thể dùng phím tắt.",
+  "onboardingTestRecordingHotkeyLabel": "Phím tắt của bạn",
+  "onboardingTestRecordingStartCta": "Bắt đầu ghi âm",
+  "onboardingTestRecordingStopCta": "Dừng ghi âm",
+  "onboardingTestRecordingCompletionHint": "Hãy thử ghi âm trước khi tiếp tục.",
+  "onboardingTestRecordingMicBypassCta": "Tiếp tục không dùng micro",
+  "onboardingTestRecordingMicBypassHint": "Nếu micro chưa hoạt động, WhisPaste chưa thể ghi âm. Bạn có thể kiểm tra lại qua trạng thái micro ở trang này hoặc Cài đặt.",
+  "onboardingTestRecordingPlaceholder": "Văn bản bạn đọc sẽ hiện tại đây…",
+  "onboardingTestRecordingInProgress": "Đang ghi âm: hãy bắt đầu nói. Nhấn lần nữa để dừng.",
+  "onboardingTestRecordingDoneMessage": "Đã xong! Ứng dụng sẽ hoạt động như vậy ở mọi ô nhập chữ.",
+  "onboardingTestRecordingReassurance": "Đây chỉ là thử nghiệm; chữ chỉ nằm trong ô này.",
+  "onboardingTestRecordingReassuranceWithDuration": "Đây chỉ là thử nghiệm; chữ nằm trong ô này. Bản ghi tự dừng sau {seconds} giây; chỉnh được tại Cài đặt → {section}.",
+  "@onboardingTestRecordingReassuranceWithDuration": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      },
+      "section": {
+        "type": "String"
+      }
+    }
+  },
+  "onboardingReadyTitle": "Thiết lập hoàn tất!",
+  "onboardingReadySubtitle": "Cách sử dụng WhisPaste",
+  "onboardingReadyStep1": "Nhấn phím tắt để bắt đầu ghi âm",
+  "onboardingReadyStep2": "Nhấn lần nữa để dừng và nhận diện",
+  "onboardingReadyStep3AutoPaste": "Chữ tự nhập vào ứng dụng đang mở",
+  "onboardingReadyStep3CopyOnly": "Chữ đã được sao chép; nhấn ⌘V / Ctrl+V để dán",
+  "onboardingReadyContextCarryoverHint": "WhisPaste có thể dùng ngữ cảnh từ lần ghi âm trước trong tối đa 10 phút. Khi chuyển sang chủ đề khác, hãy tạm dừng một lát để giảm nhầm lẫn.",
+  "onboardingReadyAutostartToggle": "Mở WhisPaste khi đăng nhập",
+  "onboardingReadyAutostartToggleHint": "Mặc định tắt; có thể bật trong Cài đặt",
+  "onboardingTriggerTitle": "Bạn muốn bắt đầu ghi âm bằng cách nào?",
+  "onboardingTriggerSubtitle": "Chọn phím tắt và cách khởi động ghi âm.",
+  "onboardingTriggerCurrentHotkey": "Phím tắt hiện tại",
+  "onboardingTriggerHotkeyConflictTitle": "Phím tắt đã được sử dụng",
+  "onboardingTriggerHotkeyConflictBody": "Có thể ứng dụng khác đang dùng phím tắt này. Hãy chọn tổ hợp mới bên dưới.",
+  "onboardingReadyHotkeyConflictBody": "Quay lại trang phím tắt để đặt tổ hợp khác.",
+  "onboardingTriggerModeHoldHint": "Giữ phím để nói; thả ra để kết thúc",
+  "onboardingTriggerModeToggleHint": "Nhấn một lần để bắt đầu, nhấn lần nữa để kết thúc",
+  "onboardingTriggerSystemWideHint": "Hoạt động toàn hệ thống, không chỉ trong WhisPaste.",
+  "onboardingStartUsing": "Bắt đầu sử dụng",
+  "onboardingReviewExit": "Đóng hướng dẫn",
+  "onboardingReviewDone": "Xong",
+  "onboardingReviewEntry": "Hướng dẫn",
+  "onboardingReviewSubtitle": "Xem lại năm bước thiết lập bất cứ lúc nào; các cài đặt chỉ thay đổi khi bạn chỉnh.",
+  "onboardingReviewLabel": "Xem lại hướng dẫn",
+  "onboardingReviewAction": "Mở",
+  "onboardingRevisionNoticeTitle": "WhisPaste đã cập nhật — cài đặt của bạn không thay đổi.",
+  "onboardingRevisionExit": "Thoát hướng dẫn",
+  "onboardingRevisionExitConfirmTitle": "Thoát hướng dẫn?",
+  "onboardingRevisionExitConfirmBody": "Hướng dẫn bản cập nhật chỉ hiện một lần; các bước bỏ qua sẽ không được thiết lập. Có thể mở lại trong Cài đặt → Hướng dẫn.",
+  "onboardingRevisionExitConfirmAction": "Thoát",
+  "overlayRecording": "Đang ghi âm",
+  "overlayTranscribing": "Đang nhận diện…",
+  "overlayRefining": "Đang xử lý lại…",
+  "overlayDone": "Đã sao chép",
+  "overlayDonePasted": "Đã dán",
+  "overlayDoneBoth": "Đã sao chép và dán",
+  "overlayDoneReady": "Xong",
+  "overlayError": "Lỗi",
+  "overlayCancel": "Hủy",
+  "overlayPause": "Tạm dừng",
+  "overlayResume": "Tiếp tục",
+  "overlayStop": "Dừng",
+  "overlayKeyboardHint": "Nhấn {hotkey} để dừng",
+  "@overlayKeyboardHint": {
+    "placeholders": {
+      "hotkey": {
+        "type": "String"
+      }
+    }
+  },
+  "overlayKeyboardHintNextFieldEnter": "Enter hoặc {hotkey}: ô tiếp · Esc: hủy",
+  "@overlayKeyboardHintNextFieldEnter": {
+    "placeholders": {
+      "hotkey": {
+        "type": "String"
+      }
+    }
+  },
+  "overlayKeyboardHintNextFieldEnterOnly": "Enter: ô tiếp · Esc: hủy",
+  "overlayProcessingLocal": "Trên máy",
+  "overlayProcessingCloud": "Đám mây",
+  "overlayRecordingQuickNote": "Đang ghi âm vào ghi chú",
+  "@overlayRecordingQuickNote": {
+    "description": "Overlay label while a recording whose text goes to the quick note runs (announced by screen readers)"
+  },
+  "overlayTargetQuickNote": "Ghi chú",
+  "@overlayTargetQuickNote": {
+    "description": "Very short target name shown in the recording overlay so the user sees the text is going to the quick note, not the clipboard"
+  },
+  "overlayRecordingTargetTimer": "{elapsed} · {target}",
+  "@overlayRecordingTargetTimer": {
+    "description": "Overlay recording line combining the elapsed time with the target name",
+    "placeholders": {
+      "elapsed": {
+        "type": "String"
+      },
+      "target": {
+        "type": "String"
+      }
+    }
+  },
+  "overlayDoneQuickNote": "Đã thêm vào ghi chú",
+  "@overlayDoneQuickNote": {
+    "description": "Overlay completion message when the text was appended to the quick note — nothing was copied or pasted"
+  },
+  "floatingButtonHide": "Ẩn",
+  "floatingButtonQuit": "Thoát",
+  "a11yRecordingButton": "Nút ghi âm",
+  "@a11yRecordingButton": {
+    "description": "Accessibility label for the floating recording button (screen readers)"
+  },
+  "a11yRecordingOverlay": "Lớp phủ ghi âm",
+  "@a11yRecordingOverlay": {
+    "description": "Accessibility label for the floating recording overlay (screen readers)"
+  },
+  "a11ySidePanel": "Thanh dán nhanh",
+  "@a11ySidePanel": {
+    "description": "Accessibility label for the clipboard quick-paste side panel (screen readers)"
+  },
+  "trayStatusRecording": "Đang ghi âm…",
+  "trayStatusReady": "Sẵn sàng",
+  "trayStartRecording": "Bắt đầu ghi âm",
+  "trayStopRecording": "Dừng ghi âm",
+  "trayOpenApp": "Mở WhisPaste",
+  "traySettings": "Cài đặt",
+  "trayQuit": "Thoát",
+  "trayMicrophone": "Micro",
+  "settingsComingSoon": "Sắp có",
+  "undo": "Hoàn tác",
+  "hintDismiss": "Bỏ gợi ý",
+  "voiceNoteButton": "Ghi chú bằng giọng nói",
+  "voiceNoteRecording": "Đang ghi âm ghi chú…",
+  "voiceNoteTranscribing": "Đang nhận diện…",
+  "voiceNoteAdded": "Đã thêm ghi chú bằng giọng nói",
+  "voiceTagAdded": "Đã thêm nhãn \"{tag}\" bằng giọng nói",
+  "@voiceTagAdded": {
+    "placeholders": {
+      "tag": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceCorrectionApplied": "Đã sửa bản nhận diện bằng giọng nói",
+  "voiceCorrectionUndone": "Đã hoàn tác sửa",
+  "voiceNoteEmpty": "Không phát hiện lời nói",
+  "voiceNoteError": "Ghi chú bằng giọng nói thất bại",
+  "historyVoiceNoteButtonTooltip": "Ghi chú bằng giọng nói — nói “nhãn: …” để thêm nhãn hoặc “sửa: …” để viết lại bản nhận diện này",
+  "updateAvailable": "Có bản cập nhật: v{version}",
+  "@updateAvailable": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "updateDownloading": "Đang tải cập nhật… {percent}%",
+  "@updateDownloading": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "updateReadyToInstall": "Đã sẵn sàng cập nhật, nhấn để cài đặt",
+  "updateUpToDate": "Bạn đang dùng phiên bản mới nhất",
+  "updateCheckNow": "Kiểm tra ngay",
+  "updateInstall": "Cài bản cập nhật",
+  "updateDownload": "Tải xuống",
+  "updateViewRelease": "Ghi chú phát hành",
+  "updateError": "Không thể kiểm tra cập nhật",
+  "updateRateLimited": "Quá nhiều yêu cầu. Hãy thử lại sau.",
+  "updateStatusBarChip": "Có bản v{version}",
+  "@updateStatusBarChip": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsOverlaySize": "Kích thước lớp phủ",
+  "settingsOverlaySizeSubtitle": "Chọn chế độ chi tiết hoặc tối giản",
+  "settingsOverlaySizeNormal": "Bình thường",
+  "settingsOverlaySizeCompact": "Gọn",
+  "settingsOverlaySizeMini": "Rất nhỏ",
+  "settingsOverlayStyle": "Kiểu lớp phủ",
+  "settingsOverlayStyleSubtitle": "Chọn nền kính mờ hoặc nền đặc",
+  "settingsOverlayStyleGlass": "Kính mờ",
+  "settingsOverlayStyleSolid": "Nền đặc",
+  "settingsOverlayLiveTranscript": "Hiện chữ khi đang nói",
+  "settingsOverlayLiveTranscriptSubtitle": "Hiển thị chữ nhận diện trực tiếp khi đang nói thay vì chỉ hiển thị sóng âm. Tính năng này dùng thêm CPU.",
+  "overlayRetry": "Thử lại",
+  "overlayDismiss": "Bỏ qua",
+  "overlayContextCancel": "Hủy ghi âm",
+  "overlayContextSwitchNormal": "Chế độ bình thường",
+  "overlayContextSwitchCompact": "Chế độ gọn",
+  "overlayContextSwitchMini": "Chế độ rất nhỏ",
+  "overlayContextHide": "Ẩn lớp phủ",
+  "buttonContextOpen": "Mở WhisPaste",
+  "buttonContextStartRecording": "Bắt đầu ghi âm",
+  "buttonContextShowHistory": "Xem lịch sử",
+  "buttonContextSettings": "Cài đặt",
+  "buttonContextQuit": "Thoát WhisPaste",
+  "settingsHistory": "Lịch sử",
+  "settingsHistorySubtitle": "Lưu trữ và tự động dọn dẹp",
+  "settingsHistoryMaxEntries": "Số mục tối đa",
+  "settingsHistoryMaxEntriesUnlimited": "Không giới hạn",
+  "settingsHistoryAutoTrashDays": "Tự xóa thùng rác sau",
+  "settingsHistoryAutoTrashNever": "Không bao giờ",
+  "settingsHistoryAutoTrashDaysLabel": "{count, plural, =1{1 ngày} other{{count} ngày}}",
+  "@settingsHistoryAutoTrashDaysLabel": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "settingsHistoryRetentionPreset": "Thời hạn lưu",
+  "settingsHistoryPresetMinimal": "Tối thiểu",
+  "settingsHistoryPresetStandard": "Tiêu chuẩn",
+  "settingsHistoryPresetUnlimited": "Không giới hạn",
+  "settingsHistoryPresetCustom": "Tùy chỉnh",
+  "settingsHistoryHideOnOpen": "Ẩn lịch sử khi mở",
+  "settingsHistoryHideOnOpenSubtitle": "Hiển thị nút “Xem lịch sử” thay cho nội dung khi ứng dụng khởi động hoặc mở lại cửa sổ",
+  "historyPinGateTitle": "Lịch sử đã bị khóa",
+  "historyPinGateHint": "Nhập mã PIN để xem các bản nhận diện.",
+  "historyPinUnlock": "Mở khóa",
+  "historyPinDialogTitle": "Nhập mã PIN",
+  "historyPinDialogSubtitle": "Lịch sử của bạn được bảo vệ bằng mã PIN.",
+  "historyPinFieldHint": "Mã PIN",
+  "historyPinRepeatHint": "Nhập lại mã PIN",
+  "historyPinWrong": "Mã PIN không đúng.",
+  "historyPinLockedOut": "Thử quá nhiều lần. Vui lòng chờ {seconds} giây.",
+  "@historyPinLockedOut": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "historyPinForgot": "Quên mã PIN?",
+  "historyPinForgotConfirmTitle": "Xóa lịch sử và bỏ mã PIN?",
+  "historyPinForgotConfirmMessage": "Không thể khôi phục mã PIN đã quên. Để đặt lại, toàn bộ lịch sử gồm mục lưu trữ, thùng rác và bản ghi được giữ lại sẽ bị xóa vĩnh viễn.",
+  "historyPinForgotConfirmAction": "Xóa lịch sử",
+  "historyPinSetTitle": "Đặt mã PIN",
+  "historyPinSetSubtitle": "Mã gồm 4–8 chữ số. Giúp ngăn người khác xem lịch sử trên máy này, nhưng không mã hóa dữ liệu.",
+  "historyPinInvalid": "Nhập từ 4 đến 8 chữ số.",
+  "historyPinMismatch": "Hai mã PIN không khớp.",
+  "settingsHistoryPin": "Bảo vệ bằng mã PIN",
+  "settingsHistoryPinSubtitle": "Yêu cầu mã PIN để xem lịch sử, kể cả trong thanh bên, nút nổi và API tự động hóa.",
+  "settingsHistoryPinChange": "Thay đổi",
+  "settingsHistoryPinRemove": "Gỡ bỏ",
+  "settingsHistoryAutoLock": "Tự khóa",
+  "settingsHistoryAutoLockSubtitle": "Ẩn lại lịch sử sau khoảng thời gian không thao tác.",
+  "settingsHistoryAutoLockNever": "Không bao giờ",
+  "settingsHistoryAutoLockMinutes": "Sau {minutes} phút",
+  "@settingsHistoryAutoLockMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "settingsFloatingButtonSection": "Nút nổi",
+  "settingsFloatingButtonSectionSubtitle": "Nút ghi âm luôn nổi để thao tác nhanh",
+  "settingsSttIdleTimeout": "Thời gian chờ khi không dùng AI",
+  "settingsSttIdleTimeoutSubtitle": "Thời gian giữ mô hình nhận diện trong bộ nhớ sau khi sử dụng",
+  "settingsSttIdleTimeoutKeepAlive": "Luôn giữ hoạt động",
+  "settingsSttIdleTimeoutMinutes": "{count, plural, =1{1 phút} other{{count} phút}}",
+  "@settingsSttIdleTimeoutMinutes": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "reviewPromptTitle": "Bạn có thích WhisPaste không?",
+  "reviewPromptBody": "Đánh giá của bạn giúp người khác biết đến ứng dụng và hỗ trợ phát triển.",
+  "reviewPromptYes": "Rất thích!",
+  "reviewPromptNotNow": "Để sau",
+  "reviewPromptNever": "Đừng hỏi lại",
+  "reviewPromptStarGitHub": "⭐ Đánh dấu sao trên GitHub",
+  "reviewPromptRateStore": "★ Đánh giá trên cửa hàng",
+  "reviewPromptGateBody": "Chỉ là câu hỏi nhanh, chưa phải đánh giá trên cửa hàng.",
+  "reviewPromptGateYes": "Có, tôi thích",
+  "reviewPromptGateNo": "Không hẳn",
+  "reviewSupportEntry": "Đánh giá và ủng hộ WhisPaste",
+  "reviewSupportLabel": "Đánh giá của bạn",
+  "reviewSupportSubtitle": "Đánh giá giúp người khác biết đến WhisPaste và hỗ trợ dự án.",
+  "reviewSupportAction": "Đánh giá",
+  "ideasBoardLabel": "Ý tưởng và đề xuất tính năng",
+  "ideasBoardAction": "Xem bảng ý tưởng",
+  "feedbackIdeasLink": "Đề xuất và bình chọn ý tưởng",
+  "insufficientRamTitle": "Không đủ bộ nhớ",
+  "insufficientRamBody": "WhisPaste cần ít nhất {requiredGb} GB RAM để chạy. Máy bạn có {detectedGb} GB. Nếu thiếu bộ nhớ, mô hình AI có thể không tải được hoặc bị thoát đột ngột.",
+  "@insufficientRamBody": {
+    "placeholders": {
+      "detectedGb": {
+        "type": "double",
+        "format": "decimalPattern",
+        "decimalDigits": 1
+      },
+      "requiredGb": {
+        "type": "int"
+      }
+    }
+  },
+  "insufficientRamQuit": "Thoát WhisPaste",
+  "insufficientRamLearnMore": "Yêu cầu hệ thống",
+  "insufficientRamSystemCheck": "Kiểm tra hệ thống",
+  "insufficientRamYourSystem": "Hệ thống của bạn",
+  "insufficientRamRequired": "Yêu cầu",
+  "hotkeyRegistrationFailed": "Đăng ký phím tắt thất bại. Hãy đặt lại trong Cài đặt.",
+  "hotkeyRegistrationFailedDefaultActive": "Đăng ký phím tắt thất bại, tạm dùng Ctrl+Shift+Space. Hãy đặt lại trong Cài đặt.",
+  "hotkeyConflictWarning": "Phím tắt này đã được {platform} sử dụng ({note}) và có thể không hoạt động.",
+  "@hotkeyConflictWarning": {
+    "placeholders": {
+      "platform": {
+        "type": "String"
+      },
+      "note": {
+        "type": "String"
+      }
+    }
+  },
+  "exportFormatPickerTitle": "Chọn định dạng xuất",
+  "exportFormatText": "Văn bản",
+  "exportFormatMarkdown": "Markdown",
+  "exportFormatCsv": "CSV",
+  "exportFormatJson": "JSON",
+  "exportFormatWord": "Word",
+  "cpuFallbackToast": "Nhận diện đang chậm hơn bình thường một chút nhưng vẫn xử lý.",
+  "recoveryExhaustedToast": "Không thể khởi động dịch vụ nhận diện. Hãy khởi động lại ứng dụng hoặc tải lại mô hình.",
+  "recoveryExhaustedAction": "Mở Cài đặt",
+  "recoveryVcRuntimeToast": "Không thể khởi động dịch vụ nhận diện vì thiếu thành phần Microsoft Visual C++ trên Windows. Hãy cài Visual C++ Redistributable (x64) rồi mở lại WhisPaste.",
+  "recoveryVcRuntimeAction": "Cài đặt",
+  "modelAbiInfoToast": "Đang tải lại mô hình giọng nói, vui lòng chờ.",
+  "recoveryGpuDisabledToast": "WhisPaste đã tắt tăng tốc GPU vì lần khởi động trước gặp lỗi. Bạn vẫn có thể đọc và nhận diện bình thường.",
+  "serverDownloadFailedToast": "Không thể tải dịch vụ nhận diện. Hãy kiểm tra Internet.",
+  "serverDownloadFailedAction": "Thử lại",
+  "serverDownloadStalledToast": "Tải xuống bị gián đoạn, đang kết nối lại.",
+  "historyWriteFailedToast": "Không thể lưu mục này. Hãy kiểm tra dung lượng còn trống.",
+  "historyWriteFailedAction": "Sao chép thông tin lỗi",
+  "factoryResetFailedToast": "Chưa thể đặt lại hoàn toàn. Khởi động lại ứng dụng?",
+  "factoryResetFailedAction": "Thoát ứng dụng",
+  "errorSttRejectEmpty": "Không có âm thanh để nhận diện. Hãy ghi lại.",
+  "errorSttRejectInvalidWav": "File âm thanh bị lỗi. Hãy ghi lại.",
+  "errorSttRejectUnsupportedLanguage": "Mô hình không hỗ trợ ngôn ngữ này. Hãy kiểm tra ngôn ngữ trong Cài đặt.",
+  "errorSttRejectPromptTooLong": "Từ vựng tùy chỉnh quá dài. Hãy rút gọn trong Cài đặt.",
+  "settingsGpuAcceleration": "Tăng tốc đồ họa",
+  "settingsGpuAccelerationSubtitle": "Chọn CPU hoặc GPU để nhận diện giọng nói trên máy",
+  "settingsGpuAccelerationAuto": "Tự động (đề xuất)",
+  "settingsGpuAccelerationEnabled": "Chỉ định dùng GPU",
+  "settingsGpuAccelerationDisabled": "Chỉ dùng CPU",
+  "settingsSttEngine": "Bộ máy nhận diện",
+  "settingsSttEngineSubtitle": "Whisper hỗ trợ 99 ngôn ngữ và nhiều GPU. Parakeet nhanh hơn trên máy chỉ có CPU nhưng hỗ trợ ít ngôn ngữ hơn.",
+  "settingsSttEngineWhisper": "Whisper",
+  "settingsSttEngineParakeet": "Parakeet (nhanh, hỗ trợ khoảng 25 ngôn ngữ)",
+  "parakeetModelTitle": "Mô hình Parakeet TDT",
+  "parakeetModelSubtitle": "Chỉ tải một lần (khoảng 640 MB), sau đó dùng hoàn toàn ngoại tuyến",
+  "parakeetModelDownload": "Tải xuống",
+  "parakeetModelDownloading": "Đang tải…",
+  "parakeetModelInstalled": "Đã cài",
+  "parakeetModelDelete": "Xóa",
+  "parakeetModelCancel": "Hủy",
+  "settingsSearchHint": "Tìm cài đặt…",
+  "settingsSearchNoResults": "Không có kết quả",
+  "settingsSearchNoResultsHint": "Thử từ khóa tìm kiếm khác.",
+  "settingsSearchFieldLabel": "Tìm cài đặt",
+  "settingsSearchResultCount": "{count, plural, =0{Không có kết quả} =1{1 kết quả} other{{count} kết quả}}",
+  "@settingsSearchResultCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "settingsPrivacy": "Quyền riêng tư",
+  "settingsPrivacySubtitle": "Quản lý dữ liệu mà WhisPaste chia sẻ",
+  "settingsShareUsageStats": "Chia sẻ thống kê sử dụng ẩn danh",
+  "settingsShareUsageStatsSubtitle": "Thống kê không chứa cookie hay mã nhận dạng, giúp cải thiện ứng dụng",
+  "settingsRetainRecentAudio": "Giữ lại bản ghi gần đây",
+  "settingsRetainRecentAudioSubtitle": "Giữ âm thanh của 20 lần đọc gần nhất để kiểm tra hoặc khôi phục; bản ghi cũ tự động bị xóa",
+  "storeThankYouTitle": "Cảm ơn bạn đã ủng hộ!",
+  "storeThankYouBody": "Rất vui vì bạn sử dụng WhisPaste. Nếu ứng dụng giúp công việc dễ dàng hơn, một đánh giá ngắn sẽ là sự ủng hộ lớn.",
+  "storeThankYouCtaStore": "★ Đánh giá trên cửa hàng",
+  "storeThankYouCtaGitHub": "⭐ Đánh dấu sao trên GitHub",
+  "storeThankYouDismiss": "Đóng",
+  "featureSpotlightHeading": "Điểm mới của WhisPaste",
+  "featureSpotlightDismiss": "Đã hiểu",
+  "featureSpotlightSnippetPickerTitle": "Bộ chọn mẫu văn bản",
+  "featureSpotlightSnippetPickerDescription": "Lưu đoạn văn bản hay dùng và chèn ở bất cứ đâu bằng phím tắt hoặc từ khóa nói, không cần gõ lại.",
+  "featureSpotlightSidePanelTitle": "Thanh bộ nhớ tạm",
+  "featureSpotlightSidePanelDescription": "Đưa chuột đến mép màn hình để xem nội dung đã sao chép và kéo mục vào tài liệu.",
+  "featureSpotlightInteractiveSnippetsTitle": "Mẫu tương tác",
+  "featureSpotlightInteractiveSnippetsDescription": "Mẫu có các ô trống: ứng dụng hướng dẫn điền lần lượt từng ô bằng giọng nói. Nhấn Enter để sang ô sau, rồi dán toàn bộ văn bản.",
+  "featureSpotlightSmartModeTitle": "Chế độ thông minh",
+  "featureSpotlightSmartModeDescription": "Làm sạch, rút gọn hoặc dịch văn bản trước khi dán ngay trên máy; có phím tắt, cấu hình và ngôn ngữ đích riêng.",
+  "featureSpotlightHistoryPinTitle": "Khóa lịch sử bằng mã PIN",
+  "featureSpotlightHistoryPinDescription": "Bảo vệ lịch sử nhận diện bằng PIN, gồm thanh bên và menu nút nổi. Có thể tự khóa khi không dùng. Cài đặt → Lịch sử.",
+  "featureSpotlightChangelogLink": "Xem nhật ký thay đổi",
+  "featureSpotlightReviewLabel": "Xem tính năng mới",
+  "featureSpotlightReviewAction": "Hiện",
+  "notesNewNote": "Ghi chú mới",
+  "notesEmptyTitle": "Chưa có ghi chú",
+  "notesEmptyHint": "Tạo ghi chú để lưu văn bản từ bất cứ ứng dụng nào.",
+  "notesUntitled": "Ghi chú chưa có tên",
+  "notesEditorPlaceholder": "Bắt đầu nhập…",
+  "notesListSemantics": "Danh sách ghi chú",
+  "notesCopy": "Sao chép ghi chú",
+  "notesCopied": "Đã sao chép ghi chú",
+  "notesFavorite": "Đánh dấu yêu thích",
+  "notesUnfavorite": "Bỏ yêu thích",
+  "notesQuickNoteSet": "Đặt làm ghi chú nhanh để phím tắt bổ sung nội dung",
+  "notesQuickNoteClear": "Bỏ đánh dấu ghi chú nhanh",
+  "notesQuickNoteHotkeyLabel": "Phím tắt",
+  "notesQuickNoteHotkeyChange": "Đổi phím tắt ghi chú nhanh — hiện là {combination}",
+  "@notesQuickNoteHotkeyChange": {
+    "placeholders": {
+      "combination": {
+        "type": "String"
+      }
+    }
+  },
+  "notesQuickNoteHotkeyOff": "Phím tắt ghi chú nhanh đang tắt.",
+  "notesQuickNoteHotkeyEnable": "Bật phím tắt",
+  "notesMoveToTrash": "Chuyển vào thùng rác",
+  "notesMovedToTrash": "Đã chuyển vào thùng rác",
+  "notesRestore": "Khôi phục",
+  "notesDeleteForever": "Xóa vĩnh viễn",
+  "notesDeleteForeverConfirm": "Xóa vĩnh viễn ghi chú?",
+  "notesTrash": "Thùng rác",
+  "notesTrashEmpty": "Thùng rác đang trống",
+  "notesTrashEmptyHint": "Ghi chú bị xóa được chuyển vào đây và không bị tự xóa.",
+  "notesUndo": "Hoàn tác",
+  "notesAddTag": "Thêm nhãn",
+  "notesTagPlaceholder": "Tên nhãn…",
+  "notesSearchPlaceholder": "Tìm ghi chú…",
+  "notesSearchFieldLabel": "Tìm ghi chú",
+  "notesNoResults": "Không tìm thấy kết quả",
+  "notesNoResultsHint": "Không có ghi chú nào khớp \"{query}\". Hãy thử từ khóa khác.",
+  "@notesNoResultsHint": {
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  },
+  "notesResultCount": "{count, plural, =1{1 kết quả} other{{count} kết quả}}",
+  "@notesResultCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "notesExport": "Xuất",
+  "markdownToolbarBold": "In đậm ({shortcut})",
+  "@markdownToolbarBold": {
+    "description": "Markdown toolbar button — tooltip and screen-reader name.",
+    "placeholders": {
+      "shortcut": {
+        "type": "String",
+        "example": "Ctrl+B"
+      }
+    }
+  },
+  "markdownToolbarItalic": "In nghiêng ({shortcut})",
+  "@markdownToolbarItalic": {
+    "placeholders": {
+      "shortcut": {
+        "type": "String",
+        "example": "Ctrl+I"
+      }
+    }
+  },
+  "markdownToolbarHeading": "Tiêu đề",
+  "markdownToolbarBulletList": "Danh sách dấu đầu dòng ({shortcut})",
+  "@markdownToolbarBulletList": {
+    "placeholders": {
+      "shortcut": {
+        "type": "String",
+        "example": "Ctrl+Shift+L"
+      }
+    }
+  },
+  "markdownToolbarNumberedList": "Danh sách đánh số",
+  "markdownToolbarQuote": "Trích dẫn",
+  "markdownToolbarCode": "Mã",
+  "findReplaceToggle": "Tìm và thay thế trong văn bản",
+  "findReplaceFindLabel": "Tìm trong văn bản",
+  "findReplaceFindHint": "Tìm…",
+  "findReplaceReplaceLabel": "Thay kết quả tìm bằng",
+  "findReplaceReplaceHint": "Thay bằng…",
+  "findReplaceNext": "Kết quả tiếp theo",
+  "findReplacePrevious": "Kết quả trước",
+  "findReplaceReplaceAction": "Thay mục này",
+  "findReplaceReplaceAllAction": "Thay tất cả",
+  "findReplaceClose": "Đóng tìm và thay thế",
+  "findReplaceNoMatches": "Không tìm thấy",
+  "findReplaceMatchCount": "{current}/{total}",
+  "@findReplaceMatchCount": {
+    "placeholders": {
+      "current": {
+        "type": "int",
+        "example": "3"
+      },
+      "total": {
+        "type": "int",
+        "example": "12"
+      }
+    }
+  },
+  "sidePanelTranscriptionsTitle": "Bản nhận diện",
+  "sidePanelSnippetsTitle": "Mẫu văn bản",
+  "sidePanelClipboardHistoryTitle": "Lịch sử sao chép",
+  "sidePanelClipboardHistoryEmpty": "Chưa sao chép gì",
+  "sidePanelClipboardHistoryEmptyHint": "Nội dung sao chép khi WhisPaste chạy sẽ hiện ở đây và được xóa khi khởi động lại.",
+  "sidePanelClose": "Đóng thanh bên",
+  "@sidePanelClose": {
+    "description": "Accessibility label for the side panel's close button (screen readers)"
+  },
+  "sidePanelSearchHint": "Tìm kiếm",
+  "sidePanelSearchFieldLabel": "Tìm trong danh sách",
+  "@sidePanelSearchFieldLabel": {
+    "description": "Accessibility label for the side panel's search field (screen readers) -- the visible hint text (sidePanelSearchHint) is not section-specific, so this names what it searches instead"
+  },
+  "sidePanelNoMatches": "Không tìm thấy",
+  "sidePanelNoMatchesHint": "Thử từ khóa khác.",
+  "settingsSmartMode": "Chế độ thông minh",
+  "settingsSmartModeSubtitle": "Làm sạch, rút gọn và dịch văn bản sau khi đọc",
+  "smartModeStandardPreset": "Cấu hình mặc định",
+  "smartModePresetOff": "Tắt",
+  "smartModePresetOffDescription": "Không xử lý thêm: sử dụng đúng văn bản nhận diện được.",
+  "smartModePresetCleanup": "Làm sạch",
+  "smartModePresetCleanupDescription": "Loại bỏ từ đệm như “ừm”, sửa dấu câu và chữ hoa mà không đổi ý nghĩa hay ngôn ngữ.",
+  "smartModePresetConcise": "Rút gọn",
+  "smartModePresetConciseDescription": "Rút gọn câu chữ dư thừa nhưng giữ mọi thông tin quan trọng bằng ngôn ngữ gốc.",
+  "smartModePresetTranslate": "Dịch",
+  "smartModePresetTranslateDescription": "Dịch văn bản đã nhận diện sang ngôn ngữ đích được chọn bên dưới.",
+  "smartModeTargetLanguage": "Ngôn ngữ đích",
+  "smartModeTargetLanguageGerman": "Tiếng Đức",
+  "smartModeTargetLanguageEnglish": "Tiếng Anh",
+  "smartModeTargetLanguageSpanish": "Tiếng Tây Ban Nha",
+  "smartModeTargetLanguageFrench": "Tiếng Pháp",
+  "smartModeTargetLanguagePortuguese": "Tiếng Bồ Đào Nha",
+  "smartModeTargetLanguageMandarin": "Tiếng Trung phổ thông",
+  "smartModeTargetLanguageRussian": "Tiếng Nga",
+  "smartModeDownload": "Tải xuống",
+  "smartModeDownloadComplete": "Mô hình chế độ thông minh đã sẵn sàng",
+  "smartModeRamWarningTitle": "Phát hiện bộ nhớ thấp",
+  "smartModeRamWarningBody": "Mô hình chế độ thông minh hoạt động tốt nhất với RAM từ 8 GB. Máy này có thể chạy chậm hoặc gặp lỗi. Vẫn tải?",
+  "smartModeRamWarningContinue": "Vẫn tải",
+  "smartModeRamWarningCancel": "Hủy",
+  "smartModeMemoryFootprintInfo": "Chạy hoàn toàn trên máy, dùng khoảng 4–5 GB RAM khi hoạt động, chưa kể mô hình nhận diện đã tải vào bộ nhớ.",
+  "smartModeSpeedExampleInfo": "Ví dụ: đoạn đọc 50 từ thường mất khoảng 1–6 giây xử lý tùy phần cứng.",
+  "settingsHotkeyActionSmartMode": "Chế độ thông minh",
+  "settingsSmartModeHotkeyEnabled": "Phím tắt chế độ thông minh",
+  "settingsSmartModeHotkeyHint": "Ghi âm với chế độ xử lý đã chọn, độc lập với chế độ mặc định. Có thể giữ phím để nói.",
+  "settingsSmartModeHotkeyPreset": "Cấu hình có sẵn",
+  "settingsSmartModeCurrentHotkey": "Tổ hợp phím",
+  "settingsSmartModeHotkeyCollision": "Tổ hợp này đang được dùng cho \"{action}\". Hãy chọn tổ hợp khác.",
+  "@settingsSmartModeHotkeyCollision": {
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsSmartModeHotkeyInactive": "Không thể đăng ký tổ hợp này. Phím tắt chế độ thông minh chưa hoạt động. Chọn tổ hợp khác.",
+  "smartModeOnboardingHintTitle": "Thử chế độ thông minh",
+  "smartModeOnboardingHintBody": "Có thể tự làm sạch, rút gọn hoặc dịch văn bản hoàn toàn trên máy. Hãy tải mô hình hoặc thiết lập sau trong Cài đặt.",
+  "smartModeOnboardingHintExampleBeforeLabel": "Lời đọc gốc",
+  "smartModeOnboardingHintExampleBefore": "ừm, lịch họp với khách đã dời sang thứ Năm lúc ba giờ chiều, và chúng ta vẫn cần slide cập nhật từ phòng marketing",
+  "smartModeOnboardingHintExampleAfterLabel": "Kết quả chế độ thông minh",
+  "smartModeOnboardingHintExampleAfter": "Lịch họp với khách đã dời sang thứ Năm lúc 15 giờ. Chúng ta vẫn cần slide cập nhật từ bộ phận tiếp thị.",
+  "smartModeOnboardingHintDownloadCta": "Tải xuống",
+  "smartModeOnboardingHintSkipCta": "Bỏ qua",
+  "smartModeUsageHintTitle": "Thử chế độ thông minh cho lần ghi âm tới",
+  "smartModeUsageHintBody": "Chế độ thông minh có thể tự làm sạch, rút gọn hoặc dịch văn bản trên máy. Đây là nội dung bạn vừa đọc:",
+  "smartModeUsageHintCta": "Thiết lập",
+  "smartModeUsageHintDismiss": "Để sau",
+  "settingsAutomationApi": "API tự động hóa nội bộ",
+  "settingsAutomationApiSubtitle": "Điều khiển ghi âm từ tập lệnh qua API HTTP chỉ hoạt động trên máy này",
+  "settingsAutomationApiEnable": "Bật API tự động hóa nội bộ",
+  "settingsAutomationApiEnableSubtitle": "Chỉ sử dụng 127.0.0.1/::1 — không thể truy cập từ mạng ngoài",
+  "settingsAutomationApiStatusRunning": "Đang chạy tại cổng {port}",
+  "@settingsAutomationApiStatusRunning": {
+    "placeholders": {
+      "port": {
+        "type": "int"
+      }
+    }
+  },
+  "settingsAutomationApiStatusRunningFallback": "Đang chạy tại cổng {port} (cổng {requestedPort} đã được sử dụng)",
+  "@settingsAutomationApiStatusRunningFallback": {
+    "placeholders": {
+      "port": {
+        "type": "int"
+      },
+      "requestedPort": {
+        "type": "int"
+      }
+    }
+  },
+  "settingsAutomationApiStatusStopped": "Chưa chạy",
+  "settingsAutomationApiStatusError": "Không có cổng trống từ {start} đến {end}",
+  "@settingsAutomationApiStatusError": {
+    "placeholders": {
+      "start": {
+        "type": "int"
+      },
+      "end": {
+        "type": "int"
+      }
+    }
+  },
+  "settingsAutomationApiCustomPortLabel": "Cổng tùy chỉnh",
+  "settingsAutomationApiCustomPortSubtitle": "Để trống nếu muốn tự chọn cổng; sẽ đổi cổng khác khi bị chiếm",
+  "settingsAutomationApiCustomPortHint": "Tự động",
+  "settingsAutomationApiCustomPortInvalid": "Nhập cổng từ 1024 đến 65535",
+  "settingsAutomationApiToken": "Mã truy cập Bearer",
+  "settingsAutomationApiTokenSubtitle": "Gửi \"Authorization: Bearer <token>\"; mọi yêu cầu không có mã đều bị từ chối",
+  "settingsAutomationApiRegenerate": "Tạo lại",
+  "settingsAutomationApiRegenerateConfirmTitle": "Tạo lại mã truy cập?",
+  "settingsAutomationApiRegenerateConfirmMessage": "Mã hiện tại sẽ lập tức hết hiệu lực. Các tập lệnh đang dùng mã này phải được cập nhật.",
+  "settingsAutomationApiCopyToken": "Sao chép mã",
+  "settingsAutomationApiTokenCopied": "Đã sao chép mã vào bộ nhớ tạm",
+  "settingsAutomationApiDocumentation": "Tài liệu",
+  "settingsAutomationApiDocumentationSubtitle": "Danh sách điểm cuối và ví dụ lệnh curl",
+  "settingsAutomationApiDocumentationAction": "Mở",
+  "historyCharacterCount": "{count} ký tự",
+  "@historyCharacterCount": {
+    "description": "Character-count metadata chip in the History detail panel (ticket 12), analogous to historyWordCount.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "historyPastedInto": "Đã dán vào {app}",
+  "@historyPastedInto": {
+    "description": "Tooltip for the target-app metadata chip in the History detail panel (ticket 12) — {app} is the captured bundle ID / process identifier.",
+    "placeholders": {
+      "app": {
+        "type": "String"
+      }
+    }
+  },
+  "historyShowOriginalTranscript": "Hiện lời nhận diện gốc",
+  "@historyShowOriginalTranscript": {
+    "description": "Disclosure toggle that reveals the pre-Smart-Mode/pre-Replacements transcript in the History detail panel (ticket 12) — only shown when it differs from the final text."
+  },
+  "historyHideOriginalTranscript": "Ẩn lời nhận diện gốc",
+  "historyOriginalTranscriptLabel": "Lời nhận diện gốc",
+  "settingsHotkeyActionSelectionEdit": "Sửa đoạn đã chọn",
+  "@settingsHotkeyActionSelectionEdit": {
+    "description": "Action name of the edit-selection hotkey, used in hotkey collision messages"
+  },
+  "settingsSelectionEditHotkeyEnabled": "Phím tắt sửa đoạn đã chọn",
+  "@settingsSelectionEditHotkeyEnabled": {
+    "description": "Settings row label: toggle for the edit-selection-by-voice hotkey"
+  },
+  "settingsSelectionEditHotkeyHint": "Chọn văn bản trong ứng dụng bất kỳ, nhấn phím tắt rồi nói yêu cầu, chẳng hạn “rút gọn”, “viết hay hơn” hoặc “dịch”. Kết quả thay thế đoạn đã chọn; hoàn tác để khôi phục bản gốc. Sử dụng mô hình thông minh.",
+  "@settingsSelectionEditHotkeyHint": {
+    "description": "Settings hint below the edit-selection hotkey toggle; the quoted words are the spoken quick-action keywords"
+  },
+  "settingsSelectionEditHotkeyInactive": "Không thể đăng ký tổ hợp này. Phím tắt sửa đoạn đã chọn chưa hoạt động. Chọn tổ hợp khác.",
+  "@settingsSelectionEditHotkeyInactive": {
+    "description": "Shown when the edit-selection hotkey combination could not be registered with the OS"
+  },
+  "overlayTargetSelectionEdit": "Sửa đoạn đã chọn",
+  "@overlayTargetSelectionEdit": {
+    "description": "Very short target name shown in the recording overlay while recording an instruction for editing the selected text"
+  },
+  "overlayRecordingSelectionEdit": "Nói nội dung cần sửa",
+  "@overlayRecordingSelectionEdit": {
+    "description": "Overlay label while recording an edit-selection instruction (announced by screen readers)"
+  },
+  "overlaySelectionEditHint": "Nói yêu cầu sửa, chẳng hạn: rút gọn · cải thiện · dịch",
+  "@overlaySelectionEditHint": {
+    "description": "Overlay hint while recording an edit-selection instruction; the listed words are the spoken quick-action keywords and must stay recognizable"
+  },
+  "overlayEditingSelection": "Đang sửa đoạn đã chọn…",
+  "@overlayEditingSelection": {
+    "description": "Overlay label while the selected text is being edited"
+  },
+  "overlayDoneSelectionEdit": "Đã thay thế đoạn được chọn",
+  "@overlayDoneSelectionEdit": {
+    "description": "Overlay completion message after the selected text was replaced"
+  },
+  "errorSelectionEditNoSelection": "Chưa chọn văn bản — hãy chọn đoạn cần sửa rồi nhấn phím tắt",
+  "@errorSelectionEditNoSelection": {
+    "description": "Overlay error: the edit-selection hotkey was used without any selected text"
+  },
+  "errorSelectionEditNoEngine": "Hãy thiết lập Chế độ thông minh trước (tải mô hình hoặc thêm khóa OpenAI) để sửa đoạn đã chọn",
+  "@errorSelectionEditNoEngine": {
+    "description": "Overlay error: the edit-selection hotkey needs a configured Smart Mode engine"
+  },
+  "errorSelectionEditUnsupported": "Sửa đoạn đã chọn cần chức năng tự dán, chưa có trong bản này",
+  "@errorSelectionEditUnsupported": {
+    "description": "Overlay error: this build has no auto-paste, so selections cannot be edited"
+  },
+  "errorSelectionEditCopyFailed": "Không đọc được đoạn đã chọn — kiểm tra quyền tự dán",
+  "@errorSelectionEditCopyFailed": {
+    "description": "Overlay error: the copy shortcut could not be sent to the target app"
+  },
+  "errorSelectionEditFailed": "Không thể sửa — văn bản gốc được giữ nguyên",
+  "@errorSelectionEditFailed": {
+    "description": "Overlay error: the Smart Mode engine failed or timed out; nothing was replaced"
+  },
+  "errorSelectionEditPasteFailed": "Không thể thay thế đoạn đã chọn — văn bản gốc được giữ nguyên",
+  "@errorSelectionEditPasteFailed": {
+    "description": "Overlay error: the edited text could not be pasted; nothing was replaced"
+  }
+}

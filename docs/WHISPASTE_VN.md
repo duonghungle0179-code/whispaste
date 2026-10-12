@@ -1,55 +1,63 @@
-# WhisPaste VN - Nhap muc luc van ban bang giong noi
+# WhisPaste VN — nhập mục lục văn bản bằng giọng nói
 
-Ban fork tuy bien tu WhisPaste, tap trung nhan dien tieng Viet offline va
-chuan hoa so, ky hieu van ban hanh chinh truoc khi dan vao Google Sheets.
+Bản tùy biến từ WhisPaste mã nguồn mở, tập trung vào nhận diện tiếng Việt
+offline và chuyển lời đọc thành số, ký hiệu, ngày tháng văn bản hành chính.
 
-## Su dung
+## Giao diện tiếng Việt
 
-1. Mo phan mem, tai model Whisper Small trong Cai dat neu chua co.
-2. Nhan F8 de ghi am, doc, nhan F8 lan nua de ket thuc.
-3. Whisper nhan dien voi ma ngon ngu vi.
-4. Bo chuan hoa chay offline, khong can API key.
-5. Chon che do dan chu vao ung dung dang mo trong Cai dat neu can.
-6. Luon doi chieu so hieu va ngay thang voi van ban goc.
+- Đã dịch đầy đủ **1.280 chuỗi** trong bộ ngôn ngữ của WhisPaste,
+  bao gồm Cài đặt, Lịch sử, Ghi âm, thông báo lỗi, thiết lập ban đầu,
+  mẫu văn bản, chú thích và các màn hình phụ.
+- Tiếng Việt là ngôn ngữ giao diện cố định của bản VN; giữ nguyên
+  khi cập nhật từ bản cài đã lưu lựa chọn tiếng Anh.
+- Các cửa sổ phụ (lớp phủ ghi âm, nút nổi, thanh bên) cũng dùng tiếng Việt.
+- Thanh điều hướng và tìm kiếm Cài đặt có nhãn tiếng Việt; tìm kiếm
+  hỗ trợ từ tiếng Việt không dấu.
+- Bản dịch nằm tại lib/core/l10n/app_vi.arb. Thư mục generated chứa
+  bản mã tạo sẵn; lệnh flutter gen-l10n sẽ làm mới từ tệp ARB này.
 
-## Mau cau
+## Cách dùng trên Windows
 
-| Cach doc | Ket qua |
-| --- | --- |
-| So sau muoi mot ket luan Trung uong | 61-KL/TW |
-| So ba muoi lam nghi quyet Trung uong | 35-NQ/TW |
-| So mot tram bon muoi tam quyet dinh Uy ban nhan dan | 148/QD-UBND |
-| So khong tam ket luan Trung uong | 08-KL/TW |
-| Ngay ba thang muoi hai nam hai nghin le chin | 3/12/2009 |
+1. Mở ứng dụng mới sau khi BUILD và cài đặt.
+2. Tải mô hình Whisper Small khi sử dụng lần đầu (cần Internet).
+3. Bật chế độ **Tự dán tại con trỏ** trong Cài đặt nếu muốn nhập thẳng
+   vào Google Sheets.
+4. Chọn ô trong Google Sheets, nhấn F8 để ghi âm, nhấn F8 lần nữa để dừng.
+5. Đối chiếu số hiệu, ký hiệu và ngày tháng trước khi lưu chính thức.
 
-Mau doc bang tieng Viet co dau (goi y):
+Ví dụ bạn đọc:
 
-> So sau muoi mot ket luan Trung uong, ngay ba thang muoi hai nam hai nghin le chin.
+> Số sáu mươi mốt kết luận Trung ương, ngày ba tháng mười hai năm hai nghìn lẻ chín.
 
-Gia tri du kien (co dau): So 61-KL/TW, ngay 3/12/2009.
+Kết quả mong muốn:
 
-## Nguyen tac an toan
+> Số 61-KL/TW, ngày 3/12/2009.
 
-- Chi gan hau to neu biet ro LOAI VAN BAN + CO QUAN ban hanh.
-- Neu khong xac dinh duoc co quan, chi doi so viet bang chu thanh chu so;
-  khong tu doan ky hieu.
-- Ngay khong hop le (31/2) khong duoc tu chuyen.
-- Van ban ngoai ngu canh "so ...", "ngay ... thang ... nam ..." duoc giu nguyen.
-- Loi nhan dien ten co quan cua Whisper khong duoc tu dong sua.
-- Lich su giu ban loi doc goc de doi chieu.
-- De Google Sheets giu nguyen chuoi ky hieu, dung cot dinh dang Plain text.
+## Quy tắc xử lý an toàn
 
-## Noi sua doi
+- Chỉ thêm hậu tố khi nhận diện rõ loại văn bản và cơ quan đã có trong từ điển.
+- Không tự suy đoán hậu tố với đơn vị chưa rõ.
+- Ngày không tồn tại (31/2) được để nguyên.
+- Giữ bản nhận diện gốc trong lịch sử để đối chiếu.
+- Có thể cần đặt cột Google Sheets là **Văn bản thuần túy** để không
+  bị Sheets tự đổi kiểu dữ liệu.
 
-- Bo chuan hoa: lib/services/vietnamese_admin_text.dart
-- Luong nhan dien va dan: lib/services/recording_orchestrator.dart
-- Giao dien cai dat gon: lib/features/settings/sections/vietnamese_stt_section.dart
-- Kiem thu: test/services/vietnamese_admin_text_test.dart
+## Các thành phần mã nguồn
 
-## Trang thai
+- Chuẩn hóa hành chính: lib/services/vietnamese_admin_text.dart
+- Luồng ghi âm → nhận diện → dán: lib/services/recording_orchestrator.dart
+- Giao diện nhận diện tiếng Việt: lib/features/settings/sections/vietnamese_stt_section.dart
+- Dịch UI: lib/core/l10n/app_vi.arb
+- Kiểm thử dịch UI: test/core/l10n/vietnamese_locale_test.dart
+- Kiểm thử chuẩn hóa văn bản: test/services/vietnamese_admin_text_test.dart
 
-- Da tao ma nguon va bo kiem thu; chua chay Flutter/Dart tests vi moi truong
-  khong co SDK tuong thich.
-- Chua kiem tra microphone/Google Sheets tren Windows that.
-- Chua dong goi EXE; cho lenh BUILD rieng.
-- Tat ca workflow tren fork chi cho phep khoi chay thu cong.
+## Trạng thái kỹ thuật
+
+Mã nguồn đã được cập nhật trên fork. Chưa chạy Flutter Analyzer, kiểm thử
+Flutter hay đóng gói EXE mới vì môi trường thao tác hiện tại không có Flutter SDK
+và bạn đã yêu cầu không dùng GitHub Actions khi chỉ cập nhật mã nguồn.
+
+Giao diện của bản WhisPaste đã cài trên máy sẽ KHÔNG thay đổi cho tới khi
+build và cài bản tùy biến mới.
+
+Các workflow trong fork chỉ chạy thủ công theo yêu cầu của bạn.

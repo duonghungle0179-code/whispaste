@@ -48,7 +48,7 @@ class WpTitleBar extends StatelessWidget {
             _WindowButton(
               icon: LucideIcons.minus,
               onPressed: () => windowManager.minimize(),
-              semanticLabel: 'Minimize window',
+              semanticLabel: 'Thu nhỏ cửa sổ',
             ),
             // loam-ignore: a11y-interactive-semantics – semantics provided in _MaximizeButton.build
             const _MaximizeButton(),
@@ -56,7 +56,7 @@ class WpTitleBar extends StatelessWidget {
             _WindowButton(
               icon: LucideIcons.x,
               onPressed: () => windowManager.close(),
-              semanticLabel: 'Close window',
+              semanticLabel: 'Đóng cửa sổ',
             ),
           ],
         ),
@@ -190,7 +190,7 @@ class _MaximizeButtonState extends State<_MaximizeButton> {
     const hoverFg = WpColors.textSecondary;
 
     return Semantics(
-      label: _isMaximized ? 'Restore window' : 'Maximize window',
+      label: _isMaximized ? 'Khôi phục cửa sổ' : 'Phóng to cửa sổ',
       button: true,
       child: MouseRegion(
         cursor: SystemMouseCursors.click,
