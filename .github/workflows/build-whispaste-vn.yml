@@ -1,0 +1,119 @@
+name: Build WhisPaste VN Windows
+# The initial push starts one build. Later this will be manual-only.
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/build-whispaste-vn.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: whispaste-vn-windows
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Verify Vietnamese code
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.1'
+          channel: stable
+          cache: true
+      - name: Resolve dependencies
+        run: flutter pub get
+      - name: Generate translations
+        run: flutter gen-l10n
+      - name: Static analysis for modified code
+        run: flutter analyze --no-fatal-infos lib/core/l10n lib/core/config/settings_sections.dart lib/features/settings lib/services/vietnamese_admin_text.dart lib/services/recording_orchestrator.dart lib/widgets/language_selector.dart lib/widgets/title_bar.dart
+      - name: Run Vietnamese locale and document tests
+        run: flutter test test/core/l10n/vietnamese_locale_test.dart test/services/vietnamese_admin_text_test.dart
+
+  windows:
+    name: Package Windows ZIP and installer
+    needs: verify
+    runs-on: windows-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.1'
+          channel: stable
+          cache: true
+      - name: Resolve dependencies
+        run: flutter pub get
+      - name: Build Windows release
+        shell: pwsh
+        run: |
+          flutter gen-l10n
+          flutter build windows --release --no-tree-shake-icons --dart-define=APP_VERSION=1.3.0
+          if ($LASTEXITCODE -ne 0) { throw "Flutter Windows build failed" }
+      - name: Activate native C++ toolchain
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x64
+      - name: Cache local Whisper libraries
+        id: whisper-cache
+        uses: actions/cache@v4
+        with:
+          path: .build/libwhisper/windows
+          key: whispaste-vn-whisper-cpu-1.8.4-v1
+      - name: Compile whisper.cpp CPU backend
+        if: steps.whisper-cache.outputs.cache-hit != 'true'
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path ".build/deps/whisper.cpp" | Out-Null
+          git clone --depth 1 --branch v1.8.4 https://github.com/ggml-org/whisper.cpp ".build/deps/whisper.cpp/v1.8.4"
+          if ($LASTEXITCODE -ne 0) { throw "Failed to download whisper.cpp" }
+          cmake -S ".build/deps/whisper.cpp/v1.8.4" -B ".build/libwhisper/windows-build" -G Ninja -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DGGML_VULKAN=OFF -DGGML_NATIVE=OFF -DGGML_OPENMP=OFF -DWHISPER_BUILD_EXAMPLES=OFF -DWHISPER_BUILD_TESTS=OFF -DWHISPER_BUILD_SERVER=OFF
+          if ($LASTEXITCODE -ne 0) { throw "Whisper CMake configuration failed" }
+          cmake --build ".build/libwhisper/windows-build" --config Release --parallel 4
+          if ($LASTEXITCODE -ne 0) { throw "Whisper compilation failed" }
+          New-Item -ItemType Directory -Force -Path ".build/libwhisper/windows" | Out-Null
+          Copy-Item ".build/libwhisper/windows-build/bin/*.dll" ".build/libwhisper/windows/" -Force
+      - name: Bundle local Whisper dependencies
+        shell: pwsh
+        run: |
+          pwsh scripts/bundle-libwhisper-windows.ps1 -Source .build/libwhisper/windows
+          if ($LASTEXITCODE -ne 0) { throw "Bundling local Whisper failed" }
+          if (-not (Test-Path "build/windows/x64/runner/Release/whisper.dll")) {
+            throw "whisper.dll missing; offline recognition would fail"
+          }
+      - name: Create portable ZIP
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path release-artifacts | Out-Null
+          Compress-Archive -Path "build/windows/x64/runner/Release/*" -DestinationPath "release-artifacts/WhisPaste-VN-Windows-x64.zip" -Force
+      - name: Upload portable Windows ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: WhisPaste-VN-Windows
+          path: release-artifacts/WhisPaste-VN-Windows-x64.zip
+          if-no-files-found: error
+      - name: Install NSIS for setup
+        shell: pwsh
+        continue-on-error: true
+        run: choco install nsis -y --no-progress
+      - name: Build optional NSIS installer
+        shell: pwsh
+        continue-on-error: true
+        run: |
+          $nsis = "C:\Program Files (x86)\NSIS\makensis.exe"
+          if (-not (Test-Path $nsis)) { Write-Warning "NSIS not installed"; exit 0 }
+          & $nsis /DPRODUCT_VERSION=1.3.0 /DPRODUCT_VERSION_NUMERIC=1.3.0.48 installer/whispaste.nsi
+          if ($LASTEXITCODE -eq 0 -and (Test-Path installer/WhisPaste-Setup.exe)) {
+            Copy-Item installer/WhisPaste-Setup.exe "release-artifacts/WhisPaste-VN-Setup.exe"
+          }
+      - name: Upload optional setup installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: WhisPaste-VN-Setup
+          path: release-artifacts/WhisPaste-VN-Setup.exe
+          if-no-files-found: ignore
