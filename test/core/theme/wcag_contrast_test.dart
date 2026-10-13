@@ -2084,6 +2084,10 @@ void main() {
     const zeroOffsetAllowlist = <String>{};
 
     const audited = <String, List<BoxShadow>>{
+      'softRaised': WpShadows.softRaised,
+      'softRaisedSmall': WpShadows.softRaisedSmall,
+      'softRaisedHover': WpShadows.softRaisedHover,
+      'softRecess': WpShadows.softRecess,
       'subtle': WpShadows.subtle,
       'subtleTransparent': WpShadows.subtleTransparent,
       'card': WpShadows.card,
