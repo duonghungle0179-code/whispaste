@@ -51,6 +51,7 @@ class _FakeWhisperEngine implements WhisperEngine {
   bool _loaded = false;
   String? lastModelPath;
   int loadCallCount = 0;
+  int transcribeCallCount = 0;
 
   /// The backend [status] reports once loaded — mutable so tests can prove
   /// [SttStatus.backend] actually reads this rather than assuming CPU.
@@ -91,6 +92,7 @@ class _FakeWhisperEngine implements WhisperEngine {
     bool vadEnabled = false,
     bool reducedThreads = false,
   }) async {
+    transcribeCallCount++;
     lastPrompt = prompt;
     final delay = transcribeDelay;
     if (delay != null) {
@@ -561,6 +563,34 @@ void main() {
     tearDown(() async {
       paths.sttDirOverride = null;
       await tempDir.delete(recursive: true);
+    });
+
+    test('very slow warmup skips optional background benchmark so real '
+        'dictation is not queued behind it', () async {
+      final priorCutoff =
+          SttServerStateNotifier.slowWarmupBenchmarkCutoff;
+      SttServerStateNotifier.slowWarmupBenchmarkCutoff =
+          const Duration(milliseconds: 40);
+      addTearDown(() {
+        SttServerStateNotifier.slowWarmupBenchmarkCutoff = priorCutoff;
+      });
+
+      final engine = _FakeWhisperEngine()
+        ..transcribeDelay = const Duration(milliseconds: 120);
+      final container = _makeContainer(engine: engine);
+      addTearDown(container.dispose);
+
+      await container.read(settingsProvider.future);
+      await container.read(localSttBundleProvider.notifier).ensureRunning();
+      // Warmup must run, but no additional synthetic 3s benchmark may be
+      // enqueued by this slow load. The user's next request gets the worker.
+      await Future<void>.delayed(const Duration(milliseconds: 180));
+      expect(engine.transcribeCallCount, 1);
+      expect(
+        container.read(settingsProvider).value?.tierBenchmarkRtf,
+        isNull,
+      );
+      expect(container.read(localSttBundleProvider).isReady, isTrue);
     });
 
     test('benchmark measures engine.transcribe and stores RTF for the active '

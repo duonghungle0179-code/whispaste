@@ -76,6 +76,27 @@ Một phiên đo thực tế ghi nhận benchmark 3 giây âm thanh mất khoả
 5,49 giây xử lý (RTF ~1,83). Đây là phép đo của mẫu benchmark, không phải
 cam kết rằng mọi đoạn ghi âm sẽ chậm ở đúng tỷ lệ đó.
 
+### Đối chiếu log thực tế của cùng một máy, cùng mô hình (13/10/2026)
+
+Log người dùng đã xác nhận cả WhisPaste 1.3.0 nguyên bản (12/10) và
+WhisPaste VN CPU-only (13/10) đều sử dụng **whisper-large-v3-turbo**
+(`ggml-large-v3-turbo-q5_0.bin`, 547 MB). Vì vậy tốc độ chậm không phải
+do chuyển từ model Small sang model Large hay do dịch giao diện:
+
+- Bản nguyên gốc: giải mã một câu 6–10 giây mất khoảng 1,4–2 giây
+  (RTF 0,17–0,23), benchmark 3 giây mất 1,79 giây.
+- Bản VN CPU-only: khởi động/warmup tốn 73,16 giây; giải mã câu
+  7,74 giây mất 50,10 giây (RTF 6,48).
+- Sau lần đầu: background benchmark 3 giây chiếm worker 66,1 giây
+  (RTF 22,04); lượt đọc mới mất 93,46 giây mới trả kết quả ở native,
+  nhưng cửa sổ đã báo timeout sau 62 giây.
+
+**Phát hiện và vá bổ sung:** Nếu bước warmup 250 ms kéo dài quá 15 giây
+hoặc thất bại, bỏ qua benchmark **tự động** trên worker Whisper dùng chung;
+vẫn giữ chức năng benchmark **thủ công**. Mục tiêu là không để tác vụ kiểm
+tra tốc độ chiếm worker hàng phút và cản trở ghi âm thật. Cơ chế này chỉ
+giảm nghẽn hàng chờ, không thể khiến DLL CPU-only cũ suy luận nhanh hơn.
+
 ### Cấu hình cho lần BUILD tiếp theo
 
 - Cài Vulkan SDK trong GitHub Actions rồi xây whisper.cpp có

@@ -226,6 +226,14 @@ class SttServerStateNotifier extends Notifier<SttStatus> {
   @visibleForTesting
   static Duration benchmarkIdleDelay = const Duration(seconds: 2);
 
+  /// Do not start a synthetic 3-second benchmark if even the 250ms warmup
+  /// takes abnormally long. A real Windows trace had a 73s warmup and a
+  /// 66s background benchmark, which blocked the user's next dictation and
+  /// caused its 62s UI timeout. The benchmark is optional; dictation is not.
+  /// Keep this mutable only for fast deterministic regression tests.
+  @visibleForTesting
+  static Duration slowWarmupBenchmarkCutoff = const Duration(seconds: 15);
+
   /// Upper bound on automatic retries of a transient transcription failure
   /// before the error is surfaced (CONTEXT.md §3.3 — "bis zu 3 Wiederholungen").
   static const int _maxTranscribeRetries = 3;
@@ -1133,7 +1141,7 @@ class SttServerStateNotifier extends Notifier<SttStatus> {
   /// Best-effort GPU/engine warmup so the first real dictation after a cold
   /// load doesn't pay the one-time kernel-compile/cache-fill penalty.
   /// Failures are non-fatal — mirrors the pre-cutover HTTP warmup's contract.
-  Future<void> _warmupInference() async {
+  Future<Duration?> _warmupInference() async {
     final sw = Stopwatch()..start();
     try {
       final silentWav = _generateSilentWav();
@@ -1142,9 +1150,11 @@ class SttServerStateNotifier extends Notifier<SttStatus> {
       _log.info(
         'Engine warmup inference completed in ${sw.elapsedMilliseconds}ms',
       );
+      return sw.elapsed;
     } catch (e) {
       sw.stop();
       _log.debug('Engine warmup skipped: $e');
+      return null;
     }
   }
 
@@ -1433,7 +1443,7 @@ class SttServerStateNotifier extends Notifier<SttStatus> {
     _activeModel = modelId;
     _resetIdleTimer();
 
-    await _warmupInference();
+    final warmupDuration = await _warmupInference();
     // Reaching here proves the process survived the first GPU compute
     // dispatch, not just the weight load — see the crash-loop-breaker
     // comment above. Only fires if the catch branch above didn't already
@@ -1445,7 +1455,19 @@ class SttServerStateNotifier extends Notifier<SttStatus> {
       crashGuard.resetCrashStreak();
       gpuAttemptPending = false;
     }
-    _scheduleBenchmark(modelId);
+    // Never queue a slow synthetic benchmark ahead of the user's actual
+    // dictation. On severely under-optimized Windows builds this extra
+    // decode monopolized the single Whisper isolate for 66 seconds.
+    if (warmupDuration != null &&
+        warmupDuration < slowWarmupBenchmarkCutoff) {
+      _scheduleBenchmark(modelId);
+    } else {
+      _log.warning(
+        'Skipped automatic STT benchmark: warmup=${warmupDuration?.inMilliseconds ?? -1}ms '
+        'exceeded cutoff=${slowWarmupBenchmarkCutoff.inMilliseconds}ms or failed. '
+        'Dictation has priority; manual benchmark remains available.',
+      );
+    }
     _log.info(
       'Whisper engine ready: model=$modelId '
       'backend=${_engine!.status.backend.name} '
