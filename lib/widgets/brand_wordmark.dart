@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 /// WhisPaste brand wordmark — the full logo + "Whispaste" text as a PNG image.
 ///
-/// Automatically selects the dark or light variant based on theme brightness.
+/// Use the dark-ink logo asset on WhisPaste VN's light Neumorphic frame.
 /// Dark variant: light bars + white "Whis" + cyan "paste" (for dark backgrounds).
 /// Light variant: dark bars + navy "Whis" + cyan "paste" (for light backgrounds).
 class WpBrandWordmark extends StatelessWidget {
@@ -13,7 +13,7 @@ class WpBrandWordmark extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const asset = 'assets/icons/wordmark-dark.png';
+    const asset = 'assets/icons/wordmark-light.png';
 
     return Image.asset(
       asset,
