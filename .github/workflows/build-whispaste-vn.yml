@@ -1,13 +1,7 @@
 name: Build WhisPaste VN Windows
-# One-time user-authorized build for the Light Neumorphism feature branch.
-# Restore workflow_dispatch-only as soon as the build is queued.
+# Future builds only run after an explicit manual dispatch.
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - feature/whispaste-vn-soft-neumorphism
-    paths:
-      - .github/one-shot/neumorphism-rebuild-after-vn-fix-20261013.txt
 
 concurrency:
   group: whispaste-vn-windows
