@@ -101,6 +101,72 @@ void main() {
       expect(normalizeVietnameseAdministrativeText(unknown), unknown);
     });
 
+    test('renders congress numbers as Roman ordinals, including spoken numbers', () {
+      expect(
+        normalizeVietnameseAdministrativeText('Đại hội số 13'),
+        'Đại hội số XIII',
+      );
+      expect(
+        normalizeVietnameseAdministrativeText('đại hội số mười ba'),
+        'đại hội số XIII',
+      );
+      expect(
+        normalizeVietnameseAdministrativeText('Đại hội lần thứ 13'),
+        'Đại hội lần thứ XIII',
+      );
+      expect(
+        normalizeVietnameseAdministrativeText(
+          'Đại hội đại biểu toàn quốc lần thứ mười ba',
+        ),
+        'Đại hội đại biểu toàn quốc lần thứ XIII',
+      );
+      expect(
+        normalizeVietnameseAdministrativeText(
+          'Đại hội Đảng bộ tỉnh Gia Lai lần thứ 21',
+        ),
+        'Đại hội Đảng bộ tỉnh Gia Lai lần thứ XXI',
+      );
+      expect(
+        normalizeVietnameseAdministrativeText('Đại hội XIII'),
+        'Đại hội XIII',
+      );
+      expect(
+        normalizeVietnameseAdministrativeText(
+          normalizeVietnameseAdministrativeText('Đại hội số 13'),
+        ),
+        'Đại hội số XIII',
+      );
+    });
+
+    test('does not turn ordinary numbers or administrative codes into Roman', () {
+      expect(
+        normalizeVietnameseAdministrativeText('Số 13 kết luận Trung ương'),
+        'Số 13-KL/TW',
+      );
+      expect(
+        normalizeVietnameseAdministrativeText('Đại hội có 13 đại biểu'),
+        'Đại hội có 13 đại biểu',
+      );
+      expect(
+        normalizeVietnameseAdministrativeText('Đại hội 13 người'),
+        'Đại hội 13 người',
+      );
+      expect(
+        normalizeVietnameseAdministrativeText('Đại hội năm 2026'),
+        'Đại hội năm 2026',
+      );
+      expect(
+        normalizeVietnameseAdministrativeText('Đại hội số 13-KL/TW'),
+        'Đại hội số 13-KL/TW',
+      );
+      expect(
+        normalizeVietnameseAdministrativeText(
+          'Đại hội lần thứ 13, ngày 13 tháng 10 năm 2026',
+        ),
+        'Đại hội lần thứ XIII, ngày 13/10/2026',
+      );
+    });
+
     test('already formatted identifiers stay unchanged on repeated passes', () {
       const formatted = 'Số 61-KL/TW, ngày 3/12/2009';
       expect(normalizeVietnameseAdministrativeText(formatted), formatted);
