@@ -253,8 +253,13 @@ class WpListTileSurface extends StatelessWidget {
         color: _fill(),
         borderRadius: WpRadius.borderLg,
         border: _border(),
-        // No `boxShadow` at all — see the library comment. A row lives in the
-        // plane; its depth is the brightness delta.
+        // The card variant now floats softly above the pastel plane.
+        // Split-panel rows stay flat until selected to remain scannable.
+        boxShadow: variant == WpListTileVariant.card
+            ? WpShadows.softRaisedSmall
+            : isSelected
+            ? WpShadows.softRaisedSmall
+            : null,
       ),
       child: content,
     );
