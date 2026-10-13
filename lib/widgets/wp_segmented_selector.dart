@@ -81,7 +81,7 @@ class WpSegmentedSelector extends StatelessWidget {
                   decoration: BoxDecoration(
                     gradient: activeGradient,
                     borderRadius: WpRadius.borderFull,
-                    boxShadow: WpShadows.subtle,
+                    boxShadow: WpShadows.softRaisedSmall,
                   ),
                 ),
               ),
