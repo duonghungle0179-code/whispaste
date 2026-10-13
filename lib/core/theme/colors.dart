@@ -902,12 +902,12 @@ abstract final class WpColorsNeumorphic {
     stops: [0.0, 0.42, 0.74, 1.0],
   );
   static const LinearGradient accentGradient = LinearGradient(
-    colors: [Color(0xFF8992E7), Color(0xFF6268C9)],
+    colors: [Color(0xFF6268C9), Color(0xFF545AB7)],
   );
   static const LinearGradient accentWarmGradient = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: [Color(0xFF858DE4), Color(0xFF6B74D3), Color(0xFF545AB6)],
+    colors: [Color(0xFF6268C9), Color(0xFF585EBB), Color(0xFF4C53A8)],
   );
   static const LinearGradient navChipGradient = LinearGradient(
     begin: Alignment.topCenter,
