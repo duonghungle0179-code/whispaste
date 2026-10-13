@@ -187,6 +187,9 @@ class _WpRowActionState extends State<WpRowAction> {
                         ? (WpColors.active)
                         : (WpColors.hoverTransparent),
                     borderRadius: WpRadius.borderSm,
+                    boxShadow: _isHovered
+                        ? WpShadows.softRaisedSmall
+                        : null,
                   ),
                   child: widget.faIcon != null
                       ? FaIcon(widget.faIcon!, size: 16, color: iconColor)
