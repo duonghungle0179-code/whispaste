@@ -114,6 +114,11 @@ class _WpFilterChipState extends State<WpFilterChip> {
         // which reads as a one-frame flash (same mechanism documented in
         // `wp_list_tile_surface.dart`).
         border: Border.all(color: borderColor),
+        boxShadow: widget.isActive
+            ? WpShadows.softRaisedSmall
+            : _isHovered
+            ? WpShadows.softRaisedHover
+            : WpShadows.softRaisedSmall,
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
