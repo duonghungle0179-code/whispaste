@@ -1,12 +1,7 @@
 name: Build WhisPaste VN Windows
-# One-time user-authorized run, triggered by this workflow change.
-# Restore manual-only mode as soon as the new run is queued.
+# Future builds only run after an explicit manual dispatch.
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/build-whispaste-vn.yml'
 
 concurrency:
   group: whispaste-vn-windows
