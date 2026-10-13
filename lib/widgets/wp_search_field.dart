@@ -485,7 +485,19 @@ class _WpSearchFieldState extends State<WpSearchField> {
       // No shadow in any variant: the field is flat on its surface, and the
       // border below is the only thing that marks its edge.
       decoration: BoxDecoration(
-        color: spec.fill(palette),
+        color: spec.overlayMaterial ? spec.fill(palette) : null,
+        gradient: spec.overlayMaterial
+            ? null
+            : const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xFFE6E8F5),
+                  Color(0xFFF1F2FB),
+                  Color(0xFFFAFAFF),
+                ],
+                stops: [0.0, 0.36, 1.0],
+              ),
         borderRadius: spec.radius,
       ),
       // Painted over the child, so the stroke can thicken on focus without
