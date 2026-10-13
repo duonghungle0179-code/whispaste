@@ -376,6 +376,7 @@ class _AnalyticsPanelCard extends StatelessWidget {
         color: WpColors.cardFill,
         borderRadius: WpRadius.borderLg,
         border: Border.all(color: WpColors.cardEdgeHighlight),
+        boxShadow: WpShadows.softRaisedSmall,
       ),
       child: child,
     );
@@ -578,6 +579,7 @@ class _HeroPillState extends State<_HeroPill>
           color: widget.isLead ? WpColors.cardFillElevated : WpColors.cardFill,
           borderRadius: WpRadius.borderMd,
           border: Border.all(color: WpColors.cardEdgeHighlight),
+          boxShadow: WpShadows.softRaisedSmall,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
