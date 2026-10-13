@@ -351,8 +351,8 @@ void main() {
           // split-panel rows stay quiet at rest to preserve scanability.
           expect(
             entry.value.hasShadow,
-            entry.key == 'snippets' || entry.key == 'replacements',
-            reason: '${entry.key} has an unexpected Neumorphic depth state',
+            isTrue,
+            reason: '${entry.key} should have a raised Neumorphic card',
           );
         }
       },
