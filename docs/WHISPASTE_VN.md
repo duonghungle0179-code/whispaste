@@ -63,6 +63,41 @@ F8 thất bại và tự chuyển sang Ctrl+Shift+Space. Bản vá dùng trực 
 Nếu bạn từng đổi phím thành Ctrl+R thì cài đặt cũ vẫn được giữ nguyên;
 hãy đổi lại thành F8 trong Cài đặt → Phím tắt sau khi cài bản vá.
 
+## Hiệu năng nhận diện tiếng nói trên Windows
+
+### Vì sao bản VN ban đầu xử lý chậm?
+
+Bản Windows đầu tiên (workflow ngày 12/10/2026) đã đóng gói whisper.cpp
+v1.8.4 với `GGML_VULKAN=OFF`, `GGML_NATIVE=OFF` và
+`GGML_OPENMP=OFF`. Bản này chỉ có CPU backend, nên card đồ họa không thể
+giúp suy luận Whisper dù phần mềm có tùy chọn tăng tốc GPU.
+
+Một phiên đo thực tế ghi nhận benchmark 3 giây âm thanh mất khoảng
+5,49 giây xử lý (RTF ~1,83). Đây là phép đo của mẫu benchmark, không phải
+cam kết rằng mọi đoạn ghi âm sẽ chậm ở đúng tỷ lệ đó.
+
+### Cấu hình cho lần BUILD tiếp theo
+
+- Cài Vulkan SDK trong GitHub Actions rồi xây whisper.cpp có
+  `GGML_VULKAN=ON`, `GGML_BACKEND_DL=ON`: GPU có trình điều khiển
+  Vulkan tương thích được sử dụng; không có Vulkan thì vẫn chạy CPU.
+- Xây thêm các biến thể CPU (`GGML_CPU_ALL_VARIANTS=ON`) để thư viện có
+  thể chọn bộ lệnh phù hợp với CPU, thay vì chỉ dùng cấu hình CPU cơ bản.
+- Giữ `GGML_OPENMP=OFF` để không phát sinh phụ thuộc VCOMP140.DLL
+  trên máy Windows không có runtime tương ứng.
+- Workflow phải kiểm tra `ggml-vulkan.dll`, `whisper.dll` và ít nhất
+  một `ggml-cpu*.dll` trước khi đăng artifact, tránh trường hợp một bản
+  BUILD "thành công" nhưng thiếu thư viện tăng tốc hoặc dự phòng.
+- Log ghi thời gian suy luận, hệ số RTF và nhóm backend CPU/GPU để phân
+  biệt nghẽn thư viện native với quá trình chuẩn hóa văn bản.
+
+Hiệu năng thực tế vẫn phụ thuộc CPU/GPU, driver, độ dài tiếng nói và model.
+Vulkan không bảo đảm nhanh hơn CPU trên mọi thiết bị. Các thay đổi này
+chưa được xác nhận bằng BUILD và benchmark trên máy người dùng.
+
+**Không cần tải lại Whisper Small 181 MB** khi cập nhật EXE: mô hình
+được lưu riêng trong thư mục dữ liệu ứng dụng.
+
 ## Quy tắc xử lý an toàn
 
 - Chỉ thêm hậu tố khi nhận diện rõ loại văn bản và cơ quan đã có trong từ điển.

@@ -652,10 +652,20 @@ class SttServerStateNotifier extends Notifier<SttStatus> {
     final charsPerSec = audioDurationMs > 0
         ? (rawText.length / (audioDurationMs / 1000)).toStringAsFixed(1)
         : 'n/a';
+    // Field diagnostics: backend + RTF distinguish a slow CPU decode from
+    // model loading, audio capture and post-transcription text transforms.
+    final rtf = audioDurationMs > 0
+        ? (stopwatch.elapsedMilliseconds / audioDurationMs).toStringAsFixed(2)
+        : 'n/a';
+    final compute = switch (state.backend) {
+      WhisperBackend.cpu => 'cpu',
+      null => 'unknown',
+      _ => 'gpu',
+    };
     _log.info(
       'STT inference response: duration=${stopwatch.elapsedMilliseconds}ms '
       'textLen=${rawText.length} audioDurationMs=$audioDurationMs '
-      'charsPerSec=$charsPerSec',
+      'charsPerSec=$charsPerSec rtf=$rtf compute=$compute',
     );
 
     var text = rawText.trim();
@@ -1436,6 +1446,11 @@ class SttServerStateNotifier extends Notifier<SttStatus> {
       gpuAttemptPending = false;
     }
     _scheduleBenchmark(modelId);
+    _log.info(
+      'Whisper engine ready: model=$modelId '
+      'backend=${_engine!.status.backend.name} '
+      'cpuFallback=${state.cpuFallbackActive}',
+    );
 
     _transition(
       SttStatus(

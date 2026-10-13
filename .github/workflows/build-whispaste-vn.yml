@@ -60,28 +60,51 @@ jobs:
         uses: actions/cache@v5
         with:
           path: .build/libwhisper/windows
-          key: whispaste-vn-whisper-cpu-1.8.4-v1
-      - name: Compile whisper.cpp CPU backend
+          key: whispaste-vn-whisper-vulkan-cpu-variants-1.8.4-v1
+      # Only provision the SDK when a fresh native build is necessary.
+      - name: Install Vulkan SDK (build-time only)
+        if: steps.whisper-cache.outputs.cache-hit != 'true'
+        uses: humbletim/install-vulkan-sdk@v1.2
+        with:
+          version: 1.4.309.0
+          cache: true
+      - name: Compile whisper.cpp Vulkan + optimized CPU fallback
         if: steps.whisper-cache.outputs.cache-hit != 'true'
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Force -Path ".build/deps/whisper.cpp" | Out-Null
           git clone --depth 1 --branch v1.8.4 https://github.com/ggml-org/whisper.cpp ".build/deps/whisper.cpp/v1.8.4"
           if ($LASTEXITCODE -ne 0) { throw "Failed to download whisper.cpp" }
-          cmake -S ".build/deps/whisper.cpp/v1.8.4" -B ".build/libwhisper/windows-build" -G Ninja -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DGGML_VULKAN=OFF -DGGML_NATIVE=OFF -DGGML_OPENMP=OFF -DWHISPER_BUILD_EXAMPLES=OFF -DWHISPER_BUILD_TESTS=OFF -DWHISPER_BUILD_SERVER=OFF
+          cmake -S ".build/deps/whisper.cpp/v1.8.4" -B ".build/libwhisper/windows-build" -G Ninja -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DGGML_VULKAN=ON -DGGML_BACKEND_DL=ON -DGGML_CPU_ALL_VARIANTS=ON -DGGML_NATIVE=OFF -DGGML_OPENMP=OFF -DWHISPER_BUILD_EXAMPLES=OFF -DWHISPER_BUILD_TESTS=OFF -DWHISPER_BUILD_SERVER=OFF
           if ($LASTEXITCODE -ne 0) { throw "Whisper CMake configuration failed" }
           cmake --build ".build/libwhisper/windows-build" --config Release --parallel 4
           if ($LASTEXITCODE -ne 0) { throw "Whisper compilation failed" }
           New-Item -ItemType Directory -Force -Path ".build/libwhisper/windows" | Out-Null
           Copy-Item ".build/libwhisper/windows-build/bin/*.dll" ".build/libwhisper/windows/" -Force
+          $whisperDll = Join-Path ".build/libwhisper/windows" "whisper.dll"
+          $vulkanDll = Join-Path ".build/libwhisper/windows" "ggml-vulkan.dll"
+          $cpuBackends = @(Get-ChildItem ".build/libwhisper/windows" -Filter "ggml-cpu*.dll")
+          if (-not (Test-Path $whisperDll)) { throw "Missing whisper.dll" }
+          if (-not (Test-Path $vulkanDll)) { throw "Missing Vulkan backend: ggml-vulkan.dll" }
+          if ($cpuBackends.Count -eq 0) { throw "Missing CPU fallback backend" }
+          Write-Host "Verified Whisper DLLs including Vulkan and $($cpuBackends.Count) CPU variant(s)"
       - name: Bundle local Whisper dependencies
         shell: pwsh
         run: |
           pwsh scripts/bundle-libwhisper-windows.ps1 -Source .build/libwhisper/windows
           if ($LASTEXITCODE -ne 0) { throw "Bundling local Whisper failed" }
-          if (-not (Test-Path "build/windows/x64/runner/Release/whisper.dll")) {
+          $releaseDir = "build/windows/x64/runner/Release"
+          if (-not (Test-Path "$releaseDir/whisper.dll")) {
             throw "whisper.dll missing; offline recognition would fail"
           }
+          if (-not (Test-Path "$releaseDir/ggml-vulkan.dll")) {
+            throw "Vulkan acceleration DLL missing from the portable release"
+          }
+          $cpuBackends = @(Get-ChildItem $releaseDir -Filter "ggml-cpu*.dll")
+          if ($cpuBackends.Count -eq 0) {
+            throw "CPU fallback DLL missing from the portable release"
+          }
+          Write-Host "Package backends: CPU + Vulkan (GPU selected automatically at runtime)"
       - name: Create portable ZIP
         shell: pwsh
         run: |
