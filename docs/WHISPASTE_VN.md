@@ -147,3 +147,27 @@ Giao diện của bản WhisPaste đã cài trên máy sẽ KHÔNG thay đổi c
 build và cài bản tùy biến mới.
 
 Các workflow trong fork chỉ chạy thủ công theo yêu cầu của bạn.
+
+
+## Bộ quy tắc đọc văn bản Đảng (13/10/2026)
+
+Bộ quy tắc được rút ra từ 356 trích yếu trong danh mục văn bản người dùng cung cấp, với nguyên tắc **không tự suy đoán số hiệu và cơ quan ban hành**.
+
+| Cách đọc / nhận dạng | Kết quả dự kiến |
+| --- | --- |
+| Đại hội số 13 | Đại hội số XIII |
+| Ban chấp hành Trung ương Đảng khóa 13 | Ban Chấp hành Trung ương Đảng khóa XIII |
+| Nghị quyết số 27 NQ Trung ương | Nghị quyết số 27-NQ/TW |
+| Kết luận số 61 của Ban Bí thư | Kết luận số 61-KL/TW của Ban Bí thư |
+| Hướng dẫn số 02 HD Ban Tổ chức Trung ương | Hướng dẫn số 02-HD/BTCTW |
+| Kế hoạch số 210 KH Huyện ủy | Kế hoạch số 210-KH/HU |
+| Nhiệm kỳ 2020 đến 2025 | Nhiệm kỳ 2020-2025 |
+| Quý 3 năm 2024 | Quý III năm 2024 |
+
+- Các loại ký hiệu hỗ trợ: NQ, KL, CT, QĐ, HD, KH, CTr, TB, TT.
+- Cơ quan đọc rõ: Trung ương (TW), Tỉnh ủy (TU), Huyện ủy (HU), Đảng ủy (ĐU), Ban Tổ chức Trung ương (BTCTW), Văn phòng Trung ương (VPTW), Ban Nội chính Tỉnh ủy (BNCTU).
+- Trường hợp loại văn bản hoặc cơ quan không rõ thì không đoán hậu tố, ví dụ `Nghị quyết số 27` vẫn là `Nghị quyết số 27`.
+- Không chuyển `khóa 13` ở lớp bồi dưỡng thành `khóa XIII`, không chuyển số hiệu văn bản hoặc ngày tháng thành số La Mã.
+- Chỉ chuẩn hóa tên tổ chức, tên cơ quan khi nhận rõ từ ngữ; không đổi mọi chữ viết tắt (BCH/BTV/UBKT) thành tên đầy đủ.
+- Danh mục có lỗi gõ và ký hiệu mâu thuẫn, vì vậy các mục nguồn không được coi là văn bản quy phạm chuẩn để sửa chính tả hàng loạt.
+- Chưa chạy kiểm thử Flutter/Windows và chưa build EXE sau các thay đổi này. Các quy tắc mới sẽ chỉ hoạt động sau khi build và cài bản mới.
