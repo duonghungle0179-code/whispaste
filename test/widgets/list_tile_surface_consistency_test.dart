@@ -334,8 +334,7 @@ void main() {
     });
 
     testWidgets(
-      'the border exists at rest so the hover transition fades alpha, and no '
-      'area carries a shadow',
+      'the border exists at rest and full-page rows use soft relief',
       (tester) async {
         await measureAll(tester);
 
@@ -348,19 +347,12 @@ void main() {
                 'lerps width toward zero instead of fading alpha, which reads '
                 'as a one-frame flash — see WpListTileSurface\'s library docs.',
           );
-          // Ticket 08: a list row lives *in* the plane, so its depth is the
-          // brightness delta of its fill and edge — never a drop shadow on top
-          // of that delta. Before the refresh the row lifted itself with
-          // `WpShadows.subtle` on hover *and* changed fill, which is two depth
-          // cues on one element.
+          // The full-page lists are Neumorphic cards; dense history/notes
+          // split-panel rows stay quiet at rest to preserve scanability.
           expect(
             entry.value.hasShadow,
-            isFalse,
-            reason:
-                '"${entry.key}" paints a shadow. On the app\'s single dark '
-                'ground depth comes from one source only: the fill/edge '
-                'delta. Shadows are for things that float over unknown '
-                'content (dialog, toast, dropdown popup), not for rows.',
+            entry.key == 'snippets' || entry.key == 'replacements',
+            reason: '${entry.key} has an unexpected Neumorphic depth state',
           );
         }
       },
