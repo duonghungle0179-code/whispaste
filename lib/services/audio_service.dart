@@ -9,6 +9,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:flutter/services.dart' show PlatformException;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path/path.dart' as p;
 import 'package:record/record.dart';
@@ -90,6 +91,66 @@ RecordConfig _whisperConfig({InputDevice? device, required bool autoGain}) =>
       noiseSuppress: true,
       device: device,
     );
+
+/// The Windows record plugin uses this message when it cannot resolve an
+/// active capture endpoint. Permission checks can still return true.
+bool isMissingAudioInputDevice(Object error) {
+  if (error is PlatformException) {
+    return (error.message ?? '').toLowerCase().contains(
+      'no audio recording device was found',
+    );
+  }
+  return error.toString().toLowerCase().contains(
+    'no audio recording device was found',
+  );
+}
+
+/// Try the system default first. If Windows cannot resolve that endpoint,
+/// enumerate other microphones and try an explicit device instead.
+/// Machines with zero inputs still need an OS, cable or driver fix.
+Future<Stream<Uint8List>> _startCaptureWithWindowsFallback(
+  AudioRecorder recorder, {
+  required InputDevice? preferredDevice,
+  required bool autoGain,
+}) async {
+  try {
+    return await recorder.startStream(
+      _whisperConfig(device: preferredDevice, autoGain: autoGain),
+    );
+  } on Exception catch (initialError) {
+    if (!Platform.isWindows || !isMissingAudioInputDevice(initialError)) {
+      rethrow;
+    }
+
+    List<InputDevice> available = const [];
+    try {
+      available = await recorder.listInputDevices();
+      _log.warning(
+        'Windows default audio endpoint unavailable; enumerated ' +
+            available.length.toString() + ' input device(s)',
+      );
+    } on Exception catch (enumerationError) {
+      _log.warning('Could not enumerate Windows microphone inputs: ' +
+          enumerationError.toString());
+    }
+
+    for (final candidate in available) {
+      if (candidate.id == preferredDevice?.id) continue;
+      try {
+        final stream = await recorder.startStream(
+          _whisperConfig(device: candidate, autoGain: autoGain),
+        );
+        _log.info('Recovered microphone input by selecting: ' +
+            candidate.label + ' (' + candidate.id + ')');
+        return stream;
+      } on Exception catch (candidateError) {
+        _log.warning('Microphone ' + candidate.label +
+            ' failed: ' + candidateError.toString());
+      }
+    }
+    Error.throwWithStackTrace(initialError, StackTrace.current);
+  }
+}
 
 // ---------------------------------------------------------------------------
 // Audio service notifier
@@ -296,8 +357,10 @@ class AudioServiceNotifier extends Notifier<AudioStatus> {
           bitsPerSample: 16,
         );
         _wavWriter = wavWriter;
-        pcmStream = await recorder.startStream(
-          _whisperConfig(device: selectedDevice, autoGain: libraryAutoGain),
+        pcmStream = await _startCaptureWithWindowsFallback(
+          recorder,
+          preferredDevice: selectedDevice,
+          autoGain: libraryAutoGain,
         );
       } on Exception catch (e) {
         _log.error('startStream failed: $e', e);
@@ -320,9 +383,11 @@ class AudioServiceNotifier extends Notifier<AudioStatus> {
         _amplitudeController = null;
         await _pcmChunkController?.close();
         _pcmChunkController = null;
-        state = const AudioStatus(
+        state = AudioStatus(
           captureState: AudioCaptureState.error,
-          errorMessage: 'recording_start_failed',
+          errorMessage: isMissingAudioInputDevice(e)
+              ? 'mic_no_input_device'
+              : 'recording_start_failed',
         );
         return;
       }

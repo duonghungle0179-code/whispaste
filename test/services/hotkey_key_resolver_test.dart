@@ -93,9 +93,25 @@ void main() {
   group('resolveKey — function keys F1–F12', () {
     for (var n = 1; n <= 12; n++) {
       final label = 'F$n';
-      final expected = LogicalKeyboardKey(0x00100000070 + n - 1);
+      final expected = <LogicalKeyboardKey>[
+        LogicalKeyboardKey.f1,
+        LogicalKeyboardKey.f2,
+        LogicalKeyboardKey.f3,
+        LogicalKeyboardKey.f4,
+        LogicalKeyboardKey.f5,
+        LogicalKeyboardKey.f6,
+        LogicalKeyboardKey.f7,
+        LogicalKeyboardKey.f8,
+        LogicalKeyboardKey.f9,
+        LogicalKeyboardKey.f10,
+        LogicalKeyboardKey.f11,
+        LogicalKeyboardKey.f12,
+      ][n - 1];
       test('$label resolves correctly', () {
         expect(resolveKey(label), expected);
+        expect(labelForKey(expected), label);
+        // hotkey_manager must be able to resolve a real physical key.
+        expect(HotKey(key: resolveKey(label)).physicalKey, isNotNull);
       });
     }
   });
@@ -202,7 +218,7 @@ void main() {
 
     test('all F1–F12 → true', () {
       for (var n = 1; n <= 12; n++) {
-        final key = LogicalKeyboardKey(0x00100000070 + n - 1);
+        final key = resolveKey('F$n');
         expect(isRecordableKey(key), isTrue, reason: 'F$n must be recordable');
       }
     });
@@ -380,7 +396,7 @@ void main() {
       // Letters
       'A', 'D', 'M', 'Z',
       // Function keys
-      'F1', 'F6', 'F12',
+      'F1', 'F6', 'F8', 'F12',
       // Named keys (using their labelForKey output)
       'Space', 'Enter', 'Tab', 'Esc', 'Backspace', 'Delete',
       'Insert', 'Home', 'End', 'PageUp', 'PageDown',

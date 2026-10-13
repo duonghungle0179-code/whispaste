@@ -103,6 +103,9 @@ String localizeRecordingError(L10n l10n, String errorCode) {
       return l10n.errorMicPermissionDenied;
     case 'recording_start_failed':
       return l10n.errorRecordingStartFailed;
+    case 'mic_no_input_device':
+      return 'Windows không tìm thấy thiết bị ghi âm. Vào Cài đặt Windows → '
+          'Hệ thống → Âm thanh → Đầu vào, bật hoặc chọn micro đang hoạt động.';
     case 'cloud_auth_error':
       return l10n.errorCloudAuth;
     case 'cloud_quota_exceeded':
@@ -327,6 +330,7 @@ class _WpRecordingBehaviorState extends ConsumerState<WpRecordingBehavior> {
       errorCode: next.errorMessage!,
       onDismiss: () => ref.read(recordingOrchestratorProvider.notifier).reset(),
       openMicrophoneSettings: _openMicrophoneSettings,
+      openInputSettings: () => unawaited(_openWindowsInputSettings()),
     );
     // Auto-reset after toast display so FAB returns to idle.
     Future.delayed(const Duration(seconds: 5), () {
@@ -559,6 +563,16 @@ class _WpRecordingBehaviorState extends ConsumerState<WpRecordingBehavior> {
 
   Future<void> _openMicrophoneSettings() =>
       ref.read(micPermissionNotifierProvider.notifier).openSystemSettings();
+
+  /// When Windows has no active capture endpoint, sound INPUT settings are
+  /// more useful than the microphone privacy page.
+  Future<void> _openWindowsInputSettings() async {
+    try {
+      await launchUrl(Uri.parse('ms-settings:sound'));
+    } on Exception catch (e) {
+      _log.warning('Could not open Windows Sound input settings', e);
+    }
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -615,18 +629,26 @@ void showRecordingErrorToast({
   required String errorCode,
   required VoidCallback onDismiss,
   VoidCallback? openMicrophoneSettings,
+  VoidCallback? openInputSettings,
 }) {
-  final offerSettings =
+  final offerPrivacy =
       errorCode == 'mic_permission_denied' && Platform.isMacOS;
+  final offerInputDevices =
+      errorCode == 'mic_no_input_device' && Platform.isWindows;
+  final openSettings = offerPrivacy || offerInputDevices;
   WpToast.show(
     context,
     message: localizeRecordingError(l10n, errorCode),
     type: WpToastType.error,
-    duration: const Duration(seconds: 5),
-    actionLabel: offerSettings
+    duration: const Duration(seconds: 7),
+    actionLabel: openSettings
         ? l10n.pasteFailureOpenSettings
         : l10n.actionDismiss,
-    onAction: offerSettings ? (openMicrophoneSettings ?? onDismiss) : onDismiss,
+    onAction: offerInputDevices
+        ? (openInputSettings ?? onDismiss)
+        : offerPrivacy
+            ? (openMicrophoneSettings ?? onDismiss)
+            : onDismiss,
   );
 }
 

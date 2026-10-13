@@ -27,6 +27,13 @@ void main() {
       );
     });
 
+    test('a missing Windows microphone has actionable Vietnamese text', () {
+      final message = localizeRecordingError(en, 'mic_no_input_device');
+      expect(message, contains('không tìm thấy thiết bị ghi âm'));
+      expect(message, contains('Đầu vào'));
+      expect(message, isNot(en.errorRecordingStartFailed));
+    });
+
     test('unknown codes still fall back to errorGeneric', () {
       expect(localizeRecordingError(de, 'some_new_code'), de.errorGeneric);
     });

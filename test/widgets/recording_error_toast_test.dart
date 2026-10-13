@@ -24,11 +24,13 @@ class _RecordingErrorHarness extends StatelessWidget {
     required this.errorCode,
     required this.onDismiss,
     this.openMicrophoneSettings,
+    this.openInputSettings,
   });
 
   final String errorCode;
   final VoidCallback onDismiss;
   final VoidCallback? openMicrophoneSettings;
+  final VoidCallback? openInputSettings;
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +42,7 @@ class _RecordingErrorHarness extends StatelessWidget {
           errorCode: errorCode,
           onDismiss: onDismiss,
           openMicrophoneSettings: openMicrophoneSettings,
+          openInputSettings: openInputSettings,
         ),
         child: const Text('fire-recording-error-toast'),
       ),
@@ -50,9 +53,11 @@ class _RecordingErrorHarness extends StatelessWidget {
 void main() {
   late L10n lDe;
   late L10n lEn;
+  late L10n lVi;
   setUpAll(() async {
     lDe = await L10n.delegate.load(const Locale('de'));
     lEn = await L10n.delegate.load(const Locale('en'));
+    lVi = await L10n.delegate.load(const Locale('vi'));
   });
 
   group('showRecordingErrorToast — mic_permission_denied', () {
@@ -127,6 +132,44 @@ void main() {
       expect(find.text(lEn.errorMicPermissionDenied), findsOneWidget);
 
       await tester.pumpAndSettle(const Duration(seconds: 6));
+    });
+  });
+
+  group('showRecordingErrorToast — missing input device', () {
+    testWidgets('explains missing microphone and opens Windows Sound settings',
+        (tester) async {
+      var dismissCount = 0;
+      var inputSettingsCount = 0;
+      await tester.pumpWidget(
+        makeTestable(
+          _RecordingErrorHarness(
+            errorCode: 'mic_no_input_device',
+            onDismiss: () => dismissCount++,
+            openInputSettings: () => inputSettingsCount++,
+          ),
+          locale: const Locale('vi'),
+        ),
+      );
+      await tester.tap(find.text('fire-recording-error-toast'));
+      await tester.pumpAndSettle();
+
+      expect(
+        find.text(localizeRecordingError(lVi, 'mic_no_input_device')),
+        findsOneWidget,
+      );
+      if (Platform.isWindows) {
+        expect(find.text(lVi.pasteFailureOpenSettings), findsOneWidget);
+        await tester.tap(find.text(lVi.pasteFailureOpenSettings));
+        await tester.pumpAndSettle();
+        expect(inputSettingsCount, 1);
+        expect(dismissCount, 0);
+      } else {
+        expect(find.text(lVi.actionDismiss), findsOneWidget);
+        await tester.tap(find.text(lVi.actionDismiss));
+        await tester.pumpAndSettle();
+        expect(dismissCount, 1);
+        expect(inputSettingsCount, 0);
+      }
     });
   });
 

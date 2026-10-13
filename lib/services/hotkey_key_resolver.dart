@@ -47,6 +47,23 @@ const Map<String, LogicalKeyboardKey> _namedKeyMap = {
   'PAGEDOWN': LogicalKeyboardKey.pageDown,
 };
 
+/// Flutter's canonical function-key objects. Creating keys from arithmetic
+/// IDs produced invalid physical-key lookups in hotkey_manager (F8 bug).
+const List<LogicalKeyboardKey> _functionKeys = <LogicalKeyboardKey>[
+  LogicalKeyboardKey.f1,
+  LogicalKeyboardKey.f2,
+  LogicalKeyboardKey.f3,
+  LogicalKeyboardKey.f4,
+  LogicalKeyboardKey.f5,
+  LogicalKeyboardKey.f6,
+  LogicalKeyboardKey.f7,
+  LogicalKeyboardKey.f8,
+  LogicalKeyboardKey.f9,
+  LogicalKeyboardKey.f10,
+  LogicalKeyboardKey.f11,
+  LogicalKeyboardKey.f12,
+];
+
 /// Maps a stored key label (e.g. `'D'`, `'F1'`, `'←'`) to a
 /// [LogicalKeyboardKey].
 ///
@@ -100,7 +117,7 @@ LogicalKeyboardKey resolveKey(String label) {
   if (fnMatch != null) {
     final n = int.parse(fnMatch.group(1)!);
     if (n >= 1 && n <= 12) {
-      return LogicalKeyboardKey(0x00100000070 + n - 1); // f1..f12
+      return _functionKeys[n - 1];
     }
   }
 
@@ -167,11 +184,10 @@ final Map<LogicalKeyboardKey, String> _namedKeyLabels = {
   LogicalKeyboardKey.pageDown: 'PageDown',
 };
 
-/// Precomputed F1–F12 reverse lookup.  Uses the same keyId arithmetic as
-/// [resolveKey] so the two tables stay in sync.
+/// F1-F12 round-trip using the same canonical key objects as [resolveKey].
 final Map<LogicalKeyboardKey, String> _fnKeyLabels = {
-  for (var n = 1; n <= 12; n++)
-    LogicalKeyboardKey(0x00100000070 + n - 1): 'F$n',
+  for (var n = 0; n < _functionKeys.length; n++)
+    _functionKeys[n]: 'F${n + 1}',
 };
 
 /// Reverse lookup built from [_punctuationKeys] so there is a single source of
@@ -335,13 +351,8 @@ final Map<PhysicalKeyboardKey, LogicalKeyboardKey> _physicalToLogical = {
   PhysicalKeyboardKey.digit9: LogicalKeyboardKey.digit9,
 };
 
-/// Keys that are recordable but whose canonical [LogicalKeyboardKey] instance
-/// does not match the F-key keyId table used inside [resolveKey]/[labelForKey]
-/// (Flutter assigns F1=0x00100000801 etc., while the resolver currently
-/// indexes F-keys via a different magic offset — see [resolveKey]). These
-/// canonical instances must still pass the recordability gate so the
-/// recorder accepts F1–F12 and the media keys it whitelists as no-modifier
-/// keys.
+/// Extra keys allowed without modifiers. F1-F12 already round-trip through
+/// [labelForKey] and [resolveKey]; media keys remain whitelist-only.
 final Set<LogicalKeyboardKey> _recordableNoLabelKeys = {
   LogicalKeyboardKey.f1,
   LogicalKeyboardKey.f2,

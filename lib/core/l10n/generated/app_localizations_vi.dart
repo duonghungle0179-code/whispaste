@@ -2412,7 +2412,7 @@ class L10nVi extends L10nEn {
   String get onboardingBeat3Caption => 'Trình duyệt, email hay trình soạn thảo — WhisPaste hoạt động toàn hệ thống.';
 
   @override
-  String get onboardingMicChipReady => 'Micro đã sẵn sàng';
+  String get onboardingMicChipReady => 'Đã cấp quyền micro';
 
   @override
   String get onboardingMicChipPending => 'Đang chờ quyền micro';

@@ -33,6 +33,36 @@ Kết quả mong muốn:
 
 > Số 61-KL/TW, ngày 3/12/2009.
 
+## Khắc phục lỗi không tìm thấy micro trên Windows
+
+Nếu hiện `Đã cấp quyền micro` nhưng khi ghi âm báo `Windows không tìm thấy
+thiết bị ghi âm`, ứng dụng có quyền truy cập nhưng Windows chưa cung cấp
+thiết bị đầu vào âm thanh hoạt động. Hãy kiểm tra:
+
+1. Mở **Cài đặt Windows → Hệ thống → Âm thanh → Đầu vào**; kiểm tra có
+   micro tích hợp hoặc USB/Bluetooth nào được nhận không.
+2. Chọn thiết bị đầu vào đang hoạt động, bật lại thiết bị nếu bị vô hiệu
+   hóa, thử nói và quan sát thanh kiểm tra mức âm của Windows.
+3. Trong **Quyền riêng tư → Micro**, bật quyền dùng micro cho ứng dụng
+   máy tính thông thường (desktop apps).
+4. Thử ghi bằng ứng dụng Sound Recorder/Voice Recorder của Windows.
+   Nếu Windows cũng không thu được, hãy kiểm tra driver, cáp và phần cứng.
+5. Đóng rồi mở lại WhisPaste VN sau khi đổi thiết bị âm thanh.
+
+Bản vá này sẽ ưu tiên thiết bị mặc định; khi Windows báo thiết bị mặc định
+không tồn tại, ứng dụng thử lần lượt các thiết bị đầu vào mà hệ điều hành
+liệt kê. Nếu không có thiết bị nào, ứng dụng **không thể tự tạo ra micro
+bằng phần mềm** và sẽ hiển thị thông báo cụ thể cùng nút mở cài đặt âm thanh.
+
+### Phím ghi âm F8
+
+Bản VN mặc định dùng F8. Bản trước có lỗi mã phím F1–F12 khiến đăng ký
+F8 thất bại và tự chuyển sang Ctrl+Shift+Space. Bản vá dùng trực tiếp
+`LogicalKeyboardKey.f8` (và các phím F1–F12 tương ứng).
+
+Nếu bạn từng đổi phím thành Ctrl+R thì cài đặt cũ vẫn được giữ nguyên;
+hãy đổi lại thành F8 trong Cài đặt → Phím tắt sau khi cài bản vá.
+
 ## Quy tắc xử lý an toàn
 
 - Chỉ thêm hậu tố khi nhận diện rõ loại văn bản và cơ quan đã có trong từ điển.
