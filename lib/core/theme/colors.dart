@@ -91,7 +91,7 @@ import 'package:flutter/material.dart';
 /// Nothing further is promised here. No second palette is sketched in, and no
 /// plugin layer stands ready for one, because there is no second theme to
 /// justify the shape it would have to take.
-typedef WpColors = WpColorsDark;
+typedef WpColors = WpColorsNeumorphic;
 
 // ---------------------------------------------------------------------------
 // Dark Theme Colors (Primary) — rich saturated blue-navy tones, unified
@@ -808,6 +808,127 @@ abstract final class WpColorsDark {
 /// Theme-independent accents used identically in light and dark — a sanctioned
 /// exception to the per-theme token split above, for colors chosen for
 /// user-facing variety/recognition rather than surface hierarchy.
+// ---------------------------------------------------------------------------
+// WhisPaste VN - Soft Lilac Neumorphism (October 2026)
+// The original WpColorsDark remains intact for reference and dark-palette
+// tests. WpColors resolves to this light skin throughout the running app.
+// The contrast-bearing purple is darker than the decorative lavender.
+// ---------------------------------------------------------------------------
+abstract final class WpColorsNeumorphic {
+  static const Color background = Color(0xFFF0F0FA);
+  static const Color surface = Color(0xFFF4F4FC);
+  static const Color surfaceElevated = Color(0xFFFCFCFF);
+  static const Color surfaceVariant = Color(0xFFEBECF8);
+  static const Color hover = Color(0xFFFCFCFF);
+  static const Color hoverTransparent = Color(0x00FCFCFF);
+  static const Color active = Color(0xFFE3E4F6);
+  static const Color borderSubtle = Color(0xFFE2E4F1);
+  static const Color borderDefault = Color(0xFFD2D5E8);
+
+  static const Color textPrimary = Color(0xFF30364E);
+  static const Color textSecondary = Color(0xFF656B88);
+  static const Color textMuted = Color(0xFF7C839F);
+
+  static const Color accent = Color(0xFF6268C9);
+  static const Color accentHover = Color(0xFF545BB8);
+  static const Color accentSubtle = Color(0x276268C9);
+  static const Color accentChipFill = Color(0x1F6268C9);
+  static const Color accentChipFillHover = Color(0x306268C9);
+  static const Color accentMiniTagFill = Color(0x226268C9);
+  static const Color accentBorder30 = Color(0x596268C9);
+  static const Color accentButtonFill = Color(0x196268C9);
+  static const Color accentActiveFill = Color(0x306268C9);
+  static const Color accentBadgeFill = Color(0x306268C9);
+  static const Color accentBorder20 = Color(0x406268C9);
+  static const Color accentRowHover = Color(0x146268C9);
+  static const Color surfaceChipFill = Color(0xCCFCFCFF);
+  static const Color surfaceMutedFill = Color(0xF0F0F0FA);
+
+  // Opaque surfaces make the two-directional raised shadows legible.
+  static const Color cardFill = Color(0xFFF9F9FE);
+  static const Color cardFillElevated = Color(0xFFFFFFFF);
+  static const Color cardEdgeHighlight = Color(0xFFE4E6F3);
+  static const Color floatingSurface = Color(0xFFFDFDFF);
+  static const Color decorativeGlyphWash = Color(0x126268C9);
+
+  static const Color success = Color(0xFF21805A);
+  static const Color warning = Color(0xFF93651C);
+  static const Color error = Color(0xFFBE445E);
+  static const Color errorRowHover = Color(0x14BE445E);
+  static const Color errorButtonFill = Color(0x1FBE445E);
+  static const Color errorActiveFill = Color(0x30BE445E);
+  static const Color errorBorder20 = Color(0x40BE445E);
+  static const Color errorBorder30 = Color(0x59BE445E);
+  static const Color mutedRowHover = Color(0x147C839F);
+  static const Color mutedActiveFill = Color(0x267C839F);
+  static const Color successActiveFill = Color(0x2621805A);
+  static const Color warningActiveFill = Color(0x2693651C);
+  static const Color accentLocatorRing = Color(0xAA6268C9);
+  static const Color recordingAccent = Color(0xFF717BDA);
+
+  static const LinearGradient recordingAccentGradient = LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [Color(0xFF8C95E7), Color(0xFF717BDA), Color(0xFF5A66C5)],
+  );
+
+  // Preflight warning and destructive actions must remain readable.
+  static const Color warningOrange = Color(0xFFAF591D);
+  static const Color warningOrangeBadgeFill = Color(0x24AF591D);
+  static const Color warningOrangeBadgeBorder = Color(0x66AF591D);
+  static const Color errorRed = Color(0xFFB83C50);
+  static const Color errorRedHover = Color(0xFFA42F43);
+
+  static const LinearGradient surfaceGradient = LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [Color(0xFFFFFFFF), Color(0xFFF0F1FB)],
+  );
+  static const LinearGradient warmSurfaceGradient = LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [Color(0xFFF6F5FD), Color(0xFFF0F0FA), Color(0xFFEEEDF9)],
+    stops: [0.0, 0.55, 1.0],
+  );
+  static const LinearGradient frameGradient = LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [
+      Color(0xFFF3F3FD),
+      Color(0xFFF0F0FA),
+      Color(0xFFEDEDF9),
+      Color(0xFFF2F0FB),
+    ],
+    stops: [0.0, 0.42, 0.74, 1.0],
+  );
+  static const LinearGradient accentGradient = LinearGradient(
+    colors: [Color(0xFF6268C9), Color(0xFF545AB7)],
+  );
+  static const LinearGradient accentWarmGradient = LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [Color(0xFF6268C9), Color(0xFF585EBB), Color(0xFF4C53A8)],
+  );
+  static const LinearGradient navChipGradient = LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [Color(0xFFFFFFFF), Color(0xFFF9F9FE), Color(0xFFF1F1FA)],
+    stops: [0.0, 0.12, 1.0],
+  );
+  static const LinearGradient navChipGradientHover = LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [Color(0xFFFFFFFF), Color(0xFFFFFFFF), Color(0xFFEBEDFA)],
+    stops: [0.0, 0.12, 1.0],
+  );
+  static const LinearGradient navPillActiveGradient = LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [Color(0xFFE8EAFD), Color(0xFFDFE2F9), Color(0xFFD7DCF6)],
+    stops: [0.0, 0.12, 1.0],
+  );
+}
+
 abstract final class WpSharedColors {
   /// Pinned/favorited-item accent (star icon, toggle). Amber reads as
   /// "favorite" cross-platform regardless of theme, like a star rating.

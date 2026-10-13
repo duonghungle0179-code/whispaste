@@ -171,3 +171,7 @@ Bộ quy tắc được rút ra từ 356 trích yếu trong danh mục văn bả
 - Chỉ chuẩn hóa tên tổ chức, tên cơ quan khi nhận rõ từ ngữ; không đổi mọi chữ viết tắt (BCH/BTV/UBKT) thành tên đầy đủ.
 - Danh mục có lỗi gõ và ký hiệu mâu thuẫn, vì vậy các mục nguồn không được coi là văn bản quy phạm chuẩn để sửa chính tả hàng loạt.
 - Chưa chạy kiểm thử Flutter/Windows và chưa build EXE sau các thay đổi này. Các quy tắc mới sẽ chỉ hoạt động sau khi build và cài bản mới.
+
+## Light Neumorphism UI (bản nhánh thử nghiệm)
+
+Mã nguồn giao diện sáng pastel/lavender được triển khai bằng widget Flutter, không dùng ảnh nền. Tài liệu màu sắc, phạm vi, hướng dẫn kiểm thử: [WHISPASTE_VN_NEUMORPHISM.md](WHISPASTE_VN_NEUMORPHISM.md). Thay đổi chỉ có hiệu lực sau khi build/cài EXE mới; chưa chạy GitHub Actions.

@@ -65,9 +65,9 @@ void main() {
       expect(OverlayDesignSpec.dark, same(OverlayDesignSpec.light));
     });
 
-    test('accent is the finalised spike teal in BOTH themes', () {
-      expect(OverlayDesignSpec.light.accent, const Color(0xFF0887A8));
-      expect(OverlayDesignSpec.dark.accent, const Color(0xFF0887A8));
+    test('accent is soft lilac in both overlay themes', () {
+      expect(OverlayDesignSpec.light.accent, const Color(0xFF6268C9));
+      expect(OverlayDesignSpec.dark.accent, const Color(0xFF6268C9));
     });
   });
 
@@ -341,12 +341,12 @@ void main() {
       // Subtitle technique, Maintainer-Entscheid nach Varianten-Vergleich:
       // white glyphs over a soft blurred dark drop shadow — readable over
       // any desktop, no hard ring.
-      expect(OverlayDesignSpec.contentGlyphFill, const Color(0xFFFFFFFF));
-      expect(OverlayDesignSpec.glyphShadowColor, const Color(0xFF14202E));
-      expect(OverlayDesignSpec.glyphShadowOpacity, 0.85);
+      expect(OverlayDesignSpec.contentGlyphFill, const Color(0xFF30364E));
+      expect(OverlayDesignSpec.glyphShadowColor, const Color(0xFFFFFFFF));
+      expect(OverlayDesignSpec.glyphShadowOpacity, 0.70);
       expect(OverlayDesignSpec.glyphShadowBlurSigma, 1.75);
       expect(OverlayDesignSpec.glyphShadowOffset, const Offset(0, 0.75));
-      expect(OverlayDesignSpec.light.text, const Color(0xFF14202E));
+      expect(OverlayDesignSpec.light.text, const Color(0xFF30364E));
     });
 
     test('glass polish constants (Dock-glass pass) are wired', () {
@@ -557,8 +557,8 @@ void main() {
     test('white disc, dark mic, hairline border, no glow', () {
       const b = OverlayDesignSpec.button;
       expect(b.discColor, const Color(0xFFFFFFFF));
-      expect(b.iconColor, const Color(0xFF101828));
-      expect(b.borderColor, const Color(0x1A101828));
+      expect(b.iconColor, const Color(0xFF4D56A7));
+      expect(b.borderColor, const Color(0x266268C9));
       expect(b.borderWidth, 1.0);
       expect(b.iconRatio, 24 / 56);
       expect(b.hasGlow, isFalse);
@@ -566,7 +566,7 @@ void main() {
 
     test('additive V2 disc-gradient / border tokens (issue 08)', () {
       const b = OverlayDesignSpec.button;
-      expect(b.discGradientEnd, const Color(0xFFEDF1F6));
+      expect(b.discGradientEnd, const Color(0xFFE9EAF8));
       expect(b.discFillOpacity, 0.95);
       expect(b.borderInset, 0.5);
       expect(b.mic, same(FloatingButtonMicSpec.spike));

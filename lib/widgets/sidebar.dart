@@ -322,7 +322,9 @@ class _NavItemWidgetState extends State<_NavItemWidget> {
                           // black ink on a near-black ground, which is the
                           // mud that rule exists to keep out, and it now sits
                           // on a frame saturated enough to show it.
-                          boxShadow: null,
+                          boxShadow: widget.isActive || _isHovered
+                              ? WpShadows.softRaisedHover
+                              : WpShadows.softRaisedSmall,
                         ),
                         alignment: Alignment.center,
                         child: Icon(

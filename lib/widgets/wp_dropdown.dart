@@ -288,6 +288,7 @@ class _WpDropdownState<T> extends State<WpDropdown<T>> {
           color: surface,
           borderRadius: radius,
           border: Border.all(color: border),
+          boxShadow: WpShadows.softRaisedSmall,
         ),
         child: DropdownButtonHideUnderline(
           // Re-tints the row washes of the opened menu (Material captures the

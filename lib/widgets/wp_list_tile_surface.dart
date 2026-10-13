@@ -135,7 +135,7 @@ class WpListTileSurface extends StatelessWidget {
 
   /// Hairline gap between rows so adjacent selection borders never touch.
   /// Off-scale on purpose — `WpSpacing.xxs` would read as a list gap.
-  static const double panelVerticalMargin = 1.0;
+  static const double panelVerticalMargin = 6.0;
 
   /// Resting border width, shared by both variants. The dark-theme selection
   /// stroke is the single documented exception (2 px, see [_border]).
@@ -155,12 +155,15 @@ class WpListTileSurface extends StatelessWidget {
         return _isActive ? WpColors.cardFillElevated : WpColors.cardFill;
       case WpListTileVariant.panel:
         if (isSelected) {
-          return WpColors.accentSubtle;
+          return Color.alphaBlend(
+            WpColors.accentSubtle,
+            WpColors.cardFillElevated,
+          );
         }
         if (isFocused || isHovered) {
-          return WpColors.hover;
+          return WpColors.cardFillElevated;
         }
-        return WpColors.hoverTransparent;
+        return WpColors.cardFill;
     }
   }
 
@@ -253,8 +256,11 @@ class WpListTileSurface extends StatelessWidget {
         color: _fill(),
         borderRadius: WpRadius.borderLg,
         border: _border(),
-        // No `boxShadow` at all — see the library comment. A row lives in the
-        // plane; its depth is the brightness delta.
+        // Both full-width and split-pane items are tactile white cards.
+        // Increased panel spacing keeps twin shadows from appearing muddy.
+        boxShadow: _isActive
+            ? WpShadows.softRaisedHover
+            : WpShadows.softRaisedSmall,
       ),
       child: content,
     );

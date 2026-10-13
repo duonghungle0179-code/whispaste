@@ -365,6 +365,7 @@ class _SnippetPickerHeader extends ConsumerWidget {
           color: WpColors.cardFill,
           borderRadius: WpRadius.borderMd,
           border: Border.all(color: WpColors.borderSubtle),
+          boxShadow: WpShadows.softRaisedSmall,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

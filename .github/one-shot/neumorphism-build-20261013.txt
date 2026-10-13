@@ -1,0 +1,5 @@
+One-time Windows GitHub Actions build request for WhisPaste VN Light Neumorphism.
+Branch: feature/whispaste-vn-soft-neumorphism
+Workflow: .github/workflows/build-whispaste-vn.yml
+Requested by user on 2026-10-13.
+This sentinel is inert after the branch-only push trigger has been removed.

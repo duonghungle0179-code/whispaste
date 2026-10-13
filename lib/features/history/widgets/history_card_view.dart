@@ -297,7 +297,9 @@ class _HistoryEntryCardState extends State<HistoryEntryCard> {
               // selection now read through the fill rung and the edge in
               // [_resolveColors] instead. Gated by
               // `test/core/design/depth_source_test.dart`.
-              boxShadow: null,
+              boxShadow: _isHovered || widget.isSelected
+                  ? WpShadows.softRaisedHover
+                  : WpShadows.softRaisedSmall,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
