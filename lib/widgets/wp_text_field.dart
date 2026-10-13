@@ -520,7 +520,16 @@ class _WpTextFieldState extends State<WpTextField> {
       decoration: BoxDecoration(
         // `embedded` paints nothing: its host already painted the row. The
         // card variants lift a rung under the pointer; see "the hover lift".
-        color: spec.fillAt(hovered: _hovered, palette: palette),
+        color: spec.material == _WpFieldMaterial.opaque
+            ? null
+            : spec.fillAt(hovered: _hovered, palette: palette),
+        gradient: spec.material == _WpFieldMaterial.opaque
+            ? const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [Color(0xFFE8EAF6), Color(0xFFF7F7FD)],
+              )
+            : null,
         borderRadius: spec.radius,
       ),
       // Painted over the child, so the stroke can thicken on focus without
