@@ -47,10 +47,10 @@ abstract final class WpSpacing {
 // Border radius
 // ---------------------------------------------------------------------------
 abstract final class WpRadius {
-  static const double sm = 8;
-  static const double md = 12;
-  static const double lg = 16;
-  static const double xl = 22;
+  static const double sm = 12;
+  static const double md = 16;
+  static const double lg = 22;
+  static const double xl = 28;
   static const double full = 9999;
 
   static final BorderRadius borderSm = BorderRadius.circular(sm);
@@ -64,6 +64,63 @@ abstract final class WpRadius {
 // Shadows — clean layered depth, NO colored/glow shadows
 // ---------------------------------------------------------------------------
 abstract final class WpShadows {
+  /// Light Neumorphism: dark lower-right relief and white upper-left light.
+  /// All surfaces keep stable geometry across normal, hovered and pressed.
+  static const List<BoxShadow> softRaised = [
+    BoxShadow(
+      color: Color(0x64B9BEDB),
+      blurRadius: 24,
+      spreadRadius: 0,
+      offset: Offset(8, 9),
+    ),
+    BoxShadow(
+      color: Color(0xF0FFFFFF),
+      blurRadius: 20,
+      spreadRadius: 0,
+      offset: Offset(-8, -8),
+    ),
+  ];
+
+  static const List<BoxShadow> softRaisedSmall = [
+    BoxShadow(
+      color: Color(0x52B8BEDB),
+      blurRadius: 14,
+      offset: Offset(5, 6),
+    ),
+    BoxShadow(
+      color: Color(0xEFFFFFFF),
+      blurRadius: 12,
+      offset: Offset(-5, -5),
+    ),
+  ];
+
+  static const List<BoxShadow> softRaisedHover = [
+    BoxShadow(
+      color: Color(0x76B8BDDB),
+      blurRadius: 22,
+      offset: Offset(8, 9),
+    ),
+    BoxShadow(
+      color: Color(0xFFFFFFFF),
+      blurRadius: 18,
+      offset: Offset(-7, -7),
+    ),
+  ];
+
+  /// Quiet depressed fields; used with a darker inset-style field gradient.
+  static const List<BoxShadow> softRecess = [
+    BoxShadow(
+      color: Color(0x35BFC4DC),
+      blurRadius: 6,
+      offset: Offset(2, 3),
+    ),
+    BoxShadow(
+      color: Color(0xD0FFFFFF),
+      blurRadius: 5,
+      offset: Offset(-2, -2),
+    ),
+  ];
+
   // Apple-grade ambient depth: soft, diffuse, low-opacity — larger blur,
   // gentler alpha than crisp/tight shadows.
   static const List<BoxShadow> subtle = [
