@@ -1,0 +1,4 @@
+User-requested one-shot GitHub Actions build of WhisPaste VN Light Neumorphism after repairing Vietnamese congress/year recognition.
+Workflow: build-whispaste-vn.yml
+Branch: feature/whispaste-vn-soft-neumorphism
+Requested: 2026-10-13
