@@ -9,30 +9,34 @@ import 'package:flutter/material.dart';
 import 'colors.dart';
 import 'tokens.dart';
 
-/// Build the complete WhisPaste dark [ThemeData].
-ThemeData wpDarkTheme() {
+/// Light, low-glare Neumorphism used by every WhisPaste VN page.
+ThemeData wpNeumorphicTheme() {
   const colorScheme = ColorScheme(
-    brightness: Brightness.dark,
+    brightness: Brightness.light,
     primary: WpColors.accent,
-    onPrimary: WpColors.background,
+    onPrimary: Color(0xFFFFFFFF),
     primaryContainer: WpColors.accentSubtle,
     onPrimaryContainer: WpColors.accent,
     secondary: WpColors.textSecondary,
-    onSecondary: WpColors.background,
+    onSecondary: WpColors.textPrimary,
     secondaryContainer: WpColors.surfaceVariant,
     onSecondaryContainer: WpColors.textPrimary,
     surface: WpColors.surface,
     onSurface: WpColors.textPrimary,
     surfaceContainerHighest: WpColors.surfaceVariant,
     error: WpColors.error,
-    onError: WpColors.background,
+    onError: Color(0xFFFFFFFF),
     outline: WpColors.borderDefault,
     outlineVariant: WpColors.borderSubtle,
-    shadow: Color(0xFF000000),
+    shadow: Color(0x65B9BEDB),
   );
 
   return _buildTheme(colorScheme);
 }
+
+/// Backward-compatible entry point for existing callers and tests.
+/// It intentionally resolves to the current user-selected light skin.
+ThemeData wpDarkTheme() => wpNeumorphicTheme();
 
 /// Turns the [ColorScheme] above into the full [ThemeData].
 ///
