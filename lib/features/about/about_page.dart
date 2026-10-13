@@ -395,6 +395,7 @@ class _AboutCard extends StatelessWidget {
         color: WpColors.cardFill,
         borderRadius: WpRadius.borderLg,
         border: Border.all(color: WpColors.cardEdgeHighlight),
+        boxShadow: WpShadows.softRaised,
       ),
       // The card already pads itself — the section only supplies the header.
       child: WpSection(
