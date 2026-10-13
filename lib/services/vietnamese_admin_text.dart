@@ -369,9 +369,339 @@ String _normalizeCongressOrdinals(String text) {
   return _applyEdits(text, edits);
 }
 
+
+// --- Conservative terminology rules for Vietnamese Party documents ---
+//
+// These are spoken-text formatting rules, not a catalogue of real documents.
+// The document number alone is not enough to infer an issuing authority.
+// Refs: 05-HD/VPTW (27 May 2026); user-supplied archival title examples.
+
+const _partyDocumentTypes = <String, String>{
+  'nghị quyết': 'NQ',
+  'kết luận': 'KL',
+  'chỉ thị': 'CT',
+  'quyết định': 'QĐ',
+  'quy định': 'QĐ',
+  'hướng dẫn': 'HD',
+  'kế hoạch': 'KH',
+  'chương trình': 'CTr',
+  'thông báo': 'TB',
+  'thông tri': 'TT',
+};
+
+const _partyTypeAliases = <String, String>{
+  ..._partyDocumentTypes,
+  'nq': 'NQ',
+  'kl': 'KL',
+  'ct': 'CT',
+  'qđ': 'QĐ',
+  'qd': 'QĐ',
+  'hd': 'HD',
+  'kh': 'KH',
+  'ctr': 'CTr',
+  'tb': 'TB',
+  'tt': 'TT',
+};
+
+// Longer phrases must precede their prefixes. A term is recognised ONLY
+// when explicitly spoken, not guessed from a document number.
+const _partyIssuingBodies = <String, String>{
+  'ban nội chính tỉnh ủy': 'BNCTU',
+  'ban tổ chức trung ương': 'BTCTW',
+  'văn phòng trung ương đảng': 'VPTW',
+  'văn phòng trung ương': 'VPTW',
+  'ban chấp hành trung ương đảng': 'TW',
+  'ban chấp hành trung ương': 'TW',
+  'ban bí thư trung ương đảng': 'TW',
+  'ban thường vụ tỉnh ủy': 'TU',
+  'ban thường vụ huyện ủy': 'HU',
+  'bch trung ương': 'TW',
+  'trung ương đảng': 'TW',
+  'bộ chính trị': 'TW',
+  'ban bí thư': 'TW',
+  'tỉnh ủy': 'TU',
+  'tỉnh uỷ': 'TU',
+  'huyện ủy': 'HU',
+  'huyện uỷ': 'HU',
+  'đảng ủy': 'ĐU',
+  'đảng uỷ': 'ĐU',
+  'đại hội': 'ĐH',
+  'trung ương': 'TW',
+  'btctw': 'BTCTW',
+  'vptw': 'VPTW',
+  'bnctu': 'BNCTU',
+  'tw': 'TW',
+  'tu': 'TU',
+  'hu': 'HU',
+  'đu': 'ĐU',
+  'đ u': 'ĐU',
+};
+
+class _PartyPhraseMatch {
+  const _PartyPhraseMatch(this.value, this.next);
+  final String value;
+  final int next;
+}
+
+/// Whitespace-only phrase matching; never match across punctuation or lines.
+_PartyPhraseMatch? _matchPartyPhrase(
+  String text,
+  List<_Token> tokens,
+  int start,
+  Map<String, String> phrases,
+) {
+  if (start < 0 || start >= tokens.length) return null;
+  for (final entry in phrases.entries) {
+    final parts = entry.key.split(' ');
+    if (start + parts.length > tokens.length) continue;
+    var found = true;
+    for (var j = 0; j < parts.length; j++) {
+      if (tokens[start + j].lower != parts[j]) {
+        found = false;
+        break;
+      }
+      if (j > 0) {
+        final between = text.substring(
+          tokens[start + j - 1].end,
+          tokens[start + j].start,
+        );
+        if (!_whitespace.hasMatch(between) || between.contains('\n')) {
+          found = false;
+          break;
+        }
+      }
+    }
+    if (found) return _PartyPhraseMatch(entry.value, start + parts.length);
+  }
+  return null;
+}
+
+String? _partyDocumentTypeBeforeNumber(
+  String text,
+  List<_Token> tokens,
+  int numberKeywordIndex,
+) {
+  for (final entry in _partyDocumentTypes.entries) {
+    final start = numberKeywordIndex - entry.key.split(' ').length;
+    final matched = _matchPartyPhrase(
+      text,
+      tokens,
+      start,
+      <String, String>{entry.key: entry.value},
+    );
+    if (matched != null && matched.next == numberKeywordIndex) {
+      return matched.value;
+    }
+  }
+  return null;
+}
+
+_PartyPhraseMatch? _partyBodyAfter(
+  String text,
+  List<_Token> tokens,
+  int start,
+) {
+  if (start < tokens.length && tokens[start].lower == 'của') {
+    start++;
+  }
+  return _matchPartyPhrase(text, tokens, start, _partyIssuingBodies);
+}
+
+/// Format explicitly spoken codes such as:
+/// - "Nghị quyết số 27 NQ Trung ương" -> "Nghị quyết số 27-NQ/TW"
+/// - "Hướng dẫn số 02 HD Ban Tổ chức Trung ương" -> "02-HD/BTCTW"
+/// - "Nghị quyết số 27 của Bộ Chính trị" -> "27-NQ/TW của ..."
+///
+/// Without BOTH the document type and its issuing body, leave the number
+/// as-is. Never overwrite an existing hyphenated/slashed document code.
+String _normalizePartyDocumentCodes(String text) {
+  final tokens = _tokenize(text);
+  final edits = <_Edit>[];
+  for (var i = 0; i < tokens.length; i++) {
+    if (tokens[i].lower != 'số') continue;
+    final number = _readNumber(text, tokens, i + 1);
+    if (number == null || number.value > 999999) continue;
+    final numberEnd = tokens[number.next - 1].end;
+    final tail = text.substring(numberEnd);
+    if (RegExp(r'^\s*[-/]').hasMatch(tail)) continue;
+
+    final precedingType = _partyDocumentTypeBeforeNumber(text, tokens, i);
+    final spokenType = _matchPartyPhrase(
+      text,
+      tokens,
+      number.next,
+      _partyTypeAliases,
+    );
+
+    // Explicit code spoken AFTER the number: consume code words, not content.
+    if (spokenType != null &&
+        (precedingType == null || precedingType == spokenType.value)) {
+      final body = _partyBodyAfter(text, tokens, spokenType.next);
+      if (body != null) {
+        final formatted = number.display + '-' +
+            spokenType.value + '/' + body.value;
+        edits.add(_Edit(
+          tokens[i + 1].start,
+          tokens[body.next - 1].end,
+          formatted,
+        ));
+        i = body.next - 1;
+        continue;
+      }
+    }
+
+    // Normal dictation: "Kết luận số 61 của Ban Bí thư".
+    // Keep the issuing body's spoken words; add only the known suffix.
+    if (precedingType != null) {
+      final body = _partyBodyAfter(text, tokens, number.next);
+      if (body != null) {
+        edits.add(_Edit(
+          tokens[i + 1].start,
+          numberEnd,
+          number.display + '-' + precedingType + '/' + body.value,
+        ));
+        i = number.next - 1;
+      }
+    }
+  }
+  return _applyEdits(text, edits);
+}
+
+/// Congress and Party-organisation sessions use Roman ordinal numerals;
+/// training classes, document IDs and calendar years do not.
+bool _hasPartySessionContext(String text, List<_Token> tokens, int at) {
+  if (at <= 0) return false;
+  final start = at > 10 ? at - 10 : 0;
+  final before = text
+      .substring(tokens[start].start, tokens[at].start)
+      .toLowerCase()
+      .split(RegExp(r'[.!?;\n]'))
+      .last;
+  if (before.contains('lớp ') || before.contains('lớp bồi dưỡng')) {
+    return false;
+  }
+  const markers = <String>[
+    'đại hội', 'đảng bộ', 'đảng ủy', 'đảng uỷ',
+    'ban chấp hành', 'bộ chính trị', 'ban bí thư',
+    'quốc hội', 'bch', 'bct',
+  ];
+  return markers.any(before.contains);
+}
+
+String _normalizePartySessionOrdinals(String text) {
+  final tokens = _tokenize(text);
+  final edits = <_Edit>[];
+  for (var i = 0; i < tokens.length; i++) {
+    final word = tokens[i].lower;
+    if (word != 'khóa' && word != 'quý') continue;
+    final number = _readNumber(text, tokens, i + 1);
+    if (number == null) continue;
+
+    if (word == 'khóa' &&
+        (number.value < 1 ||
+            number.value > 30 ||
+            !_hasPartySessionContext(text, tokens, i))) {
+      continue;
+    }
+    if (word == 'quý' && (number.value < 1 || number.value > 4)) {
+      continue;
+    }
+    final start = tokens[i + 1].start;
+    final end = tokens[number.next - 1].end;
+    if (RegExp(r'^\s*[-]').hasMatch(text.substring(end))) continue;
+    final roman = _toCongressRoman(number.value);
+    if (text.substring(start, end) != roman) {
+      edits.add(_Edit(start, end, roman));
+    }
+    i = number.next - 1;
+  }
+  return _applyEdits(text, edits);
+}
+
+/// Date ranges only when explicitly said "nhiệm kỳ ... đến ..." or
+/// "giai đoạn ... đến ..."; never join unrelated adjacent years.
+String _normalizePartyYearRanges(String text) {
+  final pattern = RegExp(
+    r'(nhiệm kỳ|giai đoạn)\s+((?:19|20)\d{2})\s+(đến|tới)\s+((?:19|20)\d{2})',
+    caseSensitive: false,
+    unicode: true,
+  );
+  final edits = <_Edit>[];
+  for (final m in pattern.allMatches(text)) {
+    final first = int.parse(m.group(2)!);
+    final second = int.parse(m.group(4)!);
+    if (second < first || second - first > 20) continue;
+    edits.add(_Edit(
+      m.start,
+      m.end,
+      m.group(1)! + ' ' + m.group(2)! + '-' + m.group(4)!,
+    ));
+  }
+  return _applyEdits(text, edits);
+}
+
+// Expand NOTHING automatically: an already recognized "BCH" stays "BCH",
+// while clearly identified full institutional names receive standard casing.
+// Longer proper names appear first to avoid overlapping token edits.
+const _partyProperTerms = <String, String>{
+  'ban chấp hành trung ương đảng': 'Ban Chấp hành Trung ương Đảng',
+  'văn phòng trung ương đảng': 'Văn phòng Trung ương Đảng',
+  'ban tổ chức trung ương': 'Ban Tổ chức Trung ương',
+  'ban nội chính tỉnh ủy': 'Ban Nội chính Tỉnh ủy',
+  'ban chấp hành trung ương': 'Ban Chấp hành Trung ương',
+  'mặt trận tổ quốc việt nam': 'Mặt trận Tổ quốc Việt Nam',
+  'đảng cộng sản việt nam': 'Đảng Cộng sản Việt Nam',
+  'hội nông dân việt nam': 'Hội Nông dân Việt Nam',
+  'ủy ban kiểm tra': 'Ủy ban Kiểm tra',
+  'uỷ ban kiểm tra': 'Ủy ban Kiểm tra',
+  'ban chấp hành': 'Ban Chấp hành',
+  'ban thường vụ': 'Ban Thường vụ',
+  'bộ chính trị': 'Bộ Chính trị',
+  'ban bí thư': 'Ban Bí thư',
+  'trung ương đảng': 'Trung ương Đảng',
+  'tỉnh ủy': 'Tỉnh ủy',
+  'tỉnh uỷ': 'Tỉnh ủy',
+  'huyện ủy': 'Huyện ủy',
+  'huyện uỷ': 'Huyện ủy',
+  'đảng ủy': 'Đảng ủy',
+  'đảng uỷ': 'Đảng ủy',
+  'đảng bộ': 'Đảng bộ',
+  'bch': 'BCH',
+  'btv': 'BTV',
+  'bct': 'BCT',
+  'ubkt': 'UBKT',
+  'mttqvn': 'MTTQVN',
+  'ubmttqvn': 'UBMTTQVN',
+  'nk': 'NK',
+};
+
+String _normalizePartyProperTerms(String text) {
+  final tokens = _tokenize(text);
+  final edits = <_Edit>[];
+  for (var i = 0; i < tokens.length; i++) {
+    final matched = _matchPartyPhrase(text, tokens, i, _partyProperTerms);
+    if (matched == null) continue;
+    final start = tokens[i].start;
+    final end = tokens[matched.next - 1].end;
+    if (text.substring(start, end) != matched.value) {
+      edits.add(_Edit(start, end, matched.value));
+    }
+    i = matched.next - 1;
+  }
+  return _applyEdits(text, edits);
+}
+
 /// Normalizes explicit spoken references, without guessing incomplete metadata.
 ///
 /// "Số sáu mươi mốt kết luận Trung ương" -> "Số 61-KL/TW"
 /// "ngày ba tháng mười hai năm hai nghìn lẻ chín" -> "ngày 3/12/2009"
-String normalizeVietnameseAdministrativeText(String text) =>
-    _normalizeCongressOrdinals(_normalizeNumbers(_normalizeDates(text)));
+String normalizeVietnameseAdministrativeText(String text) {
+  var result = _normalizeDates(text);
+  result = _normalizeNumbers(result);
+  result = _normalizePartyDocumentCodes(result);
+  result = _normalizeCongressOrdinals(result);
+  result = _normalizePartySessionOrdinals(result);
+  result = _normalizePartyYearRanges(result);
+  result = _normalizePartyProperTerms(result);
+  return result;
+}
