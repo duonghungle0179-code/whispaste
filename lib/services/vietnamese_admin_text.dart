@@ -271,9 +271,107 @@ String _normalizeNumbers(String text) {
   return _applyEdits(text, edits);
 }
 
+/// Roman numerals are appropriate for a congress's ordinal number, not
+/// arbitrary numbers such as document IDs, calendar dates or headcounts.
+String _toCongressRoman(int value) {
+  const symbols = <int, String>{
+    10: 'X', 9: 'IX', 5: 'V', 4: 'IV', 1: 'I',
+  };
+  final result = StringBuffer();
+  for (final entry in symbols.entries) {
+    while (value >= entry.key) {
+      result.write(entry.value);
+      value -= entry.key;
+    }
+  }
+  return result.toString();
+}
+
+/// "Đại hội số 13" -> "Đại hội số XIII".
+/// "Đại hội đại biểu toàn quốc lần thứ mười ba" -> "... lần thứ XIII".
+/// Only recognises a direct ordinal or an explicit "lần thứ" in the
+/// same short clause; other values (13 people, 13/10, 13-KL/TW) are untouched.
+String _normalizeCongressOrdinals(String text) {
+  final tokens = _tokenize(text);
+  final edits = <_Edit>[];
+  for (var i = 0; i + 1 < tokens.length; i++) {
+    if (tokens[i].lower != 'đại' || tokens[i + 1].lower != 'hội') {
+      continue;
+    }
+    // Require the words "đại hội" to be adjacent, without punctuation.
+    if (!_whitespace.hasMatch(
+      text.substring(tokens[i].end, tokens[i + 1].start),
+    )) {
+      continue;
+    }
+
+    var numberAt = i + 2;
+    if (numberAt >= tokens.length) continue;
+    var hasOrdinalMarker = false;
+    final marker = tokens[numberAt].lower;
+    if (marker == 'số' || marker == 'lần' || marker == 'thứ') {
+      hasOrdinalMarker = true;
+      numberAt++;
+      if (marker == 'lần' &&
+          numberAt < tokens.length &&
+          tokens[numberAt].lower == 'thứ') {
+        numberAt++;
+      }
+    } else if (!_isNumberToken(tokens[numberAt])) {
+      // Allow "Đại hội Đảng bộ tỉnh ... lần thứ 13", but do not jump
+      // across sentence boundaries or unrelated, distant statements.
+      var found = false;
+      for (var j = i + 2; j + 2 < tokens.length && j < i + 14; j++) {
+        if (tokens[j].lower == 'lần' &&
+            tokens[j + 1].lower == 'thứ' &&
+            !RegExp(r'[.!?;\n]').hasMatch(
+              text.substring(tokens[i + 1].end, tokens[j].start),
+            )) {
+          numberAt = j + 2;
+          hasOrdinalMarker = true;
+          found = true;
+          break;
+        }
+      }
+      if (!found) continue;
+    }
+
+    final number = _readNumber(text, tokens, numberAt);
+    // Bounded ordinals avoid misreading years (e.g. "Đại hội 2026").
+    if (number == null || number.value < 1 || number.value > 30) {
+      continue;
+    }
+    final end = tokens[number.next - 1].end;
+    final tail = text.substring(end);
+    // Do not change identifiers or dates, e.g. "13-KL/TW" or "13/10".
+    if (RegExp(r'^\s*[-/]').hasMatch(tail) ||
+        RegExp(r'^\s*[.,]\s*[0-9]').hasMatch(tail)) {
+      continue;
+    }
+    // Without "số/lần/thứ", "13 người" is a count, not an ordinal.
+    if (!hasOrdinalMarker &&
+        number.next < tokens.length &&
+        const <String>{
+          'người', 'đại', 'thành', 'năm', 'ngày', 'tháng', 'khách',
+          'đoàn', 'đơn',
+        }.contains(tokens[number.next].lower) &&
+        text.substring(end, tokens[number.next].start).trim().isEmpty) {
+      continue;
+    }
+
+    edits.add(_Edit(
+      tokens[numberAt].start,
+      end,
+      _toCongressRoman(number.value),
+    ));
+    i = number.next - 1;
+  }
+  return _applyEdits(text, edits);
+}
+
 /// Normalizes explicit spoken references, without guessing incomplete metadata.
 ///
 /// "Số sáu mươi mốt kết luận Trung ương" -> "Số 61-KL/TW"
 /// "ngày ba tháng mười hai năm hai nghìn lẻ chín" -> "ngày 3/12/2009"
 String normalizeVietnameseAdministrativeText(String text) =>
-    _normalizeNumbers(_normalizeDates(text));
+    _normalizeCongressOrdinals(_normalizeNumbers(_normalizeDates(text)));
