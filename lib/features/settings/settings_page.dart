@@ -254,6 +254,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
           color: WpColors.cardFill,
           borderRadius: WpRadius.borderLg,
           border: Border.all(color: WpColors.cardEdgeHighlight),
+          boxShadow: WpShadows.softRaised,
         ),
         // The *ring*, by contrast, goes in `foregroundDecoration`, never in
         // `decoration`: it is transient (it arrives with a search hit and
