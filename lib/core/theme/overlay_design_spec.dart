@@ -1094,13 +1094,13 @@ abstract final class OverlayDesignSpec {
   // hold ≥3:1 against both white and black extremes and need no shadow).
 
   /// Fill colour of all neutral content glyphs (text, close ✕, stop square).
-  static const Color contentGlyphFill = Color(0xFFFFFFFF);
+  static const Color contentGlyphFill = Color(0xFF30364E);
 
   /// Shadow ink beneath the white glyphs.
-  static const Color glyphShadowColor = Color(0xFF14202E);
+  static const Color glyphShadowColor = Color(0xFFFFFFFF);
 
   /// Shadow alpha.
-  static const double glyphShadowOpacity = 0.85;
+  static const double glyphShadowOpacity = 0.70;
 
   /// Gaussian blur sigma of the glyph shadow (soft, no hard ring).
   static const double glyphShadowBlurSigma = 1.75;
@@ -1399,6 +1399,10 @@ abstract final class OverlayDesignSpec {
   // in crisp content glyphs: the pulsing dot, the live waveform, the done
   // check (green) and the error icon/text (red).
 
+  // WhisPaste VN soft-lilac adaptation: shared capsule, text and floating
+  // button use the same ivory/lavender surface and ink as the main window.
+  // Recording/transcribing/done/error state colours stay semantic.
+
   // -- Theme colours ---------------------------------------------------------
 
   /// The approved spike (`spike/lib/main.dart` `kFinalDesign`, mirrored by the
@@ -1411,11 +1415,11 @@ abstract final class OverlayDesignSpec {
   /// Colours come verbatim from `kFinalDesign`: content `#14202E`,
   /// accent `#0887A8`, fill `#F7FAFD → #E6EEF5`, border `#330887A8`.
   static const OverlayThemeColors light = OverlayThemeColors(
-    capsuleFillStart: Color(0xFFF7FAFD),
-    capsuleFillEnd: Color(0xFFE6EEF5),
-    capsuleBorder: Color(0x330887A8),
-    text: Color(0xFF14202E),
-    accent: Color(0xFF0887A8),
+    capsuleFillStart: Color(0xFFFDFDFF),
+    capsuleFillEnd: Color(0xFFE8EAF8),
+    capsuleBorder: Color(0x406268C9),
+    text: Color(0xFF30364E),
+    accent: Color(0xFF6268C9),
     transcribingAccent: Color(0xFFD97706),
     success: Color(0xFF05875C),
     error: Color(0xFFCC1C1C),
@@ -1681,10 +1685,10 @@ abstract final class OverlayDesignSpec {
   /// V2 floating-button appearance.
   static const FloatingButtonSpec button = FloatingButtonSpec(
     discColor: Color(0xFFFFFFFF),
-    discGradientEnd: Color(0xFFEDF1F6),
+    discGradientEnd: Color(0xFFE9EAF8),
     discFillOpacity: 0.95,
-    iconColor: Color(0xFF101828),
-    borderColor: Color(0x1A101828),
+    iconColor: Color(0xFF4D56A7),
+    borderColor: Color(0x266268C9),
     borderWidth: 1.0,
     borderInset: 0.5,
     iconRatio: 24 / 56,
