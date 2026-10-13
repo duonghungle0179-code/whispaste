@@ -241,6 +241,8 @@ class _WpButtonState extends State<WpButton> {
       backgroundColor: WidgetStatePropertyAll(
         isPrimary
             ? (_isDisabled ? palette.disabledFill : tone.fill)
+            : widget.variant == WpButtonVariant.secondary
+            ? WpColors.cardFillElevated
             : Colors.transparent,
       ),
       foregroundColor: WidgetStatePropertyAll(contentColor),
@@ -305,6 +307,18 @@ class _WpButtonState extends State<WpButton> {
       ),
     };
 
+    // Keep the native Flutter button, focus handling, loading and shortcuts.
+    // Only its exterior material gains the light Neumorphic relief.
+    final raisedButton = widget.variant == WpButtonVariant.ghost
+        ? button
+        : DecoratedBox(
+            decoration: BoxDecoration(
+              borderRadius: spec.radius,
+              boxShadow: _isDisabled ? const [] : WpShadows.softRaisedSmall,
+            ),
+            child: button,
+          );
+
     Widget result = WpFocusRing(
       focusNode: _focusNode,
       radius: spec.ringRadius,
@@ -312,7 +326,7 @@ class _WpButtonState extends State<WpButton> {
       // docs; `null` keeps WpFocusRing's accent default everywhere else.
       ringColor: isPrimary ? palette.focusRing : null,
       insets: spec.ringInsets,
-      child: button,
+      child: raisedButton,
     );
 
     if (widget.expanded) {
@@ -471,7 +485,7 @@ class _WpButtonPalette {
       fill: WpColors.accent,
       // The theme's `onPrimary` — deep navy on cyan, ~11:1. Several call sites
       // hand-set white here today, which is ~1.9:1 on this accent.
-      onFill: WpColors.background,
+      onFill: Color(0xFFFFFFFF),
       content: WpColors.accent,
       border: WpColors.borderSubtle,
       hoverWash: WpColors.accentRowHover,
