@@ -101,7 +101,7 @@ class WhisPasteApp extends ConsumerWidget {
       // have kept the shape of a choice the app no longer offers, and
       // `themeMode:` would then be a setting whose every value looks the
       // same.
-      theme: wpDarkTheme(),
+      theme: wpNeumorphicTheme(),
       locale: locale,
       localizationsDelegates: const [
         ...L10n.localizationsDelegates,
