@@ -590,6 +590,7 @@ class _ReplacementsToggleCard extends StatelessWidget {
           color: WpColors.cardFill,
           borderRadius: WpRadius.borderMd,
           border: Border.all(color: WpColors.borderSubtle),
+          boxShadow: WpShadows.softRaisedSmall,
         ),
         child: SettingRow(
           icon: LucideIcons.replace,
@@ -642,6 +643,7 @@ class _VocabularyImportCard extends StatelessWidget {
           color: WpColors.cardFill,
           borderRadius: WpRadius.borderMd,
           border: Border.all(color: WpColors.borderSubtle),
+          boxShadow: WpShadows.softRaisedSmall,
         ),
         child: SettingRow(
           icon: LucideIcons.folderInput,
@@ -697,6 +699,7 @@ class _CorrectionLearningToggleCard extends StatelessWidget {
           color: WpColors.cardFill,
           borderRadius: WpRadius.borderMd,
           border: Border.all(color: WpColors.borderSubtle),
+          boxShadow: WpShadows.softRaisedSmall,
         ),
         child: SettingRow(
           icon: LucideIcons.sparkles,
@@ -764,6 +767,7 @@ class _CorrectionCandidatesCard extends StatelessWidget {
           color: WpColors.cardFill,
           borderRadius: WpRadius.borderMd,
           border: Border.all(color: WpColors.borderSubtle),
+          boxShadow: WpShadows.softRaisedSmall,
         ),
         child: SettingRow(
           icon: LucideIcons.lightbulb,
