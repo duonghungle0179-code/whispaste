@@ -1,13 +1,7 @@
 name: Build WhisPaste VN Windows
-# Temporary branch-only, path-guarded launch for the user-requested UI build.
-# Remove push after the one-shot run is queued; main stays manual-only.
+# Future builds only run after an explicit manual dispatch.
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - feature/whispaste-vn-soft-neumorphism
-    paths:
-      - .github/one-shot/neumorphism-build-20261013.txt
 
 concurrency:
   group: whispaste-vn-windows
