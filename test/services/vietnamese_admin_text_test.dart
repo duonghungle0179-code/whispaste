@@ -167,6 +167,99 @@ void main() {
       );
     });
 
+    test('Party document codes require both type and issuing body', () {
+      expect(
+        normalizeVietnameseAdministrativeText(
+          'Nghị quyết số 27 NQ Trung ương',
+        ),
+        'Nghị quyết số 27-NQ/TW',
+      );
+      expect(
+        normalizeVietnameseAdministrativeText(
+          'Kết luận số 61 của Ban Bí thư',
+        ),
+        'Kết luận số 61-KL/TW của Ban Bí thư',
+      );
+      expect(
+        normalizeVietnameseAdministrativeText(
+          'Hướng dẫn số 02 HD Ban Tổ chức Trung ương',
+        ),
+        'Hướng dẫn số 02-HD/BTCTW',
+      );
+      expect(
+        normalizeVietnameseAdministrativeText(
+          'Kế hoạch số 210 KH Huyện ủy',
+        ),
+        'Kế hoạch số 210-KH/HU',
+      );
+      expect(
+        normalizeVietnameseAdministrativeText('Nghị quyết số 27'),
+        'Nghị quyết số 27',
+      );
+      expect(
+        normalizeVietnameseAdministrativeText('Kế hoạch số 210'),
+        'Kế hoạch số 210',
+      );
+    });
+
+    test('party congress session and year range normalization', () {
+      expect(
+        normalizeVietnameseAdministrativeText(
+          'Ban chấp hành Trung ương Đảng khóa 13, nhiệm kỳ 2020 đến 2025',
+        ),
+        'Ban Chấp hành Trung ương Đảng khóa XIII, nhiệm kỳ 2020-2025',
+      );
+      expect(
+        normalizeVietnameseAdministrativeText(
+          'Nghị quyết đại hội Đảng bộ xã khóa mười',
+        ),
+        'Nghị quyết đại hội Đảng bộ xã khóa X',
+      );
+      expect(
+        normalizeVietnameseAdministrativeText(
+          'lớp bồi dưỡng đảng viên mới khóa 13',
+        ),
+        'lớp bồi dưỡng đảng viên mới khóa 13',
+      );
+      expect(
+        normalizeVietnameseAdministrativeText(
+          'nhiệm kỳ 2025 đến 2030, giai đoạn 2026 tới 2031',
+        ),
+        'nhiệm kỳ 2025-2030, giai đoạn 2026-2031',
+      );
+      expect(
+        normalizeVietnameseAdministrativeText('quý 3 năm 2024'),
+        'quý III năm 2024',
+      );
+      expect(
+        normalizeVietnameseAdministrativeText(
+          'Số 13 kết luận Trung ương, ngày 13 tháng 10 năm 2026',
+        ),
+        'Số 13-KL/TW, ngày 13/10/2026',
+      );
+    });
+
+    test('proper Party bodies are cased, ordinary prose preserved', () {
+      expect(
+        normalizeVietnameseAdministrativeText(
+          'ban thường vụ tỉnh ủy họp với ủy ban kiểm tra',
+        ),
+        'Ban Thường vụ Tỉnh ủy họp với Ủy ban Kiểm tra',
+      );
+      expect(
+        normalizeVietnameseAdministrativeText(
+          'bch đảng bộ xã làm việc với btv huyện ủy',
+        ),
+        'BCH Đảng bộ xã làm việc với BTV Huyện ủy',
+      );
+      expect(
+        normalizeVietnameseAdministrativeText(
+          'Hôm nay 13 đại biểu tham dự hội nghị',
+        ),
+        'Hôm nay 13 đại biểu tham dự hội nghị',
+      );
+    });
+
     test('already formatted identifiers stay unchanged on repeated passes', () {
       const formatted = 'Số 61-KL/TW, ngày 3/12/2009';
       expect(normalizeVietnameseAdministrativeText(formatted), formatted);
