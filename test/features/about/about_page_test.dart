@@ -128,25 +128,19 @@ void main() {
     );
   });
 
-  group('AboutPage review & support', () {
-    testWidgets('shows always-on "Rate & support WhisPaste" entry plus its '
-        'existing GitHub-Stern link — AC2', (tester) async {
+  group('VN About page has no promotional links', () {
+    testWidgets('hides support, rating, sponsor and X follow prompts', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         makeTestable(const AboutPage(), locale: const Locale('en')),
       );
       await tester.pumpAndSettle();
-
-      // The Support section sits near the bottom of the scroll view.
-      await tester.drag(
-        find.byType(SingleChildScrollView),
-        const Offset(0, -1600),
-      );
-      await tester.pumpAndSettle();
-
-      // Always-on entry is present.
-      expect(find.text(l10n.reviewSupportEntry), findsOneWidget);
-      // The existing GitHub-Stern link is preserved.
-      expect(find.text(l10n.aboutStarOnGitHub), findsOneWidget);
+      expect(find.text(l10n.aboutSupportTitle), findsNothing);
+      expect(find.text(l10n.reviewSupportEntry), findsNothing);
+      expect(find.text(l10n.aboutStarOnGitHub), findsNothing);
+      expect(find.text(l10n.aboutFollowOnX), findsNothing);
+      expect(find.text(l10n.aboutGitHub), findsOneWidget);
     });
   });
 
@@ -160,7 +154,7 @@ void main() {
     // dialects were folded into it. The name it announces is therefore the
     // button's own label rather than a hand-written Semantics label — which is
     // the same guarantee this test always made, one layer lower.
-    testWidgets('the GitHub support action is a focusable button, named once', (
+    testWidgets('the GitHub source action is a focusable button, named once', (
       tester,
     ) async {
       final handle = tester.ensureSemantics();
@@ -173,17 +167,17 @@ void main() {
         // Walking up from the caption lands on the button's own node: a
         // WpButton merges its label into one node, so there is nothing in
         // between to pick up by accident.
-        final node = tester.getSemantics(find.text(l10n.aboutStarOnGitHub));
+        final node = tester.getSemantics(find.text(l10n.aboutGitHub));
         expect(
           find.ancestor(
-            of: find.text(l10n.aboutStarOnGitHub),
+            of: find.text(l10n.aboutGitHub),
             matching: find.byType(WpButton),
           ),
           findsOneWidget,
         );
 
         // Exactly the rendered caption — not "Star on GitHub\nStar on GitHub".
-        expect(node.label, l10n.aboutStarOnGitHub);
+        expect(node.label, l10n.aboutGitHub);
         expect(
           node.getSemanticsData().flagsCollection.isButton,
           isTrue,

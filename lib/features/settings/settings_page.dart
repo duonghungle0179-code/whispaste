@@ -25,7 +25,6 @@ import 'sections/onboarding_review_section.dart';
 import 'sections/overlay_button_section.dart';
 import 'sections/privacy_section.dart';
 import 'sections/recording_sections.dart';
-import 'sections/review_support_section.dart';
 import 'sections/settings_portability_section.dart';
 import 'sections/smart_mode_section.dart';
 import 'sections/vietnamese_stt_section.dart';
@@ -90,7 +89,6 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     'automationApi': GlobalKey(),
     'updates': GlobalKey(),
     'onboardingReview': GlobalKey(),
-    'reviewSupport': GlobalKey(),
     'privacy': GlobalKey(),
   };
 
@@ -387,13 +385,6 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             OnboardingReviewSection(key: _sectionKeys['onboardingReview']),
           ),
         ),
-      (
-        'reviewSupport',
-        () => sectionCard(
-          'reviewSupport',
-          ReviewSupportSection(key: _sectionKeys['reviewSupport']),
-        ),
-      ),
       (
         'privacy',
         () => sectionCard(

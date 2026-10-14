@@ -31,6 +31,7 @@ import 'inference_request_validator.dart';
 import 'live_preview/live_transcript_previewer.dart';
 import 'prompt_token_budget.dart';
 import 'stt_benchmark.dart' show SttBenchmark;
+import 'stt_ram_policy.dart';
 import 'wav_header_repair.dart';
 import 'whisper/gpu_load_crash_guard.dart';
 import 'whisper/whisper_engine.dart';
@@ -248,6 +249,12 @@ class SttServerStateNotifier extends Notifier<SttStatus> {
   static const _promptExpiry = Duration(minutes: 10);
   bool _idleExtended = false;
   bool _isRecordingActive = false;
+
+  // Windows-only, best-effort RAM probe. Once loaded, a GGML model is
+  // reused while its process working set stays within the 14%-20% budget.
+  // Never await the OS query on the dictation path.
+  bool _ramProbeStarted = false;
+  int? _systemRamMb;
 
   /// Post-load benchmark waiting for the dictation pipeline to go quiet —
   /// see [_scheduleBenchmark]. Null when nothing is pending.
@@ -1096,14 +1103,25 @@ class SttServerStateNotifier extends Notifier<SttStatus> {
 
     if (baseMinutes <= 0) return;
 
-    var timeoutMinutes = baseMinutes;
+    var timeoutMinutes = Platform.isWindows
+        ? optimizedSttIdleMinutes(
+            configuredMinutes: baseMinutes,
+            totalRamMb: _systemRamMb,
+            processResidentBytes: ProcessInfo.currentRss,
+          )
+        : baseMinutes;
 
     if (extendAfterTranscription && !_idleExtended) {
-      timeoutMinutes = math.min(baseMinutes + 5, baseMinutes * 2);
+      // Extend the configured minimum, but do not override the 20% RAM
+      // ceiling. Large-memory machines already get a longer warm period.
+      final burstMinutes = math.min(baseMinutes + 5, baseMinutes * 2);
+      if (timeoutMinutes > 5 || _systemRamMb == null) {
+        timeoutMinutes = math.max(timeoutMinutes, burstMinutes);
+      }
       _idleExtended = true;
       _log.debug(
-        'Idle timer extended: ${timeoutMinutes}min '
-        '(base=${baseMinutes}min, burst=+5min)',
+        'Idle timer duration: ${timeoutMinutes}min '
+        '(configured=${baseMinutes}min, ram=${_systemRamMb ?? 0}MB)',
       );
     }
 
@@ -1115,6 +1133,27 @@ class SttServerStateNotifier extends Notifier<SttStatus> {
       );
       stop();
     });
+  }
+
+  void _probeSystemRamOnce() {
+    if (!Platform.isWindows || _ramProbeStarted) return;
+    _ramProbeStarted = true;
+    // Windows CIM/PowerShell can be slow: do not put this on the hotkey,
+    // audio capture, model loading or native Whisper inference paths.
+    unawaited(
+      hw.detectRamMB().then((ramMb) {
+        if (!ref.mounted) return;
+        _systemRamMb = ramMb;
+        final rssMb = ProcessInfo.currentRss ~/ (1024 * 1024);
+        _log.info(
+          'STT RAM retention: total=${ramMb ?? 0}MB '
+          'workingSet=${rssMb}MB; budget=14%-20% (no preallocation)',
+        );
+        if (state.isReady && !_isRecordingActive) _resetIdleTimer();
+      }).catchError((Object error) {
+        _log.debug('STT RAM probe unavailable: $error');
+      }),
+    );
   }
 
   void _debouncedPrewarmOnModelChange(String newModelId) {
@@ -1488,6 +1527,7 @@ class SttServerStateNotifier extends Notifier<SttStatus> {
         backend: _engine!.status.backend,
       ),
     );
+    _probeSystemRamOnce();
   }
 
   /// Strips whisper.cpp non-speech annotations from the transcript.

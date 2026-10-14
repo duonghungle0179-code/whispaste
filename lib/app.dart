@@ -74,9 +74,6 @@ import 'widgets/dialog.dart';
 import 'widgets/toast.dart';
 import 'widgets/feature_spotlight_notice.dart';
 import 'features/onboarding/smart_mode_usage_hint.dart';
-import 'widgets/review_prompt_dialog.dart';
-import 'widgets/store_thank_you_dialog.dart';
-import 'widgets/support_prompt_dialog.dart';
 
 // activePageProvider and settingsScrollTargetProvider are defined in
 // lib/core/navigation/page_state.dart (imported above).
@@ -1161,10 +1158,8 @@ class _AppShellState extends ConsumerState<_AppShell>
         ): () =>
             ref.read(activePageProvider.notifier).setPage('settings'),
       },
-      child: WpReviewPromptWatcher(
-        child: WpSupportPromptWatcher(
-          child: WpStoreThankYouWatcher(
-            child: WpFeatureSpotlightWatcher(
+      // WhisPaste VN: no marketing/review/sponsorship popups.
+      child: WpFeatureSpotlightWatcher(
               child: SmartModeUsageHintWatcher(
                 child: WpServiceBootstrap(
                   child: WpRecordingBehavior(
@@ -1482,9 +1477,6 @@ class _AppShellState extends ConsumerState<_AppShell>
                 ), // WpServiceBootstrap
               ), // SmartModeUsageHintWatcher
             ), // WpFeatureSpotlightWatcher
-          ), // WpStoreThankYouWatcher
-        ), // WpSupportPromptWatcher
-      ), // WpReviewPromptWatcher
     ); // CallbackShortcuts
   }
 }

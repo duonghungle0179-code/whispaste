@@ -11,7 +11,6 @@ import '../../core/config/settings_provider.dart';
 import '../../core/app_info.dart';
 import '../../core/app_urls.dart';
 import '../../core/l10n/generated/app_localizations.dart';
-import '../../core/sponsors.dart';
 import '../../core/l10n/locale_provider.dart';
 import '../../core/theme/colors.dart';
 import '../../core/theme/tokens.dart';
@@ -42,8 +41,8 @@ Future<void> _launchUrl(String url) async {
   }
 }
 
-/// About page — app info, version, open-source links, support, credits,
-/// keyboard shortcuts, privacy, and system diagnostics.
+/// About page — app info, open-source documentation, credits,
+/// keyboard shortcuts, privacy, and system diagnostics; no promotions.
 class AboutPage extends ConsumerWidget {
   const AboutPage({super.key});
 
@@ -55,12 +54,6 @@ class AboutPage extends ConsumerWidget {
     final settings = ref.watch(settingsProvider).value ?? AppSettings.defaults;
     final channel = ref.watch(deployChannelProvider);
     final updateState = ref.watch(updateProvider);
-    // Always-on review & support entry: opens the Microsoft Store review
-    // deep-link on Windows (where a store listing exists) and the GitHub
-    // repository on macOS/Linux. Single-source URLs from app_urls.dart.
-    final reviewSupportUrl = Platform.isWindows
-        ? kWindowsStoreReviewUrl
-        : kGitHubRepoUrl;
     // Resolved up front, like `updates_section.dart` does for the same action:
     // the button itself sits inside a collection-if and can't declare locals.
     final (updateIcon, updateLabel) = resolveUpdateActionDisplay(
@@ -95,8 +88,7 @@ class AboutPage extends ConsumerWidget {
           // Four peers in one row, so they share one look: the app's
           // `secondary` button on the `neutral` tone. Neutral rather than the
           // accent default because these sit directly under the brand hero and
-          // are wayfinding, not the thing the page asks you to do — the accent
-          // is spent one card further down, on Support.
+          // navigation rather than sponsorships or follow prompts.
           Wrap(
             spacing: WpSpacing.sm,
             runSpacing: WpSpacing.sm,
@@ -145,76 +137,6 @@ class AboutPage extends ConsumerWidget {
             ],
           ),
           const SizedBox(height: WpSpacing.xl),
-
-          // ── Support this project ──
-          _AboutCard(
-            title: l10n.aboutSupportTitle,
-            children: [
-              Text(
-                l10n.aboutSupportDescription,
-                style: const TextStyle(
-                  color: WpColors.textSecondary,
-                  fontSize: WpTypography.body,
-                  height: 1.5,
-                ),
-              ),
-              const SizedBox(height: WpSpacing.md),
-              // The one place on this page that keeps the accent tone: these
-              // four are the ask. Same `secondary` box as the quick actions —
-              // the hierarchy is carried by the label/icon colour, since the
-              // outline is `borderSubtle` on both tones.
-              Wrap(
-                spacing: WpSpacing.sm,
-                runSpacing: WpSpacing.sm,
-                children: [
-                  WpButton(
-                    label: l10n.reviewSupportEntry,
-                    variant: WpButtonVariant.secondary,
-                    icon: LucideIcons.star,
-                    onPressed: () => _launchUrl(reviewSupportUrl),
-                  ),
-                  WpButton(
-                    label: l10n.aboutGitHubSponsors,
-                    variant: WpButtonVariant.secondary,
-                    icon: LucideIcons.heart,
-                    onPressed: () => _launchUrl(kGitHubSponsorsUrl),
-                  ),
-                  WpButton(
-                    label: l10n.aboutKofi,
-                    variant: WpButtonVariant.secondary,
-                    icon: FontAwesomeIcons.mugHot.data,
-                    onPressed: () => _launchUrl(kKofiUrl),
-                  ),
-                  WpButton(
-                    label: l10n.aboutStarOnGitHub,
-                    variant: WpButtonVariant.secondary,
-                    icon: LucideIcons.star,
-                    onPressed: () => _launchUrl(kGitHubRepoUrl),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(height: WpSpacing.lg),
-
-          // ── Sponsors (opt-in recognition, hidden while the list is empty
-          // — see SPONSORS.md) ──
-          if (kSponsors.isNotEmpty) ...[
-            _AboutCard(
-              title: l10n.aboutSponsorsTitle,
-              children: [
-                Wrap(
-                  spacing: WpSpacing.sm,
-                  runSpacing: WpSpacing.sm,
-                  children: [
-                    for (final sponsor in kSponsors)
-                      _SponsorChip(sponsor: sponsor),
-                  ],
-                ),
-              ],
-            ),
-            const SizedBox(height: WpSpacing.lg),
-          ],
 
           // ── Built with ──
           _AboutCard(
@@ -291,12 +213,6 @@ class AboutPage extends ConsumerWidget {
                 label: l10n.aboutGitHubRepo,
                 url: kGitHubRepoUrl,
                 displayUrl: kGitHubRepoUrl.replaceFirst('https://', ''),
-              ),
-              _LinkRow(
-                icon: FontAwesomeIcons.xTwitter.data,
-                label: l10n.aboutFollowOnX,
-                url: kMaintainerXUrl,
-                displayUrl: kMaintainerXUrl.replaceFirst('https://', ''),
               ),
               _LinkRow(
                 icon: LucideIcons.scale,
@@ -427,15 +343,12 @@ class _AboutCard extends StatelessWidget {
 /// fragments.
 ///
 /// `button`/`link` still follow `onTap` rather than being hardcoded, even
-/// though neither remaining caller can be disabled today — `_SponsorChip`
-/// returns its bare chip when the sponsor has no URL and never wraps at all.
+/// though the remaining link-row caller is always enabled today.
 ///
 /// Scope note: this is what remains after the page's four *button* dialects
-/// (quick action, update check, support, copy diagnostics) moved to
-/// [WpButton]. It survives for the two affordances that are not buttons —
-/// `_SponsorChip` and `_LinkRow`, each a full-width or free-form row that
-/// paints its own surface — and it is deliberately *not* a restyle: ink and
-/// hover are transparent here, the caller owns the look.
+/// (quick action, update check, copy diagnostics) moved to [WpButton].
+/// It survives for `_LinkRow`, which paints its own surface; ink and
+/// hover stay transparent because the caller owns the look.
 class _AboutTapTarget extends StatefulWidget {
   const _AboutTapTarget({
     required this.child,
@@ -490,47 +403,6 @@ class _AboutTapTargetState extends State<_AboutTapTarget> {
           ),
         ),
       ),
-    );
-  }
-}
-
-// ─── Sponsor chip ────────────────────────────────────────────────────────────
-
-/// Displays a single opt-in sponsor entry (see `SPONSORS.md`). Tappable only
-/// when [Sponsor.url] is set.
-class _SponsorChip extends StatelessWidget {
-  const _SponsorChip({required this.sponsor});
-
-  final Sponsor sponsor;
-
-  @override
-  Widget build(BuildContext context) {
-    const borderColor = WpColors.borderSubtle;
-    const textColor = WpColors.textPrimary;
-
-    final chip = Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: WpSpacing.md,
-        vertical: WpSpacing.xs,
-      ),
-      decoration: BoxDecoration(
-        border: Border.all(color: borderColor),
-        borderRadius: WpRadius.borderSm,
-      ),
-      child: Text(
-        sponsor.name,
-        style: const TextStyle(fontSize: WpTypography.body, color: textColor),
-      ),
-    );
-
-    final url = sponsor.url;
-    if (url == null) return chip;
-
-    // loam-ignore: a11y-interactive-semantics – name folds in from the rendered text (see _AboutTapTarget)
-    return _AboutTapTarget(
-      isLink: true,
-      onTap: () => _launchUrl(url),
-      child: chip,
     );
   }
 }

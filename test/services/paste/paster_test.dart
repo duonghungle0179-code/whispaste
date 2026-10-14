@@ -361,6 +361,80 @@ void main() {
     );
   });
 
+  group('VN Windows fast paste (deferred safe clipboard restore)', () {
+    test('returns as soon as native paste succeeds, restores later', () async {
+      clipboardContent = 'previous clipboard';
+      final controller = _FakeController();
+      final paster = DesktopPaster(
+        controller,
+        restoreInBackground: true,
+        restoreDelayOverride: const Duration(milliseconds: 35),
+      );
+      final outcome = await paster.paste(
+        'hello',
+        const PasteOptions(autoPasteDelayMs: 0, blocklist: ''),
+      );
+      expect(outcome, PasteOutcome.success);
+      expect(clipboardContent, 'hello');
+      expect(controller.writeExcludingHistoryCalls, ['hello']);
+
+      await Future<void>.delayed(const Duration(milliseconds: 75));
+      expect(clipboardContent, 'previous clipboard');
+      expect(controller.writeExcludingHistoryCalls, [
+        'hello',
+        'previous clipboard',
+      ]);
+    });
+
+    test('does not overwrite a newer manual clipboard copy', () async {
+      clipboardContent = 'previous clipboard';
+      final controller = _FakeController();
+      final paster = DesktopPaster(
+        controller,
+        restoreInBackground: true,
+        restoreDelayOverride: const Duration(milliseconds: 35),
+      );
+      await paster.paste(
+        'hello',
+        const PasteOptions(autoPasteDelayMs: 0, blocklist: ''),
+      );
+      clipboardContent = 'new text copied by user';
+
+      await Future<void>.delayed(const Duration(milliseconds: 75));
+      expect(clipboardContent, 'new text copied by user');
+      expect(controller.writeExcludingHistoryCalls, ['hello']);
+    });
+
+    test('an old delayed restore cannot overwrite a second dictation', () async {
+      clipboardContent = 'before';
+      final controller = _FakeController();
+      final paster = DesktopPaster(
+        controller,
+        restoreInBackground: true,
+        restoreDelayOverride: const Duration(milliseconds: 50),
+      );
+      await paster.paste(
+        'first',
+        const PasteOptions(autoPasteDelayMs: 0, blocklist: ''),
+      );
+      await paster.paste(
+        'second',
+        const PasteOptions(autoPasteDelayMs: 0, blocklist: ''),
+      );
+      expect(clipboardContent, 'second');
+
+      await Future<void>.delayed(const Duration(milliseconds: 100));
+      // Only the newest restore runs, and it keeps the clipboard contents
+      // from before the first dictation rather than the intermediate paste.
+      expect(clipboardContent, 'before');
+      expect(controller.writeExcludingHistoryCalls, [
+        'first',
+        'second',
+        'before',
+      ]);
+    });
+  });
+
   group('DesktopPaster.typeText', () {
     test(
       'returns success and calls typeText once, not pasteClipboard',

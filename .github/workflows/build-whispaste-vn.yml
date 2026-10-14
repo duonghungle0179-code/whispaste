@@ -27,9 +27,28 @@ jobs:
       - name: Generate translations
         run: flutter gen-l10n
       - name: Static analysis for modified code
-        run: flutter analyze --no-fatal-infos lib/core/l10n lib/core/config/settings_sections.dart lib/features/settings lib/services/vietnamese_admin_text.dart lib/services/recording_orchestrator.dart lib/widgets/language_selector.dart lib/widgets/title_bar.dart
-      - name: Run Vietnamese locale and document tests
-        run: flutter test test/core/l10n/vietnamese_locale_test.dart test/services/vietnamese_admin_text_test.dart
+        run: >-
+          flutter analyze --no-fatal-infos
+          lib/app.dart
+          lib/core/l10n
+          lib/core/config/settings_sections.dart
+          lib/features/about/about_page.dart
+          lib/features/settings
+          lib/services/vietnamese_admin_text.dart
+          lib/services/recording_orchestrator.dart
+          lib/services/stt/stt_server_state_notifier.dart
+          lib/services/stt/stt_ram_policy.dart
+          lib/services/paste/desktop_paster.dart
+          lib/widgets/language_selector.dart
+          lib/widgets/title_bar.dart
+      - name: Run Vietnamese locale, dictation and speed-safety tests
+        run: >-
+          flutter test
+          test/core/l10n/vietnamese_locale_test.dart
+          test/services/vietnamese_admin_text_test.dart
+          test/services/stt/stt_ram_policy_test.dart
+          test/services/paste/paster_test.dart
+          test/features/about/about_page_test.dart
 
   windows:
     name: Package Windows ZIP and installer

@@ -140,21 +140,14 @@ void main() {
       expect(find.text(l10n.settingsResetToDefaults), findsOneWidget);
     });
 
-    testWidgets('shows always-on "Rate & support WhisPaste" entry — AC1', (
+    testWidgets('VN settings have no rating or promotional section', (
       tester,
     ) async {
       await tester.pumpWidget(
         makeTestable(const SettingsPage(), locale: const Locale('en')),
       );
       await tester.pumpAndSettle();
-      // The entry lives at the end of the settings list — scroll it into view.
-      await tester.drag(
-        find.byType(SingleChildScrollView),
-        const Offset(0, -1200),
-      );
-      await tester.pumpAndSettle();
-      // Always-on entry is visible and not gated by the review-prompt cooldown.
-      expect(_sectionText(l10n.reviewSupportEntry), findsOneWidget);
+      expect(_sectionText(l10n.reviewSupportEntry), findsNothing);
     });
 
     group('Floating Button section — platform gating', () {

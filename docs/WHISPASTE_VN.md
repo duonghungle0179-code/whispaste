@@ -171,3 +171,52 @@ Bộ quy tắc được rút ra từ 356 trích yếu trong danh mục văn bả
 - Chỉ chuẩn hóa tên tổ chức, tên cơ quan khi nhận rõ từ ngữ; không đổi mọi chữ viết tắt (BCH/BTV/UBKT) thành tên đầy đủ.
 - Danh mục có lỗi gõ và ký hiệu mâu thuẫn, vì vậy các mục nguồn không được coi là văn bản quy phạm chuẩn để sửa chính tả hàng loạt.
 - Chưa chạy kiểm thử Flutter/Windows và chưa build EXE sau các thay đổi này. Các quy tắc mới sẽ chỉ hoạt động sau khi build và cài bản mới.
+
+## Tối ưu bộ nhớ và độ trễ, dọn giao diện (14/10/2026)
+
+### RAM 14%-20% không phải mức cấp phát bắt buộc
+
+Ở Windows, tiến trình đọc **tổng RAM máy một lần trong nền**, sau khi mô
+hình đã sẵn sàng. Dựa trên *working set* (RSS) thực tế, bộ đếm idle được
+điều chỉnh như sau:
+
+- Tiến trình đang sử dụng **không quá 14% RAM máy**: giữ mô hình đã nạp
+  đến ít nhất **60 phút** nếu người dùng không tự chọn thời gian dài hơn.
+- Từ **trên 14% đến 20%**: giữ mô hình **ít nhất 25 phút**.
+- **Trên 20%**: giải phóng mô hình sau **tối đa 5 phút không hoạt động**.
+- Không đọc được RAM: dùng thời gian idle được cấu hình như trước.
+  Nếu người dùng đã chọn 0 (không tự giải phóng), tiếp tục tôn trọng lựa
+  chọn đó.
+
+Mục tiêu là **giảm nạp lại GGML model/warmup**, không cấp phát thêm RAM
+để đạt 14%-20%. RSS không tính đầy đủ VRAM của GPU, nên đây không phải
+bộ giới hạn cứng cho tổng lượng RAM+VRAM.
+
+### Dán nhanh trên Windows, không đánh đổi an toàn clipboard
+
+Ở bản VN Windows, khi hệ điều hành xác nhận thao tác Ctrl+V thành công,
+WhisPaste có thể hoàn tất giao diện sớm thay vì đợi 500ms an toàn **trước
+khi báo hoàn tất**. Clipboard cũ vẫn được khôi phục **sau đúng khoảng
+chờ an toàn cũ**, nhưng chỉ nếu clipboard chưa bị người dùng hoặc ứng
+dụng khác thay đổi. Khi nhiều lượt nhập liên tiếp, lượt dán mới nhất
+quyết định thời điểm khôi phục và nhớ giá trị clipboard gốc trước chuỗi
+lượt dán. Các nền tảng khác tiếp tục cách chờ đồng bộ cũ.
+
+Điều này giảm *độ trễ hiển thị hoàn tất*, không thay đổi tốc độ giải mã
+của Whisper hay bảo đảm tốc độ tuyệt đối trên mọi PC.
+
+### Giao diện không theo dõi/kêu gọi mạng xã hội
+
+- Bỏ đường dẫn **Theo dõi trên X** ở trang Giới thiệu; không có nút
+  Instagram trong giao diện hiện được kiểm tra.
+- Bỏ các mục kêu gọi tài trợ, Kofi, đánh giá, tặng sao, sponsor,
+  lời nhắc rating và follow-up hiện trên giao diện.
+- Giữ **GitHub nguồn và báo lỗi**, giấy phép, riêng tư, chẩn đoán và
+  chức năng cập nhật, vì đây là mục hỗ trợ kỹ thuật chứ không phải theo dõi.
+- Bỏ các lần kiểm tra engagement không cần thiết sau ghi âm; không
+  thay đổi thu âm, STT hoặc chính sách lưu lịch sử.
+
+Đã thêm kiểm thử cho chính sách RAM, dán nhanh có thể trì hoãn khôi phục
+và bảo toàn clipboard nếu người dùng copy mới, cùng thử nghiệm giao
+diện không còn quảng bá. Cần chạy kiểm thử Flutter và BUILD để xác nhận
+trên Windows; **không tự chạy GitHub Actions**.

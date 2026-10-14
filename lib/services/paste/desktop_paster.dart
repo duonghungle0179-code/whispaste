@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:math' as math;
 
+import 'package:flutter/foundation.dart' show visibleForTesting;
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -28,9 +30,27 @@ final _log = AppLogger('DesktopPaster');
 /// user's perspective there is one "paste" action, regardless of which of
 /// the two channels actually delivered the text.
 class DesktopPaster implements Paster {
-  const DesktopPaster(this._controller);
+  const DesktopPaster(
+    this._controller, {
+    this.restoreInBackground = false,
+    @visibleForTesting this.restoreDelayOverride,
+  });
 
   final DesktopPasteController _controller;
+
+  /// Windows VN: report paste completion as soon as native Ctrl+V succeeds,
+  /// then restore the old clipboard after the original safety delay.
+  /// Other platforms and existing callers retain the synchronous contract.
+  final bool restoreInBackground;
+
+  @visibleForTesting
+  final Duration? restoreDelayOverride;
+
+  // Prevent a previous paste's delayed restore from clobbering the current
+  // paste. A clipboard change by the user is checked separately below.
+  static int _clipboardPasteGeneration = 0;
+  static String? _pendingTransientText;
+  static String? _originalClipboardBeforePendingPaste;
 
   @override
   Future<void> prime() async {
@@ -120,6 +140,8 @@ class DesktopPaster implements Paster {
 
   @override
   Future<PasteOutcome> paste(String text, PasteOptions options) async {
+    final thisPaste = ++_clipboardPasteGeneration;
+
     // 1. Blocklist check
     final blocked = await _checkBlocklist(options.blocklist);
     if (blocked != null) return blocked;
@@ -138,6 +160,13 @@ class DesktopPaster implements Paster {
         e,
       );
     }
+
+    // Rapid dictations should restore the clipboard from *before the first*
+    // temporary paste, not the previous dictated sentence.
+    final restoreOriginal =
+        restoreInBackground && previousClipboard == _pendingTransientText
+        ? (_originalClipboardBeforePendingPaste ?? '')
+        : (previousClipboard ?? '');
 
     // 3. Write transcript to clipboard — history-excluded on platforms that
     // support it (Windows), so this transient write never becomes a new
@@ -197,25 +226,72 @@ class DesktopPaster implements Paster {
       return _mapFailure(pasteResult);
     }
 
-    // 5. Wait before restoring clipboard.
-    // Minimum 500 ms so the OS paste has landed before we overwrite it.
-    final restoreMs = math.max(500, delayMs + 350);
-    await Future<void>.delayed(Duration(milliseconds: restoreMs));
+    // 5. Preserve the original >=500ms safety window: some target apps
+    // only read the clipboard after Ctrl+V has been posted.
+    final restoreWait =
+        restoreDelayOverride ??
+        Duration(milliseconds: math.max(500, delayMs + 350));
+    if (restoreInBackground) {
+      _pendingTransientText = text;
+      _originalClipboardBeforePendingPaste = restoreOriginal;
+      // The transcript is already inserted. Post-paste housekeeping does not
+      // need to keep the "Transcribing" overlay visible for another 500ms.
+      // Never restore if the user has since copied different text.
+      unawaited(
+        _restoreClipboardLater(
+          thisPaste,
+          expectedText: text,
+          oldText: restoreOriginal,
+          delay: restoreWait,
+        ),
+      );
+      return PasteOutcome.success;
+    }
 
-    // 6. Restore previous clipboard contents — same history-exclusion as the
-    // transcript write above: restoring is WhisPaste's own housekeeping, not
-    // a fresh copy the user made, so it shouldn't surface as a new history
-    // entry either (issue #146).
+    // Original blocking behaviour remains available for other platforms
+    // and legacy API consumers.
+    await Future<void>.delayed(restoreWait);
     try {
       await _writeTransientClipboardText(
         previousClipboard ?? '',
       ).timeout(const Duration(seconds: 5));
     } on Exception catch (e) {
-      // Non-fatal — clipboard restore is best-effort.
       _log.debug('Clipboard restore after paste failed', e);
     }
-
     return PasteOutcome.success;
+  }
+
+  Future<void> _restoreClipboardLater(
+    int generation, {
+    required String expectedText,
+    required String oldText,
+    required Duration delay,
+  }) async {
+    await Future<void>.delayed(delay);
+    if (generation != _clipboardPasteGeneration) return;
+    try {
+      final current = await Clipboard.getData(Clipboard.kTextPlain)
+          .timeout(const Duration(seconds: 2));
+      // Do not overwrite a fresh copy made by the user or another app.
+      if (generation != _clipboardPasteGeneration ||
+          current?.text != expectedText) {
+        _log.debug('Skipping clipboard restore: contents changed');
+        if (generation == _clipboardPasteGeneration) {
+          _pendingTransientText = null;
+          _originalClipboardBeforePendingPaste = null;
+        }
+        return;
+      }
+      // Clear the pending state before restoring, so a new paste after this
+      // point sees its own true previous clipboard snapshot.
+      _pendingTransientText = null;
+      _originalClipboardBeforePendingPaste = null;
+      await _writeTransientClipboardText(oldText)
+          .timeout(const Duration(seconds: 5));
+    } on Exception catch (e) {
+      // OS history exclusion and restoration are still best effort.
+      _log.debug('Deferred clipboard restore skipped: $e');
+    }
   }
 
   /// Writes [text] to the clipboard for a transient purpose (the paste
@@ -278,5 +354,8 @@ class DesktopPaster implements Paster {
 final pasterProvider = Provider<Paster?>((ref) {
   final controller = ref.watch(desktopPasteControllerProvider);
   if (controller == null) return null;
-  return DesktopPaster(controller);
+  return DesktopPaster(
+    controller,
+    restoreInBackground: Platform.isWindows,
+  );
 });
