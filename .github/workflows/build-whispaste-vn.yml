@@ -1,12 +1,7 @@
 name: Build WhisPaste VN Windows
-# Temporary one-time push trigger for the user-requested build.
-# Revert to workflow_dispatch-only once the run is queued.
+# Future builds only run after an explicit manual dispatch.
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/build-whispaste-vn.yml'
 
 concurrency:
   group: whispaste-vn-windows
