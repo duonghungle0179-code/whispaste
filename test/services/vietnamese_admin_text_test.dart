@@ -348,6 +348,8 @@ void main() {
     test('ambiguous codes are never invented from prose', () {
       const untouched = <String>[
         'Quyết định không ba quy định huyện ủy',
+        'Quyết định số không ba quy định huyện ủy',
+        'Quy định số không ba quyết định huyện ủy',
         'Quy định không ba quyết định huyện ủy',
         'Hôm nay báo cáo ba công việc với huyện ủy',
         'Đề án không hai đề án của huyện',
