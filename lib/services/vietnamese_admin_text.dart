@@ -378,6 +378,12 @@ String _normalizeCongressOrdinals(String text) {
 
 const _partyDocumentTypes = <String, String>{
   'nghị quyết': 'NQ',
+  'quy chế': 'QC',
+  'báo cáo': 'BC',
+  'biên bản': 'BB',
+  'công văn': 'CV',
+  'tờ trình': 'TTr',
+  'đề án': 'ĐA',
   'kết luận': 'KL',
   'chỉ thị': 'CT',
   'quyết định': 'QĐ',
@@ -392,6 +398,13 @@ const _partyDocumentTypes = <String, String>{
 const _partyTypeAliases = <String, String>{
   ..._partyDocumentTypes,
   'nq': 'NQ',
+  'qc': 'QC',
+  'bc': 'BC',
+  'bb': 'BB',
+  'cv': 'CV',
+  'ttr': 'TTr',
+  'đề án': 'ĐA',
+  'đa': 'ĐA',
   'kl': 'KL',
   'ct': 'CT',
   'qđ': 'QĐ',
@@ -406,6 +419,15 @@ const _partyTypeAliases = <String, String>{
 // Longer phrases must precede their prefixes. A term is recognised ONLY
 // when explicitly spoken, not guessed from a document number.
 const _partyIssuingBodies = <String, String>{
+  'ban tuyên giáo và dân vận tỉnh ủy': 'BTGDVTU',
+  'ủy ban kiểm tra trung ương': 'UBKTTW',
+  'văn phòng trung ương đảng': 'VPTW',
+  'văn phòng tỉnh ủy': 'VPTU',
+  'văn phòng huyện ủy': 'VPHU',
+  'đảng ủy công an huyện': 'ĐUCAH',
+  'ban dân vận huyện ủy': 'BDVHU',
+  'ban tổ chức tỉnh ủy': 'BTCTU',
+  'ban tổ chức huyện ủy': 'BTCHU',
   'ban nội chính tỉnh ủy': 'BNCTU',
   'ban tổ chức trung ương': 'BTCTW',
   'văn phòng trung ương đảng': 'VPTW',
@@ -427,6 +449,14 @@ const _partyIssuingBodies = <String, String>{
   'đảng uỷ': 'ĐU',
   'đại hội': 'ĐH',
   'trung ương': 'TW',
+  'ubkttw': 'UBKTTW',
+  'btgdvtu': 'BTGDVTU',
+  'vptu': 'VPTU',
+  'vphu': 'VPHU',
+  'đucah': 'ĐUCAH',
+  'bdvhu': 'BDVHU',
+  'btctu': 'BTCTU',
+  'btchu': 'BTCHU',
   'btctw': 'BTCTW',
   'vptw': 'VPTW',
   'bnctu': 'BNCTU',
@@ -727,6 +757,21 @@ String _normalizeSpokenPartyCodes(String text) {
       text, tokens, number.next, _partyTypeAliases,
     );
     if (repeat == null || repeat.value != type.value) continue;
+
+    // "quyết định" and "quy định" both use QĐ. Do not silently
+    // treat one *spoken word* as the other just because the code matches.
+    if (type.value == 'QĐ') {
+      final firstText = text.substring(
+        tokens[i].start, tokens[type.next - 1].end,
+      ).toLowerCase();
+      final repeatedText = text.substring(
+        tokens[number.next].start, tokens[repeat.next - 1].end,
+      ).toLowerCase();
+      if (repeatedText != 'qđ' && repeatedText != 'qd' &&
+          firstText != repeatedText) {
+        continue;
+      }
+    }
     final body = _partyBodyAfter(text, tokens, repeat.next);
     if (body == null) continue;
     // Do not cross punctuation between type, number and issuing body.
