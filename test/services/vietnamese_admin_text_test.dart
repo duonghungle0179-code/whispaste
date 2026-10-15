@@ -260,6 +260,39 @@ void main() {
       );
     });
 
+    test('spoken Party document codes from archival samples', () {
+      final examples = <String, String>{
+        'Nghị quyết không ba nghị quyết huyện ủy': 'Nghị quyết 03-NQ/HU',
+        'Nghị quyết số không tám nghị quyết huyện ủy':
+            'Nghị quyết số 08-NQ/HU',
+        'Chỉ thị không năm chỉ thị trung ương': 'Chỉ thị 05-CT/TW',
+        'Kế hoạch bốn mươi tám kế hoạch đảng ủy':
+            'Kế hoạch 48-KH/ĐU',
+        'Báo cáo sơ kết năm năm thực hiện nghị quyết không ba nghị quyết huyện ủy của Huyện ủy':
+            'Báo cáo sơ kết năm năm thực hiện nghị quyết 03-NQ/HU của Huyện ủy',
+      };
+      for (final entry in examples.entries) {
+        expect(normalizeVietnameseAdministrativeText(entry.key),
+            entry.value);
+      }
+    });
+
+    test('spoken codes are guarded against ambiguity', () {
+      for (final input in <String>[
+        'Nghị quyết không ba của huyện ủy',
+        'Nghị quyết không ba nghị quyết của huyện',
+        'Nghị quyết không ba chỉ thị huyện ủy',
+        'Nghị quyết không ba, nghị quyết huyện ủy',
+        'Hôm nay không ba người đến hội nghị',
+        'Nghị quyết 03-NQ/HU',
+      ]) {
+        expect(normalizeVietnameseAdministrativeText(input), input);
+      }
+      const sample = 'Nghị quyết không ba nghị quyết huyện ủy';
+      final once = normalizeVietnameseAdministrativeText(sample);
+      expect(normalizeVietnameseAdministrativeText(once), once);
+    });
+
     test('already formatted identifiers stay unchanged on repeated passes', () {
       const formatted = 'Số 61-KL/TW, ngày 3/12/2009';
       expect(normalizeVietnameseAdministrativeText(formatted), formatted);
