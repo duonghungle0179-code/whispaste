@@ -78,6 +78,6 @@ Nguồn: Hướng dẫn 05-HD/VPTW 2026, mục 3.1.2, đặc biệt quy tắc **
 17. [02-CTr/BCĐTW — chương trình](https://tulieuvankien.dangcongsan.vn/van-ban-cua-dang/chuong-trinh-cong-tac-nam-2026-cua-ban-chi-dao-trung-uong-ve-phat-trien-khoa-hoc-cong-nghe-doi-moi-sang-tao-va-chuyen-do.html)
 18. [31-CTr/TW — chương trình](https://tulieuvankien.dangcongsan.vn/van-ban-cua-dang/chuong-trinh-hanh-dong-so-31-ctr-tw-ngay-28-7-2026-cua-bo-chinh-tri-thuc-hien-ket-luan-so-75-kl-tw-ngay-28-7-2026-cua-ba.html?categoryId=102000092)
 19. [145-KH/BTGDVTW — Ban Tuyên giáo và Dân vận Trung ương](https://tulieuvankien.dangcongsan.vn/van-ban-cua-dang/ke-hoach-day-manh-thong-tin-tuyen-truyen-tren-bao-chi-ve-viec-to-chuc-trien-khai-nghi-quyet-so-57-nq-tw-ngay-22-12-2024-.html?categoryId=102000092)
-20. [06-HD/BTCTW — Ban Tổ chức Trung ương](https://tulieuvankien.dangcongsan.vn/he-thong-van-ban/van-ban-cua-dang?categoryId=102000092)
+20. [06-HD/BTCTW — Ban Tổ chức Trung ương](https://tulieuvankien.dangcongsan.vn/he-thong-van-ban/van-ban-cua-dang/huong-dan-so-06-hd-btctw-ngay-11-10-2026-cua-ban-to-chuc-trung-uong-mot-so-noi-dung-ve-vtvl-cc-vc-ban-mo-ta-cong-viec-kh.html)
 
 Một số trang trong bộ nguồn chỉ xác nhận **kiểu mã tồn tại**, không hàm ý chứng thực rằng mọi tổ hợp loại văn bản + cơ quan đều đã được ban hành trong thực tế.
