@@ -418,6 +418,7 @@ const _partyTypeAliases = <String, String>{
 // Longer phrases must precede their prefixes. A term is recognised ONLY
 // when explicitly spoken, not guessed from a document number.
 const _partyIssuingBodies = <String, String>{
+  'ban tuyên giáo và dân vận trung ương': 'BTGDVTW',
   'ban tuyên giáo và dân vận tỉnh ủy': 'BTGDVTU',
   'ủy ban kiểm tra trung ương': 'UBKTTW',
   'văn phòng trung ương đảng': 'VPTW',
@@ -448,6 +449,7 @@ const _partyIssuingBodies = <String, String>{
   'đại hội': 'ĐH',
   'trung ương': 'TW',
   'ubkttw': 'UBKTTW',
+  'btgdvtw': 'BTGDVTW',
   'btgdvtu': 'BTGDVTU',
   'vptu': 'VPTU',
   'vphu': 'VPHU',
