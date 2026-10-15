@@ -83,13 +83,19 @@ class CorrectionLearningService {  const CorrectionLearningService();
     if (learned != null &&
         (existing == null ||
             existing.status == CorrectionObservationStatus.pending)) {
-      await db.upsertReplacementWithTriggers(
-        id: generateV4Uuid(),
-        triggers: [learned.source],
-        replacement: learned.target,
-        createdAt: signal.timestamp,
-        origin: 'learned',
-      );
+      final replacements = await db.readAllReplacements();
+      final known = replacements.any((r) => r.triggers.any(
+            (trigger) => trigger.toLowerCase() == learned.source.toLowerCase(),
+          ));
+      if (!known) {
+        await db.upsertReplacementWithTriggers(
+          id: generateV4Uuid(),
+          triggers: [learned.source],
+          replacement: learned.target,
+          createdAt: signal.timestamp,
+          origin: 'learned',
+        );
+      }
     }
     await db.upsertCorrectionObservation(
       id: row?.id ?? generateV4Uuid(),
