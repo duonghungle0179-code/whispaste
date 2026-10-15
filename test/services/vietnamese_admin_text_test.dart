@@ -293,6 +293,78 @@ void main() {
       expect(normalizeVietnameseAdministrativeText(once), once);
     });
 
+    test('2026 Party archive abbreviation catalog from source documents', () {
+      const examples = <String, String>{
+        'Nghị quyết không ba nghị quyết huyện ủy':
+            'Nghị quyết 03-NQ/HU',
+        'Quy chế không chín quy chế trung ương':
+            'Quy chế 09-QC/TW',
+        'Báo cáo không một báo cáo đại hội':
+            'Báo cáo 01-BC/ĐH',
+        'Biên bản hai mươi biên bản đại hội':
+            'Biên bản 20-BB/ĐH',
+        'Công văn một trăm ba mươi tám công văn ban tuyên giáo và dân vận tỉnh ủy':
+            'Công văn 138-CV/BTGDVTU',
+        'Tờ trình ba mươi tám tờ trình ban tổ chức trung ương':
+            'Tờ trình 38-TTr/BTCTW',
+        'Đề án không hai đề án huyện ủy':
+            'Đề án 02-ĐA/HU',
+        'Quyết định hai mươi ba quyết định ủy ban kiểm tra trung ương':
+            'Quyết định 23-QĐ/UBKTTW',
+        'Quy định hai mươi ba quy định ủy ban kiểm tra trung ương':
+            'Quy định 23-QĐ/UBKTTW',
+        'Chương trình ba mươi mốt chương trình trung ương':
+            'Chương trình 31-CTr/TW',
+        'Thông tri không ba thông tri trung ương':
+            'Thông tri 03-TT/TW',
+        'Thông báo một trăm ba mươi tư thông báo văn phòng trung ương':
+            'Thông báo 134-TB/VPTW',
+        'Kế hoạch một trăm mười lăm kế hoạch văn phòng trung ương':
+            'Kế hoạch 115-KH/VPTW',
+        'Chỉ thị không bảy chỉ thị trung ương':
+            'Chỉ thị 07-CT/TW',
+        'Kết luận năm mươi bảy kết luận trung ương':
+            'Kết luận 57-KL/TW',
+        'Hướng dẫn không sáu hướng dẫn ban tổ chức trung ương':
+            'Hướng dẫn 06-HD/BTCTW',
+        'Kế hoạch mười bảy kế hoạch văn phòng huyện ủy':
+            'Kế hoạch 17-KH/VPHU',
+        'Công văn hai trăm năm mươi bảy công văn đảng ủy công an huyện':
+            'Công văn 257-CV/ĐUCAH',
+        'Kế hoạch một trăm bốn mươi lăm kế hoạch ban tuyên giáo và dân vận trung ương':
+            'Kế hoạch 145-KH/BTGDVTW',
+      };
+      for (final item in examples.entries) {
+        expect(normalizeVietnameseAdministrativeText(item.key), item.value);
+        expect(
+          normalizeVietnameseAdministrativeText(
+            normalizeVietnameseAdministrativeText(item.key),
+          ),
+          item.value,
+        );
+      }
+    });
+
+    test('ambiguous codes are never invented from prose', () {
+      const untouched = <String>[
+        'Quyết định không ba quy định huyện ủy',
+        'Quy định không ba quyết định huyện ủy',
+        'Hôm nay báo cáo ba công việc với huyện ủy',
+        'Đề án không hai đề án của huyện',
+        'Báo cáo ba, báo cáo huyện ủy',
+        'Công văn của Ban Tuyên giáo và Dân vận Tỉnh ủy',
+      ];
+      for (final sample in untouched) {
+        final once = normalizeVietnameseAdministrativeText(sample);
+        expect(once.contains('-QĐ/HU') || once.contains('-BC/HU') ||
+            once.contains('-ĐA/HU') || once.contains('-CV/BTGDVTU'), isFalse);
+      }
+      expect(
+        normalizeVietnameseAdministrativeText('Số 23-QĐ/UBKTTW'),
+        'Số 23-QĐ/UBKTTW',
+      );
+    });
+
     test('already formatted identifiers stay unchanged on repeated passes', () {
       const formatted = 'Số 61-KL/TW, ngày 3/12/2009';
       expect(normalizeVietnameseAdministrativeText(formatted), formatted);
