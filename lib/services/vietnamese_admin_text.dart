@@ -1,7 +1,8 @@
 /// Deterministic Vietnamese administrative-document text normalization.
 ///
-/// Only explicit "số" identifiers and "ngày...tháng...năm..." dates are
-/// transformed. Unknown document types and ambiguous cases remain unchanged.
+/// Formats dates and explicitly spoken document symbols, including
+/// "nghị quyết không ba nghị quyết huyện ủy" -> "nghị quyết 03-NQ/HU".
+/// Unknown issuers and ambiguous documents remain unchanged.
 library;
 
 final _tokenPattern = RegExp(r'[A-Za-zÀ-ỹĐđ]+|[0-9]+', unicode: true);
@@ -566,6 +567,20 @@ String _normalizePartyDocumentCodes(String text) {
     // Explicit code spoken AFTER the number: consume code words, not content.
     if (spokenType != null &&
         (precedingType == null || precedingType == spokenType.value)) {
+      // Quyết định and Quy định have the same code (QĐ) but are different
+      // document types. Reject a conflicting full-word dictation.
+      if (precedingType == 'QĐ' && spokenType.value == 'QĐ' &&
+          i >= 2 && spokenType.next > number.next) {
+        final before = text.substring(
+          tokens[i - 2].start, tokens[i - 1].end,
+        ).toLowerCase();
+        final after = text.substring(
+          tokens[number.next].start, tokens[spokenType.next - 1].end,
+        ).toLowerCase();
+        if (after != 'qđ' && after != 'qd' && after != before) {
+          continue;
+        }
+      }
       final body = _partyBodyAfter(text, tokens, spokenType.next);
       if (body != null) {
         final formatted = number.display + '-' +
