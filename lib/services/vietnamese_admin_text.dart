@@ -691,12 +691,70 @@ String _normalizePartyProperTerms(String text) {
   return _applyEdits(text, edits);
 }
 
+/// Converts dictation of a document's full spoken symbol, including the
+/// common form without "số": "nghị quyết không ba nghị quyết huyện ủy".
+/// A second, matching document type after the number is mandatory: this
+/// distinguishes a spoken symbol from ordinary "nghị quyết ba ...".
+String _normalizeSpokenPartyCodes(String text) {
+  final tokens = _tokenize(text);
+  final edits = <_Edit>[];
+  for (var i = 0; i < tokens.length; i++) {
+    final type = _matchPartyPhrase(text, tokens, i, _partyDocumentTypes);
+    if (type == null) continue;
+    var numberAt = type.next;
+    if (numberAt < tokens.length && tokens[numberAt].lower == 'số') {
+      numberAt++;
+    }
+    if (numberAt >= tokens.length) continue;
+    final number = _readNumber(text, tokens, numberAt);
+    if (number == null || number.value > 999999) continue;
+    // Require whitespace throughout the spoken symbol, not a preformatted
+    // identifier or punctuation separating independent clauses.
+    var adjacent = true;
+    for (var j = i + 1; j < number.next; j++) {
+      final between = text.substring(tokens[j - 1].end, tokens[j].start);
+      if (!_whitespace.hasMatch(between) || between.contains('\n')) {
+        adjacent = false;
+        break;
+      }
+    }
+    if (!adjacent) continue;
+    final numberEnd = tokens[number.next - 1].end;
+    if (RegExp(r'^\s*[-/]').hasMatch(text.substring(numberEnd))) {
+      continue;
+    }
+    final repeat = _matchPartyPhrase(
+      text, tokens, number.next, _partyTypeAliases,
+    );
+    if (repeat == null || repeat.value != type.value) continue;
+    final body = _partyBodyAfter(text, tokens, repeat.next);
+    if (body == null) continue;
+    // Do not cross punctuation between type, number and issuing body.
+    var safe = true;
+    for (var j = number.next; j < body.next; j++) {
+      if (j == 0) continue;
+      final between = text.substring(tokens[j - 1].end, tokens[j].start);
+      if (!_whitespace.hasMatch(between) || between.contains('\n')) {
+        safe = false;
+        break;
+      }
+    }
+    if (!safe) continue;
+    final replacement = number.display + '-' + type.value + '/' + body.value;
+    edits.add(_Edit(tokens[numberAt].start, tokens[body.next - 1].end,
+        replacement));
+    i = body.next - 1;
+  }
+  return _applyEdits(text, edits);
+}
+
 /// Normalizes explicit spoken references, without guessing incomplete metadata.
 ///
 /// "Số sáu mươi mốt kết luận Trung ương" -> "Số 61-KL/TW"
 /// "ngày ba tháng mười hai năm hai nghìn lẻ chín" -> "ngày 3/12/2009"
 String normalizeVietnameseAdministrativeText(String text) {
   var result = _normalizeDates(text);
+  result = _normalizeSpokenPartyCodes(result);
   result = _normalizeNumbers(result);
   result = _normalizePartyDocumentCodes(result);
   result = _normalizeCongressOrdinals(result);
