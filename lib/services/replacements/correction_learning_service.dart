@@ -44,26 +44,25 @@ class CorrectionCandidate {
   String get displayText => '$sourceText → $targetText  (×$occurrenceCount)';
 }
 
-/// A one-word replacement isolated by common prefix/suffix tokens.
-/// Sentence rewrites, punctuation-only edits and short ambiguous words
-/// remain suggestions, not automatic global rules.
-({String source, String target})? singleWordCorrection(
-  String before,
-  String after,
-) {
-  final a = before.trim().split(RegExp(r'\\s+'));
-  final b = after.trim().split(RegExp(r'\\s+'));
+/// Extract only an isolated lexical substitution, not sentence rewrites.
+({String source, String target})? singleWordCorrection(String before, String after) {
+  final a = before.trim().split(RegExp(r'\s+'));
+  final b = after.trim().split(RegExp(r'\s+'));
   if (a.length != b.length || a.isEmpty) return null;
   final changed = <int>[];
   for (var i = 0; i < a.length; i++) {
     if (a[i] != b[i]) changed.add(i);
   }
   if (changed.length != 1) return null;
-  final i = changed.single;
-  final source = a[i];
-  final target = b[i];
-  final lexical = RegExp(r'^[\\p{L}]{3,}
-  const CorrectionLearningService();
+  final source = a[changed.single];
+  final target = b[changed.single];
+  final lexical = RegExp(r'^\p{L}{3,}$', unicode: true);
+  if (!lexical.hasMatch(source) || !lexical.hasMatch(target)) return null;
+  if (source.toLowerCase() == target.toLowerCase()) return null;
+  return (source: source, target: target);
+}
+
+class CorrectionLearningService {  const CorrectionLearningService();
 
   /// Persists one observed [signal]: folds it into the existing observation
   /// for its normalized correction key (if any) via [applyCorrectionSignal]
