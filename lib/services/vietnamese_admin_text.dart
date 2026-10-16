@@ -546,6 +546,8 @@ _PartyPhraseMatch? _matchPartyPhrase(
   Map<String, String> phrases,
 ) {
   if (start < 0 || start >= tokens.length) return null;
+  _PartyPhraseMatch? best;
+  var bestLength = 0;
   for (final entry in phrases.entries) {
     final parts = entry.key.split(' ');
     if (start + parts.length > tokens.length) continue;
@@ -566,9 +568,12 @@ _PartyPhraseMatch? _matchPartyPhrase(
         }
       }
     }
-    if (found) return _PartyPhraseMatch(entry.value, start + parts.length);
+    if (found && parts.length > bestLength) {
+      best = _PartyPhraseMatch(entry.value, start + parts.length);
+      bestLength = parts.length;
+    }
   }
-  return null;
+  return best;
 }
 
 /// Keeps spoken symbol fragments inside one uninterrupted phrase.
