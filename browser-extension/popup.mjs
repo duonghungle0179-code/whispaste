@@ -1,8 +1,8 @@
-import {normalize} from "./normalizer.mjs";
+import {normalize,singleWordCorrection} from "./normalizer.mjs";
 
 const el=(id)=>document.getElementById(id);
 let learned=[],recognition=null,recorder=null,audioStream=null,recorded=[];
-let busy=false,speechFailed=false;
+let busy=false,speechFailed=false,baseline='';
 const store=chrome.storage.local;
 function message(text,error=false){el("status").textContent=text;el("status").style.color=error?"#a53333":"#215d57";}
 function provider(){return el("provider").value;}
@@ -10,7 +10,8 @@ function setRecording(on){
   busy=on;el("start").disabled=on;el("stop").disabled=!on;
 }
 function updateResult(){
-  el("result").value=normalize(el("raw").value,learned);
+  baseline=normalize(el("raw").value,learned);
+  el("result").value=baseline;
 }
 function updateCount(){el("learnCount").textContent="Đã lưu "+learned.length+" quy tắc sửa.";}
 function endpointURL(){
@@ -166,10 +167,23 @@ function stop(){
     recorder.stop();message("Đang xử lý âm thanh…");
   }
 }
+async function learnEditedResult(){
+  const change=singleWordCorrection(baseline,el("result").value);
+  if(!change)return false;
+  const existing=learned.findIndex(entry=>
+    entry.source.toLowerCase()===change.source.toLowerCase());
+  if(existing>=0)learned[existing]=change;
+  else if(learned.length<256)learned.push(change);
+  else return false;
+  await store.set({wpLearned:learned});
+  updateCount();
+  baseline=el("result").value;
+  return true;
+}
 async function copy(){
   const text=el("result").value;
   if(!text.trim()){message("Chưa có văn bản để sao chép.",true);return false;}
-  try{await navigator.clipboard.writeText(text);message("Đã sao chép văn bản.");return true;}
+  try{await navigator.clipboard.writeText(text);await learnEditedResult();message("Đã sao chép văn bản (và ghi nhớ từ sửa nếu có).");return true;}
   catch(err){message("Không sao chép được: "+err.message,true);return false;}
 }
 async function insert(){
@@ -218,7 +232,7 @@ async function insert(){
         return {ok:false,reason:"not-editable"};
       },
     });
-    if(results?.[0]?.result?.ok){message("Đã chèn văn bản vào ô nhập.");return;}
+    if(results?.[0]?.result?.ok){await learnEditedResult();message("Đã chèn văn bản (và ghi nhớ từ sửa nếu có).");return;}
     throw new Error("Không tìm thấy ô đang nhập hoặc ứng dụng không cho chèn.");
   }catch(err){
     const copied=await copy();
