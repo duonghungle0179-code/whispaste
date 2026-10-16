@@ -437,6 +437,15 @@ const _partyDocumentTypes = <String, String>{
 
 const _partyTypeAliases = <String, String>{
   ..._partyDocumentTypes,
+  // Common dictation spellings for letter-by-letter administrative codes.
+  'en quy': 'NQ',
+  'nờ quy': 'NQ',
+  'cê vê': 'CV',
+  'bê cê': 'BC',
+  'bê bê': 'BB',
+  'quy đê': 'QĐ',
+  'hát đê': 'HD',
+  'tê bê': 'TB',
   'nq': 'NQ',
   'qc': 'QC',
   'bc': 'BC',
@@ -458,6 +467,11 @@ const _partyTypeAliases = <String, String>{
 // Longer phrases must precede their prefixes. A term is recognised ONLY
 // when explicitly spoken, not guessed from a document number.
 const _partyIssuingBodies = <String, String>{
+  // Phonetic readings are accepted only inside a fully identified code.
+  'hát u': 'HU',
+  'đê u': 'ĐU',
+  'tê u': 'TU',
+  'tê vê kép': 'TW',
   'đảng ủy quân sự': 'ĐUQS',
   'quân ủy trung ương': 'QUTW',
   'đảng ủy công an': 'ĐUCA',
