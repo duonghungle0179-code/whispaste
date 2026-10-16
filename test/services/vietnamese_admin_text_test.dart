@@ -333,6 +333,33 @@ void main() {
       expect(normalizeVietnameseAdministrativeText(once), once);
     });
 
+    test('guarded code recovery for Whisper mistakes observed in logs', () {
+      const cases = <String, String>{
+        'Số 41. Người huyết Đảng ủy.': 'Số 41-NQ/ĐU.',
+        'Số 41 Lý Quyết Đảng ủy': 'Số 41-NQ/ĐU',
+        'Số bốn mươi mốt nghị huyết huyện ủy':
+            'Số 41-NQ/HU',
+        'Số 41, người huyết tỉnh ủy': 'Số 41-NQ/TU',
+      };
+      for (final entry in cases.entries) {
+        final once = normalizeVietnameseAdministrativeText(entry.key);
+        expect(once, entry.value, reason: entry.key);
+        expect(normalizeVietnameseAdministrativeText(once), once);
+      }
+      const unsafe = <String>[
+        'Người huyết Đảng ủy',
+        'Số 41 người huyết đã hủy',
+        'Số 41 / người huyết Đảng ủy',
+        'Số 41.\nNgười huyết Đảng ủy',
+        'Số 41. Người huyết của ai',
+        'Bốn mươi mốt người huyết Đảng ủy',
+      ];
+      for (final input in unsafe) {
+        final result = normalizeVietnameseAdministrativeText(input);
+        expect(result.contains('-NQ/'), isFalse, reason: input);
+      }
+    });
+
     test('2026 Party archive abbreviation catalog from source documents', () {
       const examples = <String, String>{
         'Nghị quyết không ba nghị quyết huyện ủy':
