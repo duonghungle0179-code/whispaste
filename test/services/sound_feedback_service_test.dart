@@ -259,6 +259,21 @@ void main() {
   // 4. No-throw contract (engine unavailable in test environment)
   // ═══════════════════════════════════════════════════════════════════════════
 
+  test('concurrent prewarm and start cues share initialization safely', () async {
+    final container = buildContainer();
+    addTearDown(container.dispose);
+    await container.read(settingsProvider.future);
+    final sound = container.read(soundFeedbackProvider.notifier);
+    await expectLater(
+      Future.wait(<Future<void>>[
+        sound.prewarm(),
+        sound.playRecordStart(),
+        sound.playRecordStop(),
+      ]),
+      completes,
+    );
+  });
+
   group('no-throw contract', () {
     late ProviderContainer container;
 
