@@ -17,5 +17,14 @@
     "http://localhost/*",
     "http://127.0.0.1/*"
   ],
-  "minimum_chrome_version": "116"
+  "minimum_chrome_version": "116",
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Y",
+        "mac": "Command+Shift+Y"
+      },
+      "description": "Mở WhisPaste VN để đọc tiếng Việt"
+    }
+  }
 }
