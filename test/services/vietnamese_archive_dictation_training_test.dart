@@ -63,6 +63,34 @@ void main() {
       }
     });
 
+    test('letter-by-letter Vietnamese pronunciations form document symbols', () {
+      const examples = <String, String>{
+        'Nghị quyết không ba en quy hát u': 'Nghị quyết 03-NQ/HU',
+        'nghị quyết không ba nờ quy hát u':
+            'nghị quyết 03-NQ/HU',
+        'hai mươi chín cê vê đê u': '29-CV/ĐU',
+        'số hai mươi chín cê vê đê u': 'số 29-CV/ĐU',
+        'số hai chín xê vê đê u': 'số 29-CV/ĐU',
+        'quy định hai mươi ba quy đê tê u':
+            'quy định 23-QĐ/TU',
+        'quyết định hai mươi ba quy đê đê u':
+            'quyết định 23-QĐ/ĐU',
+        'báo cáo không một bê xê hát u':
+            'báo cáo 01-BC/HU',
+        'biên bản không hai bê bê đê u':
+            'biên bản 02-BB/ĐU',
+        'hướng dẫn không một hát đê đê u':
+            'hướng dẫn 01-HD/ĐU',
+        'thông báo không ba tê bê hát u':
+            'thông báo 03-TB/HU',
+      };
+      for (final example in examples.entries) {
+        final result = normalizeVietnameseAdministrativeText(example.key);
+        expect(result, example.value, reason: example.key);
+        expect(normalizeVietnameseAdministrativeText(result), result);
+      }
+    });
+
     test('type and agency vocabulary works combinatorially', () {
       const types = <String, String>{
         'nghị quyết': 'NQ',
