@@ -156,6 +156,18 @@ void main() {
         'Đại hội năm 2026',
       );
       expect(
+        normalizeVietnameseAdministrativeText('Đại hội năm 2025'),
+        'Đại hội năm 2025',
+      );
+      expect(
+        normalizeVietnameseAdministrativeText('Đại hội năm hai nghìn hai mươi sáu'),
+        'Đại hội năm hai nghìn hai mươi sáu',
+      );
+      expect(
+        normalizeVietnameseAdministrativeText('Đại hội lần thứ năm'),
+        'Đại hội lần thứ V',
+      );
+      expect(
         normalizeVietnameseAdministrativeText('Đại hội số 13-KL/TW'),
         'Đại hội số 13-KL/TW',
       );
