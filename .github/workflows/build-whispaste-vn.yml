@@ -35,6 +35,7 @@ jobs:
           lib/features/about/about_page.dart
           lib/features/settings
           lib/services/vietnamese_admin_text.dart
+          lib/services/replacements/correction_learning_service.dart
           lib/services/recording_orchestrator.dart
           lib/services/stt/stt_server_state_notifier.dart
           lib/services/stt/stt_ram_policy.dart
@@ -46,6 +47,7 @@ jobs:
           flutter test
           test/core/l10n/vietnamese_locale_test.dart
           test/services/vietnamese_admin_text_test.dart
+          test/services/replacements/single_word_correction_test.dart
           test/services/stt/stt_ram_policy_test.dart
           test/services/paste/paster_test.dart
           test/features/about/about_page_test.dart
