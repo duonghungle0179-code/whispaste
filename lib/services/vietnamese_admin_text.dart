@@ -337,6 +337,13 @@ String _normalizeCongressOrdinals(String text) {
       if (!found) continue;
     }
 
+    // Vietnamese "năm" may be five or a calendar-year introducer.
+    // Without "số/lần/thứ", do not turn "Đại hội năm 2026"
+    // into "Đại hội V 2026".
+    if (!hasOrdinalMarker && tokens[numberAt].lower == 'năm') {
+      continue;
+    }
+
     final number = _readNumber(text, tokens, numberAt);
     // Bounded ordinals avoid misreading years (e.g. "Đại hội 2026").
     if (number == null || number.value < 1 || number.value > 30) {
