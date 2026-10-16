@@ -250,6 +250,21 @@ function romanRules(text) {
   }
   return apply(text,edits);
 }
+// Learn only a single clear lexical substitution from a corrected transcript.
+// Never turn entire passages or document codes into global replacements.
+export function singleWordCorrection(before,after){
+  if(typeof before!=="string"||typeof after!=="string")return null;
+  const a=before.trim().split(/\s+/u),b=after.trim().split(/\s+/u);
+  if(!a.length||a.length!==b.length)return null;
+  const changed=[];
+  for(let i=0;i<a.length;i++)if(a[i]!==b[i])changed.push(i);
+  if(changed.length!==1)return null;
+  const source=a[changed[0]],target=b[changed[0]];
+  const word=/^\p{L}{3,}$/u;
+  if(!word.test(source)||!word.test(target)||
+     source.toLowerCase()===target.toLowerCase())return null;
+  return {source,target};
+}
 export function applyLearned(text,entries=[]) {
   let out=text;
   for(const {source,target} of [...entries].sort((a,b)=>b.source.length-a.source.length)){
