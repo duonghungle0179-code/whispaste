@@ -2,6 +2,12 @@ name: Build WhisPaste VN Windows
 # Future builds only run after an explicit manual dispatch.
 on:
   workflow_dispatch:
+  # One-time explicitly requested push build, revert after run is queued.
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/build-whispaste-vn.yml
 
 concurrency:
   group: whispaste-vn-windows
