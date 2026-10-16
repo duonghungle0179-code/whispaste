@@ -10,6 +10,8 @@ Phiên bản **Chromium Manifest V3** cho **Brave và Google Chrome trên máy t
 4. Chọn **Load unpacked / Tải tiện ích đã giải nén**, trỏ tới thư mục `browser-extension`.
 5. Ghim WhisPaste VN lên thanh tiện ích, mở trang web có ô nhập, chọn ô rồi bấm biểu tượng WhisPaste.
 
+Có thể dùng **Ctrl+Shift+Y** (Mac: **Command+Shift+Y**) để mở popup. Nếu trùng tổ hợp có sẵn của trình duyệt, đổi tại `chrome://extensions/shortcuts` hoặc `brave://extensions/shortcuts`.
+
 Chỉ áp dụng cho desktop Chromium. Không cài được extension Chrome lên Brave iPhone.
 
 ## Luồng ghi âm
