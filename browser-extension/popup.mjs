@@ -270,7 +270,7 @@ async function init(){
   el("apiKey").value=session.wpApiKey||"";
   updateCount();showProvider();
 }
-el("provider").addEventListener("change",showProvider);
+el("provider").addEventListener("change",()=>{showProvider();void store.set({wpProvider:provider()});});
 el("saveSettings").addEventListener("click",()=>void saveConfig());
 el("start").addEventListener("click",()=>void start());
 el("stop").addEventListener("click",stop);
