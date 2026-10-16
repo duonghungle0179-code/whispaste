@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>WhisPaste VN</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main>
+    <header><div class="mark">W</div><div><h1>WhisPaste VN</h1><small>Brave &amp; Chrome · v0.1</small></div></header>
+    <label for="provider">Phương thức nhận diện</label>
+    <select id="provider">
+      <option value="browser">Trình duyệt (khi hỗ trợ)</option>
+      <option value="remote">Whisper-compatible API (tự cấu hình)</option>
+    </select>
+    <section id="remoteSettings" hidden>
+      <label for="endpoint">Endpoint HTTPS</label>
+      <input id="endpoint" autocomplete="off" spellcheck="false" placeholder="https://.../v1/audio/transcriptions">
+      <label for="model">Tên mô hình</label>
+      <input id="model" autocomplete="off" spellcheck="false" placeholder="whisper-1">
+      <label for="apiKey">API key (chỉ lưu trong phiên trình duyệt)</label>
+      <input id="apiKey" type="password" autocomplete="off" spellcheck="false" placeholder="Tùy endpoint">
+      <button id="saveSettings" type="button" class="muted">Lưu cấu hình và cấp quyền máy chủ</button>
+      <p class="hint">Audio chỉ gửi tới endpoint bạn chọn khi bấm Ghi âm và Dừng. Không tự tải audio lên máy chủ nào khác.</p>
+    </section>
+    <div class="actions"><button type="button" id="start">🎙 Bắt đầu ghi âm</button><button type="button" id="stop" disabled class="muted">■ Dừng</button></div>
+    <p id="status" role="status" aria-live="polite">Sẵn sàng.</p>
+    <label for="raw">Văn bản nhận diện (có thể nhập tay để thử)</label>
+    <textarea id="raw" rows="3" spellcheck="false" placeholder="Ví dụ: số hai mươi chín công văn đảng ủy"></textarea>
+    <button type="button" id="normalize" class="muted full">Chuẩn hóa văn bản</button>
+    <label for="result">Kết quả – có thể chỉnh sửa</label>
+    <textarea id="result" rows="4" spellcheck="false" placeholder="29-CV/ĐU"></textarea>
+    <div class="actions"><button type="button" id="insert">Chèn vào ô đang nhập</button><button type="button" id="copy" class="muted">Sao chép</button></div>
+    <details>
+      <summary>Từ điển cá nhân (học từ đã sửa)</summary>
+      <p class="hint">Chỉ học khi bạn xác nhận. Ví dụ: “huyền” → “huyện”.</p>
+      <label for="wrong">Từ/cụm từ nhận sai</label><input id="wrong" autocomplete="off">
+      <label for="right">Cách viết đúng</label><input id="right" autocomplete="off">
+      <button type="button" id="learn" class="muted full">Ghi nhớ quy tắc sửa</button>
+      <p id="learnCount" class="hint"></p>
+      <button type="button" id="clearLearned" class="danger">Xóa từ điển cá nhân</button>
+    </details>
+    <footer>Không hoạt động trên chrome://, brave:// và các ô nhập bị hạn chế.</footer>
+  </main>
+  <script type="module" src="popup.mjs"></script>
+</body>
+</html>
