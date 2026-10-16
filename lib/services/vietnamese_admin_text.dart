@@ -288,7 +288,8 @@ String _toCongressRoman(int value) {
   return result.toString();
 }
 
-/// "Đại hội số 13" -> "Đại hội số XIII".
+/// "Đại hội số năm 2026" -> "Đại hội V 2026".
+/// "Đại hội năm 2026" remains unchanged.
 /// "Đại hội đại biểu toàn quốc lần thứ mười ba" -> "... lần thứ XIII".
 /// Only recognises a direct ordinal or an explicit "lần thứ" in the
 /// same short clause; other values (13 people, 13/10, 13-KL/TW) are untouched.
@@ -318,7 +319,10 @@ String _normalizeCongressOrdinals(String text) {
           tokens[numberAt].lower == 'thứ') {
         numberAt++;
       }
-    } else if (!_isNumberToken(tokens[numberAt])) {
+    } else {
+      // A bare number after "Đại hội" is not enough evidence that it
+      // is an ordinal. Require "số", "lần", "thứ", or a nearby "lần thứ".
+      if (_isNumberToken(tokens[numberAt])) continue;
       // Allow "Đại hội Đảng bộ tỉnh ... lần thứ 13", but do not jump
       // across sentence boundaries or unrelated, distant statements.
       var found = false;
@@ -367,8 +371,12 @@ String _normalizeCongressOrdinals(String text) {
       continue;
     }
 
+    // "số" is a spoken ordinal cue, not part of the desired output:
+    // "Đại hội số năm 2026" -> "Đại hội V 2026".
+    // Preserve "lần thứ" and "thứ" in other ordinal expressions.
+    final start = marker == 'số' ? tokens[i + 2].start : tokens[numberAt].start;
     edits.add(_Edit(
-      tokens[numberAt].start,
+      start,
       end,
       _toCongressRoman(number.value),
     ));
