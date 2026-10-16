@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "WhisPaste VN - Brave & Chrome",
+  "version": "0.1.0",
+  "description": "Ghi âm tiếng Việt, chuẩn hóa mã văn bản Đảng và chèn vào ô nhập đang mở.",
+  "action": {
+    "default_title": "WhisPaste VN",
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage"
+  ],
+  "optional_host_permissions": [
+    "https://*/*",
+    "http://localhost/*",
+    "http://127.0.0.1/*"
+  ],
+  "minimum_chrome_version": "116"
+}
