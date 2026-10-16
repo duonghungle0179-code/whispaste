@@ -893,10 +893,9 @@ const _noisyPartyDocumentTypes = <String, String>{
   'lý quyết': 'NQ',
 };
 
-/// Recovers a document identifier when STT mishears the document type:
+/// Recover a document identifier only with an explicit number and issuer.
 /// "Số 41. Người huyết Đảng ủy." -> "Số 41-NQ/ĐU."
-/// Requires an explicit "số", a bounded number, a known mishearing and an
-/// explicitly named issuing body. Does not guess missing metadata.
+/// Never rewrite these noisy phrases in ordinary prose.
 String _normalizeNoisyPartyDocumentCodes(String text) {
   final tokens = _tokenize(text);
   final edits = <_Edit>[];
@@ -910,95 +909,8 @@ String _normalizeNoisyPartyDocumentCodes(String text) {
     final numberEnd = tokens[number.next - 1].end;
     final nextStart = tokens[number.next].start;
     final separator = text.substring(numberEnd, nextStart);
-    // A single STT-inserted period/comma is acceptable, but not a newline
-    // or an existing document-code separator.
-    if (!RegExp(r'^[ \\t]*(?:[.,][ \\t]*)?
-  final tokens = _tokenize(text);
-  final edits = <_Edit>[];
-  for (var i = 0; i < tokens.length; i++) {
-    final type = _matchPartyPhrase(text, tokens, i, _partyDocumentTypes);
-    if (type == null) continue;
-    var numberAt = type.next;
-    if (numberAt < tokens.length && tokens[numberAt].lower == 'số') {
-      numberAt++;
-    }
-    if (numberAt >= tokens.length) continue;
-    final number = _readDocumentNumber(text, tokens, numberAt);
-    if (number == null || number.value > 999999) continue;
-    // Require whitespace throughout the spoken symbol, not a preformatted
-    // identifier or punctuation separating independent clauses.
-    var adjacent = true;
-    for (var j = i + 1; j < number.next; j++) {
-      final between = text.substring(tokens[j - 1].end, tokens[j].start);
-      if (!_whitespace.hasMatch(between) || between.contains('\n')) {
-        adjacent = false;
-        break;
-      }
-    }
-    if (!adjacent) continue;
-    final numberEnd = tokens[number.next - 1].end;
-    if (RegExp(r'^\s*[-/]').hasMatch(text.substring(numberEnd))) {
-      continue;
-    }
-    final repeat = _matchPartyPhrase(
-      text, tokens, number.next, _partyTypeAliases,
-    );
-    if (repeat == null || repeat.value != type.value) continue;
-
-    // "quyết định" and "quy định" both use QĐ. Do not silently
-    // treat one *spoken word* as the other just because the code matches.
-    if (type.value == 'QĐ') {
-      final firstText = text.substring(
-        tokens[i].start, tokens[type.next - 1].end,
-      ).toLowerCase();
-      final repeatedText = text.substring(
-        tokens[number.next].start, tokens[repeat.next - 1].end,
-      ).toLowerCase();
-      if (repeatedText != 'qđ' && repeatedText != 'qd' &&
-          repeatedText != 'quy đê' &&
-          firstText != repeatedText) {
-        continue;
-      }
-    }
-    final body = _partyBodyAfter(text, tokens, repeat.next);
-    if (body == null) continue;
-    // Do not cross punctuation between type, number and issuing body.
-    var safe = true;
-    for (var j = number.next; j < body.next; j++) {
-      if (j == 0) continue;
-      final between = text.substring(tokens[j - 1].end, tokens[j].start);
-      if (!_whitespace.hasMatch(between) || between.contains('\n')) {
-        safe = false;
-        break;
-      }
-    }
-    if (!safe) continue;
-    final replacement = number.display + '-' + type.value + '/' + body.value;
-    edits.add(_Edit(tokens[numberAt].start, tokens[body.next - 1].end,
-        replacement));
-    i = body.next - 1;
-  }
-  return _applyEdits(text, edits);
-}
-
-/// Normalizes explicit spoken references, without guessing incomplete metadata.
-///
-/// "Số sáu mươi mốt kết luận Trung ương" -> "Số 61-KL/TW"
-/// "ngày ba tháng mười hai năm hai nghìn lẻ chín" -> "ngày 3/12/2009"
-String normalizeVietnameseAdministrativeText(String text) {
-  var result = _normalizeDates(text);
-  result = _normalizeNoisyPartyDocumentCodes(result);
-  result = _normalizeSpokenPartyCodes(result);
-  result = _normalizeBarePartyCodes(result);
-  result = _normalizePartyDocumentCodes(result);
-  result = _normalizeNumbers(result);
-  result = _normalizeCongressOrdinals(result);
-  result = _normalizePartySessionOrdinals(result);
-  result = _normalizePartyYearRanges(result);
-  result = _normalizePartyProperTerms(result);
-  return result;
-}
-).hasMatch(separator)) {
+    // Permit one period/comma inserted by STT, but not a newline or code.
+    if (!RegExp(r'^[ \t]*(?:[.,][ \t]*)?$').hasMatch(separator)) {
       continue;
     }
 
@@ -1011,9 +923,10 @@ String normalizeVietnameseAdministrativeText(String text) {
         !_partyWordsAreAdjacent(text, tokens, number.next, body.next)) {
       continue;
     }
-    final formatted = '${number.display}-${type.value}/${body.value}';
-    edits.add(_Edit(tokens[i + 1].start,
-        tokens[body.next - 1].end, formatted));
+    final formatted = number.display + '-' + type.value + '/' + body.value;
+    edits.add(_Edit(
+      tokens[i + 1].start, tokens[body.next - 1].end, formatted,
+    ));
     i = body.next - 1;
   }
   return _applyEdits(text, edits);
@@ -1094,6 +1007,7 @@ String _normalizeSpokenPartyCodes(String text) {
 /// "ngày ba tháng mười hai năm hai nghìn lẻ chín" -> "ngày 3/12/2009"
 String normalizeVietnameseAdministrativeText(String text) {
   var result = _normalizeDates(text);
+  result = _normalizeNoisyPartyDocumentCodes(result);
   result = _normalizeSpokenPartyCodes(result);
   result = _normalizeBarePartyCodes(result);
   result = _normalizePartyDocumentCodes(result);
