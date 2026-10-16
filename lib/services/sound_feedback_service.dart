@@ -22,7 +22,8 @@ final _log = AppLogger('SoundFeedback');
 
 class SoundFeedbackService extends Notifier<void> {
   bool _initialized = false;
-  bool _initializing = false;
+  // Concurrent cue requests must wait for the SAME preload operation.
+  Future<void>? _initInFlight;
 
   /// Preloaded audio sources keyed by asset name.
   final Map<String, AudioSource> _sources = {};
@@ -113,8 +114,14 @@ class SoundFeedbackService extends Notifier<void> {
 
   Future<void> _ensureInit() async {
     if (_initialized && _sources.isNotEmpty) return;
-    if (_initializing) return; // prevent re-entrant init
-    _initializing = true;
+    final pending = _initInFlight;
+    if (pending != null) {
+      await pending;
+      return;
+    }
+    // Publish before the first await so record-start cannot race prewarm.
+    final completion = Completer<void>();
+    _initInFlight = completion.future;
     try {
       if (!_engine.isInitialized) {
         await _engine.init(bufferSize: 1024, channels: Channels.mono);
@@ -161,7 +168,8 @@ class SoundFeedbackService extends Notifier<void> {
     } catch (e) {
       _log.warning('SoLoud init failed: $e');
     } finally {
-      _initializing = false;
+      _initInFlight = null;
+      completion.complete();
     }
   }
 
