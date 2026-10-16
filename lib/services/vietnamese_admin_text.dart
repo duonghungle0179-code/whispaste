@@ -887,6 +887,24 @@ String _normalizeBarePartyCodes(String text) {
 // Narrow aliases confirmed in the user's STT logs. They are deliberately
 // NOT added to general text normalization: for example "người huyết" must
 // never be rewritten in ordinary prose without a number and issuer.
+/// Correct a clearly malformed title only when it starts a sentence and is
+/// immediately followed by "về". Never replace a similar phrase everywhere.
+String _normalizeNoisyPartyDocumentTitles(String text) {
+  final pattern = RegExp(
+    r'(^|[.!?]\s+)(nghị huyết)(?=\s+về(?:\s|$))',
+    caseSensitive: false,
+    unicode: true,
+  );
+  final edits = <_Edit>[];
+  for (final match in pattern.allMatches(text)) {
+    final start = match.start + match.group(1)!.length;
+    final spoken = match.group(2)!;
+    final correct = spoken[0] == 'N' ? 'Nghị quyết' : 'nghị quyết';
+    edits.add(_Edit(start, start + spoken.length, correct));
+  }
+  return _applyEdits(text, edits);
+}
+
 const _noisyPartyDocumentTypes = <String, String>{
   'người huyết': 'NQ',
   'nghị huyết': 'NQ',
@@ -1007,6 +1025,7 @@ String _normalizeSpokenPartyCodes(String text) {
 /// "ngày ba tháng mười hai năm hai nghìn lẻ chín" -> "ngày 3/12/2009"
 String normalizeVietnameseAdministrativeText(String text) {
   var result = _normalizeDates(text);
+  result = _normalizeNoisyPartyDocumentTitles(result);
   result = _normalizeNoisyPartyDocumentCodes(result);
   result = _normalizeSpokenPartyCodes(result);
   result = _normalizeBarePartyCodes(result);
