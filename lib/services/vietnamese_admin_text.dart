@@ -441,7 +441,9 @@ const _partyTypeAliases = <String, String>{
   'en quy': 'NQ',
   'nờ quy': 'NQ',
   'cê vê': 'CV',
+  'xê vê': 'CV',
   'bê cê': 'BC',
+  'bê xê': 'BC',
   'bê bê': 'BB',
   'quy đê': 'QĐ',
   'hát đê': 'HD',
@@ -472,6 +474,7 @@ const _partyIssuingBodies = <String, String>{
   'đê u': 'ĐU',
   'tê u': 'TU',
   'tê vê kép': 'TW',
+  'tê bê': 'TB',
   'đảng ủy quân sự': 'ĐUQS',
   'quân ủy trung ương': 'QUTW',
   'đảng ủy công an': 'ĐUCA',
@@ -676,7 +679,8 @@ String _normalizePartyDocumentCodes(String text) {
         final after = text.substring(
           tokens[number.next].start, tokens[spokenType.next - 1].end,
         ).toLowerCase();
-        if (after != 'qđ' && after != 'qd' && after != before) {
+        if (after != 'qđ' && after != 'qd' &&
+            after != 'quy đê' && after != before) {
           continue;
         }
       }
@@ -923,6 +927,7 @@ String _normalizeSpokenPartyCodes(String text) {
         tokens[number.next].start, tokens[repeat.next - 1].end,
       ).toLowerCase();
       if (repeatedText != 'qđ' && repeatedText != 'qd' &&
+          repeatedText != 'quy đê' &&
           firstText != repeatedText) {
         continue;
       }
