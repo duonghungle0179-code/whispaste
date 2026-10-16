@@ -333,6 +333,21 @@ void main() {
       expect(normalizeVietnameseAdministrativeText(once), once);
     });
 
+    test('only fixes a clearly malformed nghị quyết title', () {
+      expect(
+        normalizeVietnameseAdministrativeText(
+            'Nghị huyết về tăng cường sự lãnh đạo của Đảng.'),
+        'Nghị quyết về tăng cường sự lãnh đạo của Đảng.',
+      );
+      expect(
+        normalizeVietnameseAdministrativeText(
+            'Câu trước. Nghị huyết về công tác xây dựng Đảng.'),
+        'Câu trước. Nghị quyết về công tác xây dựng Đảng.',
+      );
+      const unrelated = 'Tôi nghe từ nghị huyết về trước đây';
+      expect(normalizeVietnameseAdministrativeText(unrelated), unrelated);
+    });
+
     test('guarded code recovery for Whisper mistakes observed in logs', () {
       const cases = <String, String>{
         'Số 41. Người huyết Đảng ủy.': 'Số 41-NQ/ĐU.',
