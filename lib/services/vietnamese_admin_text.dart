@@ -840,6 +840,7 @@ String _normalizeBarePartyCodes(String text) {
       allowed = true;
     }
     if (!allowed) continue;
+    final hasSpokenCue = i >= 2;
     final number = _readDocumentNumber(text, tokens, i);
     if (number == null || number.value > 999999 ||
         number.next >= tokens.length) continue;
@@ -849,6 +850,9 @@ String _normalizeBarePartyCodes(String text) {
     final body = _partyBodyAfter(text, tokens, kind.next);
     if (body == null || !_partyWordsAreAdjacent(
         text, tokens, i, body.next)) continue;
+    // A bare number + body inside a longer sentence might be a quantity:
+    // "29 công văn đảng ủy cần xử lý" must NOT become a document ID.
+    if (!hasSpokenCue && body.next < tokens.length) continue;
     final replacement = number.display + '-' + kind.value + '/' + body.value;
     edits.add(_Edit(tokens[i].start, tokens[body.next - 1].end,
         replacement));
