@@ -104,11 +104,11 @@ void main() {
     test('renders congress numbers as Roman ordinals, including spoken numbers', () {
       expect(
         normalizeVietnameseAdministrativeText('Đại hội số 13'),
-        'Đại hội số XIII',
+        'Đại hội XIII',
       );
       expect(
         normalizeVietnameseAdministrativeText('đại hội số mười ba'),
-        'đại hội số XIII',
+        'đại hội XIII',
       );
       expect(
         normalizeVietnameseAdministrativeText('Đại hội lần thứ 13'),
@@ -134,7 +134,7 @@ void main() {
         normalizeVietnameseAdministrativeText(
           normalizeVietnameseAdministrativeText('Đại hội số 13'),
         ),
-        'Đại hội số XIII',
+        'Đại hội XIII',
       );
     });
 
@@ -154,6 +154,26 @@ void main() {
       expect(
         normalizeVietnameseAdministrativeText('Đại hội năm 2026'),
         'Đại hội năm 2026',
+      );
+      expect(
+        normalizeVietnameseAdministrativeText('Đại hội số năm 2026'),
+        'Đại hội V 2026',
+      );
+      expect(
+        normalizeVietnameseAdministrativeText('Đại hội số 5 năm 2026'),
+        'Đại hội V năm 2026',
+      );
+      expect(
+        normalizeVietnameseAdministrativeText('Đại hội 5 năm 2026'),
+        'Đại hội 5 năm 2026',
+      );
+      expect(
+        normalizeVietnameseAdministrativeText('Đại hội năm'),
+        'Đại hội năm',
+      );
+      expect(
+        normalizeVietnameseAdministrativeText('Đại hội lần thứ năm'),
+        'Đại hội lần thứ V',
       );
       expect(
         normalizeVietnameseAdministrativeText('Đại hội năm 2025'),
