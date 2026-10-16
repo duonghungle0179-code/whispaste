@@ -178,6 +178,30 @@ _NumberRead? _readNumber(String text, List<_Token> tokens, int start) {
   return null;
 }
 
+/// Extra numeric reading for spoken *document codes* only.
+/// "hai chín công văn đảng ủy" is 29-CV/ĐU, but ordinary "hai chín"
+/// elsewhere is not converted into a number.
+_NumberRead? _readDocumentNumber(String text, List<_Token> tokens, int start) {
+  final ordinary = _readNumber(text, tokens, start);
+  if (start >= tokens.length) return ordinary;
+  var end = start;
+  while (end < tokens.length && end - start < 6 &&
+      _digits.containsKey(tokens[end].lower)) {
+    if (end > start) {
+      final separator = text.substring(tokens[end - 1].end, tokens[end].start);
+      if (!_whitespace.hasMatch(separator) || separator.contains('\n')) break;
+    }
+    end++;
+  }
+  if (end - start < 2 || (ordinary != null && ordinary.next >= end)) {
+    return ordinary;
+  }
+  final digits = tokens.sublist(start, end).map((t) => _digits[t.lower]!).join();
+  final value = int.tryParse(digits);
+  if (value == null) return ordinary;
+  return _NumberRead(value, digits, end);
+}
+
 bool _isValidDate(int day, int month, int year) {
   if (year < 1000 || year > 2999 ||
       month < 1 || month > 12 ||
@@ -434,6 +458,21 @@ const _partyTypeAliases = <String, String>{
 // Longer phrases must precede their prefixes. A term is recognised ONLY
 // when explicitly spoken, not guessed from a document number.
 const _partyIssuingBodies = <String, String>{
+  'đảng ủy quân sự': 'ĐUQS',
+  'quân ủy trung ương': 'QUTW',
+  'đảng ủy công an': 'ĐUCA',
+  'đảng ủy biên phòng': 'ĐUBP',
+  'ủy ban kiểm tra đảng ủy': 'UBKTĐU',
+  'ủy ban kiểm tra đảng uỷ': 'UBKTĐU',
+  'cơ quan ủy ban kiểm tra': 'CQUBKT',
+  'ban xây dựng đảng': 'BXDĐ',
+  'ủy ban kiểm tra': 'UBKT',
+  'chi bộ': 'CB',
+  'ban chỉ đạo': 'BCĐ',
+  'tiểu ban': 'TB',
+  'hội đồng': 'HĐ',
+  'đoàn chủ tịch đại hội': 'ĐH',
+  'đoàn thư ký đại hội': 'ĐH',
   'ban tuyên giáo và dân vận trung ương': 'BTGDVTW',
   'ban tuyên giáo và dân vận tỉnh ủy': 'BTGDVTU',
   'ủy ban kiểm tra trung ương': 'UBKTTW',
@@ -464,6 +503,16 @@ const _partyIssuingBodies = <String, String>{
   'đảng uỷ': 'ĐU',
   'đại hội': 'ĐH',
   'trung ương': 'TW',
+  'ubktđu': 'UBKTĐU',
+  'cq ubkt': 'CQUBKT',
+  'đ u q s': 'ĐUQS',
+  'đuca': 'ĐUCA',
+  'đubp': 'ĐUBP',
+  'ubkt': 'UBKT',
+  'bxdđ': 'BXDĐ',
+  'cb': 'CB',
+  'bcđ': 'BCĐ',
+  'qu tw': 'QUTW',
   'ubkttw': 'UBKTTW',
   'btgdvtw': 'BTGDVTW',
   'btgdvtu': 'BTGDVTU',
@@ -522,6 +571,22 @@ _PartyPhraseMatch? _matchPartyPhrase(
   return null;
 }
 
+/// Keeps spoken symbol fragments inside one uninterrupted phrase.
+bool _partyWordsAreAdjacent(
+  String text,
+  List<_Token> tokens,
+  int start,
+  int end,
+) {
+  for (var j = start + 1; j < end; j++) {
+    final separator = text.substring(tokens[j - 1].end, tokens[j].start);
+    if (!_whitespace.hasMatch(separator) || separator.contains('\n')) {
+      return false;
+    }
+  }
+  return true;
+}
+
 String? _partyDocumentTypeBeforeNumber(
   String text,
   List<_Token> tokens,
@@ -565,7 +630,7 @@ String _normalizePartyDocumentCodes(String text) {
   final edits = <_Edit>[];
   for (var i = 0; i < tokens.length; i++) {
     if (tokens[i].lower != 'số') continue;
-    final number = _readNumber(text, tokens, i + 1);
+    final number = _readDocumentNumber(text, tokens, i + 1);
     if (number == null || number.value > 999999) continue;
     final numberEnd = tokens[number.next - 1].end;
     final tail = text.substring(numberEnd);
@@ -597,7 +662,8 @@ String _normalizePartyDocumentCodes(String text) {
         }
       }
       final body = _partyBodyAfter(text, tokens, spokenType.next);
-      if (body != null) {
+      if (body != null &&
+          _partyWordsAreAdjacent(text, tokens, i + 1, body.next)) {
         final formatted = number.display + '-' +
             spokenType.value + '/' + body.value;
         edits.add(_Edit(
@@ -755,6 +821,40 @@ String _normalizePartyProperTerms(String text) {
 /// common form without "số": "nghị quyết không ba nghị quyết huyện ủy".
 /// A second, matching document type after the number is mandatory: this
 /// distinguishes a spoken symbol from ordinary "nghị quyết ba ...".
+/// Standalone archive code dictation: "hai mươi chín công văn đảng ủy"
+/// -> "29-CV/ĐU". Allow at the beginning of an input or immediately after
+/// an explicit "ký hiệu"/"số hiệu" cue, never inside ordinary narrative.
+String _normalizeBarePartyCodes(String text) {
+  final tokens = _tokenize(text);
+  final edits = <_Edit>[];
+  for (var i = 0; i < tokens.length; i++) {
+    var allowed = i == 0;
+    if (i >= 2 && tokens[i - 2].lower == 'ký' &&
+        tokens[i - 1].lower == 'hiệu') {
+      allowed = true;
+    }
+    if (i >= 2 && tokens[i - 2].lower == 'số' &&
+        tokens[i - 1].lower == 'hiệu') {
+      allowed = true;
+    }
+    if (!allowed) continue;
+    final number = _readDocumentNumber(text, tokens, i);
+    if (number == null || number.value > 999999 ||
+        number.next >= tokens.length) continue;
+    final kind = _matchPartyPhrase(
+        text, tokens, number.next, _partyTypeAliases);
+    if (kind == null) continue;
+    final body = _partyBodyAfter(text, tokens, kind.next);
+    if (body == null || !_partyWordsAreAdjacent(
+        text, tokens, i, body.next)) continue;
+    final replacement = number.display + '-' + kind.value + '/' + body.value;
+    edits.add(_Edit(tokens[i].start, tokens[body.next - 1].end,
+        replacement));
+    i = body.next - 1;
+  }
+  return _applyEdits(text, edits);
+}
+
 String _normalizeSpokenPartyCodes(String text) {
   final tokens = _tokenize(text);
   final edits = <_Edit>[];
@@ -766,7 +866,7 @@ String _normalizeSpokenPartyCodes(String text) {
       numberAt++;
     }
     if (numberAt >= tokens.length) continue;
-    final number = _readNumber(text, tokens, numberAt);
+    final number = _readDocumentNumber(text, tokens, numberAt);
     if (number == null || number.value > 999999) continue;
     // Require whitespace throughout the spoken symbol, not a preformatted
     // identifier or punctuation separating independent clauses.
@@ -830,8 +930,9 @@ String _normalizeSpokenPartyCodes(String text) {
 String normalizeVietnameseAdministrativeText(String text) {
   var result = _normalizeDates(text);
   result = _normalizeSpokenPartyCodes(result);
-  result = _normalizeNumbers(result);
+  result = _normalizeBarePartyCodes(result);
   result = _normalizePartyDocumentCodes(result);
+  result = _normalizeNumbers(result);
   result = _normalizeCongressOrdinals(result);
   result = _normalizePartySessionOrdinals(result);
   result = _normalizePartyYearRanges(result);
