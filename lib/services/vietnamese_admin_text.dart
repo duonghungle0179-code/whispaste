@@ -709,7 +709,9 @@ bool _hasPartySessionContext(String text, List<_Token> tokens, int at) {
   const markers = <String>[
     'đại hội', 'đảng bộ', 'đảng ủy', 'đảng uỷ',
     'ban chấp hành', 'bộ chính trị', 'ban bí thư',
-    'quốc hội', 'bch', 'bct',
+    'quốc hội', 'hội đồng nhân dân', 'hđnd', 'bch', 'bct',
+    'mặt trận tổ quốc', 'hội nông dân', 'hội liên hiệp phụ nữ',
+    'công đoàn', 'đoàn thanh niên',
   ];
   return markers.any(before.contains);
 }
