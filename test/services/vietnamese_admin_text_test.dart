@@ -310,15 +310,23 @@ void main() {
     });
 
     test('spoken codes are guarded against ambiguity', () {
-      for (final input in <String>[
-        'Nghị quyết không ba của huyện ủy',
-        'Nghị quyết không ba nghị quyết của huyện',
-        'Nghị quyết không ba chỉ thị huyện ủy',
-        'Nghị quyết không ba, nghị quyết huyện ủy',
-        'Hôm nay không ba người đến hội nghị',
-        'Nghị quyết 03-NQ/HU',
-      ]) {
-        expect(normalizeVietnameseAdministrativeText(input), input);
+      const cases = <String, String>{
+        'Nghị quyết không ba của huyện ủy':
+            'Nghị quyết không ba của Huyện ủy',
+        'Nghị quyết không ba nghị quyết của huyện':
+            'Nghị quyết không ba nghị quyết của huyện',
+        'Nghị quyết không ba chỉ thị huyện ủy':
+            'Nghị quyết không ba chỉ thị Huyện ủy',
+        'Nghị quyết không ba, nghị quyết huyện ủy':
+            'Nghị quyết không ba, nghị quyết Huyện ủy',
+        'Hôm nay không ba người đến hội nghị':
+            'Hôm nay không ba người đến hội nghị',
+        'Nghị quyết 03-NQ/HU': 'Nghị quyết 03-NQ/HU',
+      };
+      for (final example in cases.entries) {
+        final result = normalizeVietnameseAdministrativeText(example.key);
+        expect(result, example.value, reason: example.key);
+        expect(normalizeVietnameseAdministrativeText(result), result);
       }
       const sample = 'Nghị quyết không ba nghị quyết huyện ủy';
       final once = normalizeVietnameseAdministrativeText(sample);
